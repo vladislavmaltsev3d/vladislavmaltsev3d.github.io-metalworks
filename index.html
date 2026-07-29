@@ -83,7 +83,22 @@
       position: relative;
       width: 100%;
       min-height: 1px;
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(52,71,78,0.42) rgba(255,255,255,0.12);
+    }
+
+    .viewport-stage::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .viewport-stage::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .viewport-stage::-webkit-scrollbar-thumb {
+      background: rgba(52,71,78,0.42);
     }
 
     .page {
@@ -1650,6 +1665,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const DESIGN_WIDTH = 1320;
+      const UI_SCALE = 1.25;
       const stage = document.getElementById("viewportStage");
       const page = document.getElementById("designPage");
 
@@ -1658,12 +1674,25 @@
 
         const outerGutter = 12;
         const availableWidth = Math.max(240, window.innerWidth - outerGutter);
-        const scale = Math.min(1, availableWidth / DESIGN_WIDTH);
+
+        /*
+          Preserve the complete fixed desktop composition, but display it
+          25% larger than the previous fit-to-width version.
+          Narrow viewports use horizontal scrolling instead of shrinking
+          the interface back down.
+        */
+        const fittedScale = availableWidth / DESIGN_WIDTH;
+        const scale = Math.min(UI_SCALE, fittedScale * UI_SCALE);
         const scaledWidth = DESIGN_WIDTH * scale;
-        const left = Math.max(0, (window.innerWidth - scaledWidth) / 2);
+        const left = scaledWidth < window.innerWidth
+          ? Math.max(0, (window.innerWidth - scaledWidth) / 2)
+          : 0;
 
         page.style.left = left + "px";
         page.style.transform = `scale(${scale})`;
+
+        stage.style.width = "100%";
+        stage.style.minWidth = Math.ceil(scaledWidth) + "px";
         stage.style.height = Math.ceil(page.scrollHeight * scale) + "px";
       }
 
