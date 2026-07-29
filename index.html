@@ -82,23 +82,9 @@
     .viewport-stage {
       position: relative;
       width: 100%;
+      max-width: 100%;
       min-height: 1px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(52,71,78,0.42) rgba(255,255,255,0.12);
-    }
-
-    .viewport-stage::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .viewport-stage::-webkit-scrollbar-track {
-      background: rgba(255,255,255,0.12);
-    }
-
-    .viewport-stage::-webkit-scrollbar-thumb {
-      background: rgba(52,71,78,0.42);
+      overflow: hidden;
     }
 
     .page {
@@ -106,7 +92,7 @@
       top: 0;
       left: 0;
       z-index: 1;
-      width: 1320px;
+      width: 1056px;
       margin: 0;
       padding: 14px 0 58px;
       transform-origin: top left;
@@ -1115,8 +1101,9 @@
 
     /*
       Stable composition mode:
-      the page keeps one fixed 1320 px design canvas and scales as a whole.
-      No cards or sections change position when the browser aspect ratio changes.
+      the page keeps one fixed 1056 px design canvas and scales as a whole.
+      This makes the interface approximately 25% larger than the former
+      1320 px canvas while keeping every section inside its host container.
     */
     .hero {
       grid-template-columns: 1fr;
@@ -1664,35 +1651,31 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const DESIGN_WIDTH = 1320;
-      const UI_SCALE = 1.25;
+      const DESIGN_WIDTH = 1056;
       const stage = document.getElementById("viewportStage");
       const page = document.getElementById("designPage");
 
       function fitDesignCanvas() {
         if (!stage || !page) return;
 
-        const outerGutter = 12;
-        const availableWidth = Math.max(240, window.innerWidth - outerGutter);
-
         /*
-          Preserve the complete fixed desktop composition, but display it
-          25% larger than the previous fit-to-width version.
-          Narrow viewports use horizontal scrolling instead of shrinking
-          the interface back down.
+          Measure the actual product-description container instead of the
+          complete browser window. This prevents the page from overlapping
+          a marketplace sidebar or any neighboring column.
         */
-        const fittedScale = availableWidth / DESIGN_WIDTH;
-        const scale = Math.min(UI_SCALE, fittedScale * UI_SCALE);
+        const availableWidth = Math.max(
+          240,
+          stage.clientWidth || stage.getBoundingClientRect().width || window.innerWidth
+        );
+
+        const scale = Math.min(1, availableWidth / DESIGN_WIDTH);
         const scaledWidth = DESIGN_WIDTH * scale;
-        const left = scaledWidth < window.innerWidth
-          ? Math.max(0, (window.innerWidth - scaledWidth) / 2)
-          : 0;
+        const left = Math.max(0, (availableWidth - scaledWidth) / 2);
 
         page.style.left = left + "px";
         page.style.transform = `scale(${scale})`;
 
-        stage.style.width = "100%";
-        stage.style.minWidth = Math.ceil(scaledWidth) + "px";
+        stage.style.minWidth = "0";
         stage.style.height = Math.ceil(page.scrollHeight * scale) + "px";
       }
 
