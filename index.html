@@ -79,12 +79,23 @@
       color: inherit;
     }
 
-    .page {
+    .viewport-stage {
       position: relative;
+      width: 100%;
+      min-height: 1px;
+      overflow: hidden;
+    }
+
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
       z-index: 1;
-      width: min(1320px, calc(100% - 32px));
-      margin: 0 auto;
+      width: 1320px;
+      margin: 0;
       padding: 14px 0 58px;
+      transform-origin: top left;
+      will-change: transform;
     }
 
     .system-bar {
@@ -192,9 +203,9 @@
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1.18fr);
-      gap: 12px;
-      min-height: 560px;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      min-height: 0;
     }
 
     .hero-copy,
@@ -207,7 +218,8 @@
     }
 
     .hero-copy {
-      padding: 32px 30px 28px;
+      min-height: 318px;
+      padding: 32px 30px 30px;
     }
 
     .hero-copy::before,
@@ -279,69 +291,7 @@
       color: var(--ink);
     }
 
-    .hero-stats {
-      display: grid;
-      gap: 9px;
-      margin-top: 28px;
-      padding-left: 12px;
-    }
 
-    .hero-stat {
-      display: grid;
-      grid-template-columns: 132px 1fr 26px;
-      align-items: center;
-      min-height: 42px;
-      border-top: 1px solid rgba(72,91,96,0.13);
-      border-bottom: 1px solid rgba(72,91,96,0.13);
-      background: rgba(255,255,255,0.20);
-    }
-
-    .hero-stat-label {
-      padding-left: 10px;
-      color: var(--muted);
-      font-size: 9px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .hero-stat-value {
-      position: relative;
-      height: 9px;
-      overflow: hidden;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          rgba(52,71,78,0.26) 0 8px,
-          rgba(52,71,78,0.06) 8px 14px
-        );
-    }
-
-    .hero-stat-value::after {
-      content: "";
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: var(--fill, 60%);
-      background:
-        repeating-linear-gradient(
-          90deg,
-          var(--accent) 0 10px,
-          rgba(75,169,183,0.36) 10px 14px
-        );
-    }
-
-    .hero-stat-number {
-      color: var(--ink);
-      text-align: center;
-      font-size: 10px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 26px;
-      padding-left: 12px;
-    }
 
     .ui-button {
       display: inline-flex;
@@ -386,10 +336,11 @@
 
     .hero-media {
       display: grid;
-      grid-template-rows: 34px 1fr 42px;
+      grid-template-rows: 34px auto 42px;
+      min-height: 500px;
       background:
-        radial-gradient(circle at 67% 28%, rgba(75,169,183,0.24), transparent 23%),
-        linear-gradient(135deg, rgba(240,243,241,0.95), rgba(188,201,198,0.72));
+        radial-gradient(circle at 72% 24%, rgba(75,169,183,0.14), transparent 22%),
+        linear-gradient(135deg, rgba(240,243,241,0.97), rgba(199,209,206,0.78));
     }
 
     .media-topline {
@@ -405,27 +356,45 @@
 
     .media-grid-placeholder {
       position: relative;
+      aspect-ratio: 16 / 6.1;
       margin: 18px;
-      border: 1px dashed rgba(52,71,78,0.30);
+      overflow: hidden;
+      border: 1px dashed rgba(52,71,78,0.32);
       background:
-        linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.18)),
-        repeating-linear-gradient(
-          90deg,
-          rgba(52,71,78,0.04) 0 1px,
-          transparent 1px 42px
-        ),
-        repeating-linear-gradient(
-          0deg,
-          rgba(52,71,78,0.04) 0 1px,
-          transparent 1px 42px
-        );
+        linear-gradient(var(--line-strong), var(--line-strong)) 18px 18px / 34px 1px no-repeat,
+        linear-gradient(var(--line-strong), var(--line-strong)) 18px 18px / 1px 34px no-repeat,
+        linear-gradient(var(--line-strong), var(--line-strong)) calc(100% - 18px) 18px / 34px 1px no-repeat,
+        linear-gradient(var(--line-strong), var(--line-strong)) calc(100% - 18px) 18px / 1px 34px no-repeat,
+        linear-gradient(var(--line-strong), var(--line-strong)) 18px calc(100% - 18px) / 34px 1px no-repeat,
+        linear-gradient(var(--line-strong), var(--line-strong)) 18px calc(100% - 18px) / 1px 34px no-repeat,
+        linear-gradient(var(--line-strong), var(--line-strong)) calc(100% - 18px) calc(100% - 18px) / 34px 1px no-repeat,
+        linear-gradient(var(--line-strong), var(--line-strong)) calc(100% - 18px) calc(100% - 18px) / 1px 34px no-repeat,
+        repeating-linear-gradient(90deg, rgba(52,71,78,0.035) 0 1px, transparent 1px 44px),
+        repeating-linear-gradient(0deg, rgba(52,71,78,0.035) 0 1px, transparent 1px 44px),
+        rgba(255,255,255,0.16);
+      box-shadow: inset 0 0 0 8px rgba(255,255,255,0.08);
     }
 
-    .media-grid-placeholder::before,
-    .media-grid-placeholder::after {
-      content: "";
+    .media-grid-placeholder::before {
+      content: "MEDIA / 01";
       position: absolute;
-      background: var(--line-strong);
+      top: 12px;
+      left: 14px;
+      color: rgba(52,71,78,0.48);
+      font-size: 8px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .media-grid-placeholder::after {
+      content: "16:9 / PRODUCT VISUALIZATION";
+      position: absolute;
+      right: 14px;
+      bottom: 12px;
+      color: rgba(52,71,78,0.42);
+      font-size: 8px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .media-grid-placeholder::before {
@@ -1128,6 +1097,85 @@
       }
     }
 
+
+    /*
+      Stable composition mode:
+      the page keeps one fixed 1320 px design canvas and scales as a whole.
+      No cards or sections change position when the browser aspect ratio changes.
+    */
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .hero-copy {
+      min-height: 318px;
+      padding: 32px 30px 30px;
+    }
+
+    .hero-media {
+      min-height: 500px;
+    }
+
+    .panel-grid,
+    .bake-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .module-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .workflow-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .section-heading {
+      grid-template-columns: minmax(220px, 0.36fr) 1fr;
+    }
+
+    .section-title-wrap {
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .section-title-wrap p {
+      text-align: right;
+    }
+
+    .feature-row {
+      grid-template-columns: 210px 1fr 42px;
+    }
+
+    .feature-copy {
+      grid-column: auto;
+      border-top: 0;
+    }
+
+    .feature-code {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    .system-code,
+    .hero-id {
+      display: block;
+    }
+
+    .viewer-crop {
+      aspect-ratio: 16 / 9;
+    }
+
+    .viewer-footer {
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .cta {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
@@ -1143,7 +1191,8 @@
 </head>
 
 <body id="top">
-  <main class="page">
+  <div class="viewport-stage" id="viewportStage">
+  <main class="page" id="designPage">
     <header class="system-bar">
       <div class="system-name">Metalworks Material Laboratory</div>
       <div class="system-code">MW / MATERIAL SYSTEM / BUILD 01</div>
@@ -1176,36 +1225,6 @@
           Begin with <strong>150+ professionally prepared presets</strong> and reach ultra-realistic results in only a few controlled adjustments.
         </p>
 
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <div class="hero-stat-label">Preset Library</div>
-            <div class="hero-stat-value" style="--fill: 94%;"></div>
-            <div class="hero-stat-number">150+</div>
-          </div>
-
-          <div class="hero-stat">
-            <div class="hero-stat-label">Material Setup</div>
-            <div class="hero-stat-value" style="--fill: 82%;"></div>
-            <div class="hero-stat-number">01</div>
-          </div>
-
-          <div class="hero-stat">
-            <div class="hero-stat-label">Bake Workflow</div>
-            <div class="hero-stat-value" style="--fill: 76%;"></div>
-            <div class="hero-stat-number">ON</div>
-          </div>
-
-          <div class="hero-stat">
-            <div class="hero-stat-label">Custom Library</div>
-            <div class="hero-stat-value" style="--fill: 68%;"></div>
-            <div class="hero-stat-number">USR</div>
-          </div>
-        </div>
-
-        <div class="hero-actions">
-          <a class="ui-button primary" href="#presets">Access Preset Library</a>
-          <a class="ui-button" href="#shader">Inspect Shader Modules</a>
-        </div>
       </div>
 
       <div class="hero-media">
@@ -1214,10 +1233,9 @@
         <div class="media-grid-placeholder">
           <div class="media-grid-copy">
             <div>
-              <strong>Hero Media Placeholder</strong>
+              <strong>Primary Media Placeholder</strong>
               <span>
-                Replace with a cinematic render, product trailer, animated material transition,
-                or close-up metal surface showcase.
+                Cinematic render / product trailer / animated material transition / close-up surface study
               </span>
             </div>
           </div>
@@ -1627,9 +1645,37 @@
       <span>Lazy 3D / Product Interface Build 01</span>
     </footer>
   </main>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      const DESIGN_WIDTH = 1320;
+      const stage = document.getElementById("viewportStage");
+      const page = document.getElementById("designPage");
+
+      function fitDesignCanvas() {
+        if (!stage || !page) return;
+
+        const outerGutter = 12;
+        const availableWidth = Math.max(240, window.innerWidth - outerGutter);
+        const scale = Math.min(1, availableWidth / DESIGN_WIDTH);
+        const scaledWidth = DESIGN_WIDTH * scale;
+        const left = Math.max(0, (window.innerWidth - scaledWidth) / 2);
+
+        page.style.left = left + "px";
+        page.style.transform = `scale(${scale})`;
+        stage.style.height = Math.ceil(page.scrollHeight * scale) + "px";
+      }
+
+      fitDesignCanvas();
+      window.addEventListener("resize", fitDesignCanvas, { passive: true });
+      window.addEventListener("load", fitDesignCanvas, { once: true });
+
+      if ("ResizeObserver" in window) {
+        const canvasObserver = new ResizeObserver(fitDesignCanvas);
+        canvasObserver.observe(page);
+      }
+
       const items = Array.from(document.querySelectorAll(".reveal"));
 
       if (!("IntersectionObserver" in window)) {
@@ -1643,6 +1689,7 @@
             if (!entry.isIntersecting) return;
             entry.target.classList.add("visible");
             observer.unobserve(entry.target);
+            requestAnimationFrame(fitDesignCanvas);
           });
         },
         {
