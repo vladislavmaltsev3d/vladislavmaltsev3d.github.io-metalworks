@@ -6,25 +6,32 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <title>Metalworks | Product Page</title>
+  <title>Metalworks | Procedural Material System</title>
+  <meta
+    name="description"
+    content="Metalworks is a procedural Blender material system with 150+ presets, advanced shader controls, one-click baking, and custom preset saving."
+  />
 
   <style>
     :root {
-      --bg-1: #f7f7f9;
-      --bg-2: #ececf2;
-      --bg-3: #e6e7ee;
-      --text: #0f1012;
-      --muted: #6a6b73;
-      --accent: #d6682f;
-      --accent-soft: rgba(214, 104, 47, 0.18);
-      --shadow-xl: 0 32px 90px rgba(15, 16, 18, 0.12);
-      --shadow-lg: 0 24px 60px rgba(15, 16, 18, 0.10);
-      --shadow-md: 0 16px 34px rgba(15, 16, 18, 0.08);
-      --shadow-sm: 0 10px 22px rgba(15, 16, 18, 0.06);
-      --radius-xl: 18px;
-      --radius-lg: 14px;
+      --bg: #d9e0dd;
+      --bg-soft: #e7ebe8;
+      --panel: rgba(230, 235, 232, 0.82);
+      --panel-strong: rgba(220, 227, 224, 0.94);
+      --ink: #263238;
+      --muted: #677378;
+      --line: rgba(72, 91, 96, 0.30);
+      --line-strong: rgba(72, 91, 96, 0.52);
+      --dark: #34474e;
+      --dark-2: #283a41;
+      --accent: #4ba9b7;
+      --accent-soft: rgba(75, 169, 183, 0.20);
+      --warm: #b96646;
+      --shadow: 0 18px 44px rgba(47, 62, 66, 0.13);
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --display: "Rajdhani", "Arial Narrow", sans-serif;
     }
 
     * {
@@ -39,323 +46,759 @@
       margin: 0;
       min-height: 100vh;
       overflow-x: hidden;
-      color: var(--text);
+      color: var(--ink);
       background:
-        radial-gradient(circle at top left, #ffffff 0%, var(--bg-1) 28%, var(--bg-2) 64%, var(--bg-3) 100%);
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.18)),
+        radial-gradient(circle at 12% 0%, rgba(255,255,255,0.72), transparent 28%),
+        linear-gradient(135deg, #cfd8d5 0%, #e5e9e7 44%, #cdd7d4 100%);
+      font-family: var(--mono);
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
       text-rendering: geometricPrecision;
     }
 
-    button,
-    input,
-    textarea,
-    select {
-      font: inherit;
-    }
-
-    .bg-orb {
-      position: fixed;
-      z-index: 0;
-      border-radius: 28%;
-      filter: blur(80px);
-      pointer-events: none;
-      opacity: 0.72;
-      animation: orbFloat 18s ease-in-out infinite;
-    }
-
-    .bg-orb.one {
-      width: 360px;
-      height: 360px;
-      left: -80px;
-      top: -60px;
-      background: rgba(255, 255, 255, 0.92);
-    }
-
-    .bg-orb.two {
-      width: 430px;
-      height: 430px;
-      right: -130px;
-      top: 20%;
-      background: rgba(214, 104, 47, 0.15);
-      animation-delay: -5s;
-    }
-
-    .bg-orb.three {
-      width: 320px;
-      height: 320px;
-      left: 14%;
-      bottom: -90px;
-      background: rgba(117, 126, 139, 0.12);
-      animation-delay: -9s;
-    }
-
-    .spotlight {
+    body::before {
+      content: "";
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background: radial-gradient(
-        620px circle at var(--x, 50%) var(--y, 24%),
-        rgba(255,255,255,0.38),
-        transparent 55%
-      );
-      transition: background 0.14s linear;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(43, 58, 63, 0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(43, 58, 63, 0.025) 1px, transparent 1px);
+      background-size: 5px 5px;
+      mix-blend-mode: multiply;
+    }
+
+    a,
+    button {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
     }
 
     .page {
       position: relative;
       z-index: 1;
-      width: min(1240px, calc(100% - 32px));
+      width: min(1320px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 22px 0 86px;
+      padding: 14px 0 58px;
     }
 
-    .liquid-sheen,
-    .glass-card,
-    .viewer-shell,
-    .placeholder-card {
+    .system-bar {
       position: relative;
-      overflow: hidden;
-    }
-
-    .liquid-sheen::before,
-    .glass-card::before,
-    .viewer-shell::before,
-    .placeholder-card::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      z-index: 2;
-      pointer-events: none;
-      background:
-        linear-gradient(
-          120deg,
-          rgba(255,255,255,0.00) 0%,
-          rgba(255,255,255,0.00) 28%,
-          rgba(255,255,255,0.22) 40%,
-          rgba(255,255,255,0.46) 50%,
-          rgba(255,255,255,0.20) 60%,
-          rgba(255,255,255,0.00) 72%,
-          rgba(255,255,255,0.00) 100%
-        );
-      transform: translateX(-120%);
-      animation: sheenMove 9s linear infinite;
-    }
-
-    .hero {
-      padding: 8px 0 0;
-    }
-
-    .placeholder-card {
-      min-height: 420px;
       display: flex;
-      align-items: flex-end;
-      isolation: isolate;
-      border: 1px solid rgba(255,255,255,0.36);
-      border-radius: 20px;
-      background:
-        linear-gradient(180deg, rgba(7, 8, 11, 0.08), rgba(7, 8, 11, 0.56)),
-        radial-gradient(circle at 72% 24%, rgba(214,104,47,0.36), transparent 26%),
-        radial-gradient(circle at 18% 10%, rgba(255,255,255,0.10), transparent 18%),
-        repeating-linear-gradient(
-          118deg,
-          rgba(255,255,255,0.022) 0 1px,
-          transparent 1px 14px
-        ),
-        linear-gradient(135deg, #252830 0%, #121419 54%, #27221f 100%);
-      box-shadow: var(--shadow-xl);
+      align-items: center;
+      justify-content: space-between;
+      min-height: 34px;
+      padding: 0 14px;
+      overflow: hidden;
+      color: rgba(255,255,255,0.90);
+      background: linear-gradient(90deg, var(--dark-2), var(--dark));
+      border-top: 1px solid rgba(255,255,255,0.32);
+      border-bottom: 1px solid rgba(24,41,47,0.48);
+      box-shadow: 0 10px 24px rgba(38,54,59,0.10);
     }
 
-    .placeholder-card::after {
+    .system-bar::after {
       content: "";
       position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      border-radius: inherit;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.10), transparent 34%, rgba(255,255,255,0.06)),
-        radial-gradient(circle at 72% 30%, rgba(255,138,78,0.14), transparent 23%);
-    }
-
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
+      top: 0;
+      right: 0;
+      width: 34%;
+      height: 100%;
       opacity: 0.28;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
-      background-size: 52px 52px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.88), transparent 88%);
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.88), transparent 88%);
+      background:
+        repeating-linear-gradient(
+          120deg,
+          transparent 0 12px,
+          rgba(255,255,255,0.16) 12px 14px
+        );
     }
 
-    .hero-content {
+    .system-name,
+    .system-code {
       position: relative;
-      z-index: 4;
-      width: min(820px, 100%);
-      padding: 46px;
-      color: #ffffff;
+      z-index: 2;
+      text-transform: uppercase;
     }
 
-    .eyebrow,
-    .section-chip {
-      display: inline-flex;
+    .system-name {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    .system-code {
+      color: rgba(255,255,255,0.62);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+    }
+
+    .locator {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      min-height: 36px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--line-strong);
+    }
+
+    .locator-label {
+      display: flex;
       align-items: center;
-      width: fit-content;
-      padding: 9px 14px;
-      border-radius: 12px;
-      font-size: 11px;
-      font-weight: 700;
+      padding: 0 12px;
+      color: #dce4e2;
+      background: var(--dark);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .locator-track {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding-left: 18px;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 9px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    .eyebrow {
-      margin-bottom: 18px;
-      color: rgba(255,255,255,0.76);
-      background: rgba(255,255,255,0.11);
-      border: 1px solid rgba(255,255,255,0.20);
-      box-shadow:
-        0 14px 30px rgba(0,0,0,0.16),
-        inset 0 1px 0 rgba(255,255,255,0.16);
-      backdrop-filter: blur(18px) saturate(140%);
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(48px, 8vw, 104px);
-      line-height: 0.88;
-      letter-spacing: -0.065em;
-      font-weight: 800;
-      text-shadow:
-        0 18px 48px rgba(0,0,0,0.34),
-        0 3px 12px rgba(0,0,0,0.30);
-    }
-
-    .hero p {
-      max-width: 620px;
-      margin: 22px 0 0;
-      color: rgba(255,255,255,0.70);
-      font-size: 17px;
-      line-height: 1.7;
-    }
-
-    .section {
-      margin-top: 30px;
-    }
-
-    .section-head {
-      margin-bottom: 18px;
-    }
-
-    .section-chip {
-      margin-bottom: 14px;
-      color: #4d4e56;
-      background: rgba(255,255,255,0.34);
-      border: 1px solid rgba(255,255,255,0.76);
-      box-shadow: var(--shadow-sm);
-      backdrop-filter: blur(24px) saturate(140%);
-      -webkit-backdrop-filter: blur(24px) saturate(140%);
-    }
-
-    .section-head h2 {
-      margin: 0 0 10px;
-      font-size: clamp(30px, 4vw, 50px);
-      line-height: 1.02;
-      letter-spacing: -0.035em;
-      font-weight: 760;
-    }
-
-    .section-head p {
-      max-width: 780px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.7;
-    }
-
-    .glass-card {
-      border: 1px solid rgba(255,255,255,0.72);
-      border-radius: var(--radius-xl);
-      background: rgba(255,255,255,0.28);
-      box-shadow: var(--shadow-lg);
-      backdrop-filter: blur(28px) saturate(150%);
-      -webkit-backdrop-filter: blur(28px) saturate(150%);
-    }
-
-    .glass-card::after,
-    .viewer-shell::after {
+    .locator-track::before {
       content: "";
       position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
+      left: 0;
+      width: 44%;
+      height: 9px;
       background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.32), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(255,255,255,0.10), transparent 36%);
+        repeating-linear-gradient(
+          90deg,
+          rgba(52,71,78,0.86) 0 28px,
+          transparent 28px 34px
+        );
+      opacity: 0.18;
     }
 
-    .empty-slot {
+    .locator-track span {
       position: relative;
-      z-index: 3;
-      min-height: 150px;
-      display: grid;
-      place-items: center;
-      padding: 28px;
-      text-align: center;
+      z-index: 1;
+      margin-left: auto;
     }
 
-    .empty-slot span {
-      color: rgba(79, 81, 89, 0.64);
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1.18fr);
+      gap: 12px;
+      min-height: 560px;
+    }
+
+    .hero-copy,
+    .hero-media {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: rgba(225,231,228,0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: 32px 30px 28px;
+    }
+
+    .hero-copy::before,
+    .panel::before,
+    .media-placeholder::before,
+    .feature-row::before,
+    .viewer-frame-shell::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      bottom: 18px;
+      left: 14px;
+      width: 3px;
+      background: linear-gradient(var(--line-strong), rgba(75,169,183,0.42));
+    }
+
+    .hero-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      padding-left: 12px;
+      margin-bottom: 28px;
+    }
+
+    .hero-kicker {
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--display);
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(60px, 8vw, 112px);
+      line-height: 0.78;
+      letter-spacing: 0.015em;
+      font-weight: 700;
+    }
+
+    .hero-id {
+      min-width: 76px;
+      padding-top: 3px;
+      color: var(--muted);
+      text-align: right;
+      font-size: 9px;
+      line-height: 1.5;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-lead {
+      max-width: 610px;
+      margin: 0;
+      padding-left: 12px;
+      color: #465359;
       font-size: 14px;
-      font-weight: 600;
+      line-height: 1.75;
+    }
+
+    .hero-lead strong {
+      color: var(--ink);
+    }
+
+    .hero-stats {
+      display: grid;
+      gap: 9px;
+      margin-top: 28px;
+      padding-left: 12px;
+    }
+
+    .hero-stat {
+      display: grid;
+      grid-template-columns: 132px 1fr 26px;
+      align-items: center;
+      min-height: 42px;
+      border-top: 1px solid rgba(72,91,96,0.13);
+      border-bottom: 1px solid rgba(72,91,96,0.13);
+      background: rgba(255,255,255,0.20);
+    }
+
+    .hero-stat-label {
+      padding-left: 10px;
+      color: var(--muted);
+      font-size: 9px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .viewer-shell {
-      padding: 16px;
-      border: 1px solid rgba(255,255,255,0.72);
-      border-radius: 18px;
-      background: rgba(255,255,255,0.26);
-      box-shadow: var(--shadow-xl);
-      backdrop-filter: blur(30px) saturate(150%);
-      -webkit-backdrop-filter: blur(30px) saturate(150%);
+    .hero-stat-value {
+      position: relative;
+      height: 9px;
+      overflow: hidden;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(52,71,78,0.26) 0 8px,
+          rgba(52,71,78,0.06) 8px 14px
+        );
+    }
+
+    .hero-stat-value::after {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: var(--fill, 60%);
+      background:
+        repeating-linear-gradient(
+          90deg,
+          var(--accent) 0 10px,
+          rgba(75,169,183,0.36) 10px 14px
+        );
+    }
+
+    .hero-stat-number {
+      color: var(--ink);
+      text-align: center;
+      font-size: 10px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+      padding-left: 12px;
+    }
+
+    .ui-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      background: rgba(255,255,255,0.20);
+      text-decoration: none;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .ui-button::after {
+      content: "›";
+      margin-left: 12px;
+      font-size: 17px;
+      line-height: 1;
+    }
+
+    .ui-button.primary {
+      color: #eaf3f2;
+      background: var(--dark);
+      border-color: var(--dark);
+    }
+
+    .ui-button:hover {
+      transform: translateY(-2px);
+      color: #ffffff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .hero-media {
+      display: grid;
+      grid-template-rows: 34px 1fr 42px;
+      background:
+        radial-gradient(circle at 67% 28%, rgba(75,169,183,0.24), transparent 23%),
+        linear-gradient(135deg, rgba(240,243,241,0.95), rgba(188,201,198,0.72));
+    }
+
+    .media-topline {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      color: #dce4e2;
+      background: var(--dark);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .media-grid-placeholder {
+      position: relative;
+      margin: 18px;
+      border: 1px dashed rgba(52,71,78,0.30);
+      background:
+        linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.18)),
+        repeating-linear-gradient(
+          90deg,
+          rgba(52,71,78,0.04) 0 1px,
+          transparent 1px 42px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          rgba(52,71,78,0.04) 0 1px,
+          transparent 1px 42px
+        );
+    }
+
+    .media-grid-placeholder::before,
+    .media-grid-placeholder::after {
+      content: "";
+      position: absolute;
+      background: var(--line-strong);
+    }
+
+    .media-grid-placeholder::before {
+      top: 50%;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+    }
+
+    .media-grid-placeholder::after {
+      left: 50%;
+      top: 10%;
+      bottom: 10%;
+      width: 1px;
+    }
+
+    .media-grid-copy {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .media-grid-copy strong {
+      display: block;
+      margin-bottom: 8px;
+      font-family: var(--display);
+      font-size: 20px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .media-grid-copy span {
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .media-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section {
+      margin-top: 18px;
+      scroll-margin-top: 18px;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.36fr) 1fr;
+      align-items: stretch;
+      min-height: 58px;
+      margin-bottom: 10px;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }
+
+    .section-index {
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      color: rgba(255,255,255,0.90);
+      background: var(--dark);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 8px 14px 8px 18px;
+      background: rgba(255,255,255,0.16);
+    }
+
+    .section-title-wrap h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 42px);
+      line-height: 0.96;
+      letter-spacing: 0.04em;
+    }
+
+    .section-title-wrap p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.55;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.38fr) 1fr;
+      gap: 10px;
+    }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(225,231,228,0.72);
+      box-shadow: 0 14px 30px rgba(47,62,66,0.08);
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 2;
+      padding: 26px 26px 26px 34px;
+    }
+
+    .panel h3 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      letter-spacing: 0.06em;
+    }
+
+    .panel p {
+      margin: 0 0 15px;
+      color: #4f5c61;
+      font-size: 12px;
+      line-height: 1.72;
+    }
+
+    .panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    .system-list {
+      display: grid;
+      gap: 8px;
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .system-list li {
+      display: grid;
+      grid-template-columns: 22px 1fr 18px;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 8px;
+      border-top: 1px solid rgba(72,91,96,0.14);
+      border-bottom: 1px solid rgba(72,91,96,0.14);
+      background: rgba(255,255,255,0.16);
+      color: #48555a;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    .system-list li::before {
+      content: "";
+      width: 5px;
+      height: 14px;
+      background: var(--dark);
+      box-shadow: 6px 0 0 rgba(52,71,78,0.20);
+    }
+
+    .system-list li::after {
+      content: "›";
+      font-size: 17px;
+      text-align: right;
+    }
+
+    .media-placeholder {
+      position: relative;
+      min-height: 360px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(237,241,239,0.92), rgba(198,208,205,0.72));
+      box-shadow: 0 14px 30px rgba(47,62,66,0.08);
+    }
+
+    .media-placeholder.dark {
+      color: rgba(255,255,255,0.82);
+      background:
+        radial-gradient(circle at 74% 24%, rgba(75,169,183,0.18), transparent 22%),
+        linear-gradient(135deg, #46575d, #283a41);
+    }
+
+    .media-placeholder-inner {
+      position: absolute;
+      inset: 18px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed currentColor;
+      color: rgba(52,71,78,0.34);
+      text-align: center;
+    }
+
+    .media-placeholder.dark .media-placeholder-inner {
+      color: rgba(255,255,255,0.22);
+    }
+
+    .media-placeholder-copy {
+      max-width: 380px;
+      padding: 28px;
+    }
+
+    .media-placeholder-copy strong {
+      display: block;
+      margin-bottom: 9px;
+      color: currentColor;
+      font-family: var(--display);
+      font-size: 18px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .media-placeholder-copy span {
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .media-placeholder.dark .media-placeholder-copy span {
+      color: rgba(255,255,255,0.54);
+    }
+
+    .feature-stack {
+      display: grid;
+      gap: 8px;
+    }
+
+    .feature-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 210px 1fr 42px;
+      min-height: 86px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(227,232,229,0.80);
+      transition:
+        transform 0.2s ease,
+        color 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .feature-row:hover {
+      transform: translateX(4px);
+      color: #ffffff;
+      background: var(--dark);
+    }
+
+    .feature-row:hover .feature-copy,
+    .feature-row:hover .feature-code {
+      color: rgba(255,255,255,0.66);
+    }
+
+    .feature-name {
+      display: flex;
+      align-items: center;
+      padding: 0 18px 0 30px;
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .feature-copy {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      color: #546166;
+      font-size: 10px;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .feature-code {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .feature-code::after {
+      content: "›";
+      font-size: 20px;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .module-card {
+      min-height: 180px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: rgba(225,231,228,0.78);
+      transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .module-card:hover {
+      transform: translateY(-3px);
+      color: #ffffff;
+      background: var(--dark);
+    }
+
+    .module-card:hover p,
+    .module-card:hover .module-tag {
+      color: rgba(255,255,255,0.62);
+    }
+
+    .module-tag {
+      margin-bottom: 24px;
+      color: var(--muted);
+      font-size: 8px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .module-card h3 {
+      margin: 0 0 9px;
+      font-size: 21px;
+      letter-spacing: 0.05em;
+    }
+
+    .module-card p {
+      margin: 0;
+      color: #536066;
+      font-size: 10px;
+      line-height: 1.62;
+      text-transform: uppercase;
+    }
+
+    .viewer-frame-shell {
+      position: relative;
+      overflow: hidden;
+      padding: 18px 18px 16px 30px;
+      border: 1px solid var(--line);
+      background: rgba(225,231,228,0.78);
+      box-shadow: var(--shadow);
     }
 
     .viewer-crop {
       position: relative;
-      z-index: 3;
-      width: 100%;
       aspect-ratio: 16 / 9;
       overflow: hidden;
-      border-radius: 12px;
-      background:
-        radial-gradient(circle at 50% 34%, rgba(214,104,47,0.12), transparent 30%),
-        #090a0d;
-      box-shadow: 0 24px 52px rgba(15,16,18,0.16);
-      isolation: isolate;
+      border: 1px solid rgba(52,71,78,0.62);
+      background: #10181b;
     }
 
-    /*
-      The iframe is intentionally taller than its visible container and cropped
-      at the top and bottom. This removes Sketchfab's own bars even when some
-      premium UI query parameters are ignored by the embedded model account.
-    */
-    .viewer-frame {
+    .viewer-crop iframe {
       position: absolute;
       left: 0;
-      top: -62px;
+      top: -58px;
       width: 100%;
-      height: calc(100% + 124px);
+      height: calc(100% + 116px);
       border: 0;
-      display: block;
-      background: #090a0d;
     }
 
     .viewer-crop::before,
@@ -364,146 +807,324 @@
       position: absolute;
       left: 0;
       right: 0;
-      z-index: 5;
+      z-index: 4;
       height: 16px;
       pointer-events: none;
     }
 
     .viewer-crop::before {
       top: 0;
-      background: linear-gradient(to bottom, rgba(9,10,13,0.58), transparent);
+      background: linear-gradient(to bottom, rgba(16,24,27,0.82), transparent);
     }
 
     .viewer-crop::after {
       bottom: 0;
-      background: linear-gradient(to top, rgba(9,10,13,0.62), transparent);
+      background: linear-gradient(to top, rgba(16,24,27,0.82), transparent);
     }
 
-    .viewer-glass-edge {
+    .viewer-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 12px;
+      color: var(--muted);
+      font-size: 9px;
+      text-transform: uppercase;
+    }
+
+    .viewer-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .viewer-control {
+      padding: 5px 8px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .bake-banner {
+      position: relative;
+      overflow: hidden;
+      color: #e4ecea;
+      background: var(--dark);
+      border: 1px solid rgba(27,45,51,0.72);
+      box-shadow: var(--shadow);
+    }
+
+    .bake-banner::after {
+      content: "";
       position: absolute;
       inset: 0;
-      z-index: 6;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: inherit;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.10),
-        inset 0 -1px 0 rgba(255,255,255,0.05);
-      pointer-events: none;
+      opacity: 0.18;
+      background:
+        repeating-linear-gradient(
+          120deg,
+          transparent 0 18px,
+          rgba(255,255,255,0.18) 18px 20px
+        );
     }
 
-    .footer {
-      margin-top: 32px;
+    .bake-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) 1.2fr;
+      gap: 12px;
+      padding: 22px;
+    }
+
+    .bake-copy {
+      padding: 12px;
+    }
+
+    .bake-copy .hero-kicker {
+      color: rgba(255,255,255,0.50);
+    }
+
+    .bake-copy h2 {
+      margin: 0 0 14px;
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: 0.88;
+      letter-spacing: 0.04em;
+    }
+
+    .bake-copy p {
+      margin: 0;
+      color: rgba(255,255,255,0.64);
+      font-size: 11px;
+      line-height: 1.7;
+      text-transform: uppercase;
+    }
+
+    .bake-media {
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed rgba(255,255,255,0.20);
+      background: rgba(255,255,255,0.04);
       text-align: center;
+      color: rgba(255,255,255,0.48);
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .workflow-card {
+      min-height: 142px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: rgba(225,231,228,0.76);
+    }
+
+    .workflow-index {
+      margin-bottom: 20px;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 8px;
+      letter-spacing: 0.16em;
     }
 
-    @keyframes orbFloat {
-      0%, 100% {
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-
-      50% {
-        transform: translate3d(20px, 24px, 0) scale(1.06);
-      }
+    .workflow-card h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      letter-spacing: 0.05em;
     }
 
-    @keyframes sheenMove {
-      0% {
-        transform: translateX(-130%);
+    .workflow-card p {
+      margin: 0;
+      color: #566268;
+      font-size: 9px;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .cta {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 26px;
+      border: 1px solid var(--line-strong);
+      background:
+        linear-gradient(90deg, rgba(226,232,229,0.94), rgba(202,213,210,0.84));
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 4vw, 50px);
+      line-height: 0.92;
+      letter-spacing: 0.04em;
+    }
+
+    .cta p {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-top: 1px solid var(--line-strong);
+      color: var(--muted);
+      font-size: 8px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition:
+        opacity 0.55s ease,
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1000px) {
+      .hero,
+      .panel-grid,
+      .bake-grid {
+        grid-template-columns: 1fr;
       }
 
-      18% {
-        transform: translateX(130%);
+      .hero {
+        min-height: 0;
       }
 
-      100% {
-        transform: translateX(130%);
+      .hero-media {
+        min-height: 500px;
+      }
+
+      .module-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
     @media (max-width: 760px) {
       .page {
-        width: min(100% - 18px, 1240px);
+        width: min(100% - 14px, 1320px);
       }
 
-      .placeholder-card {
-        min-height: 360px;
-        border-radius: 15px;
+      .system-code {
+        display: none;
       }
 
-      .hero-content {
-        padding: 28px;
+      .locator {
+        grid-template-columns: 118px 1fr;
       }
 
-      .hero p {
-        font-size: 15px;
+      .hero-copy {
+        padding: 24px 18px 22px;
       }
 
-      .viewer-shell {
-        padding: 10px;
-        border-radius: 13px;
+      .hero-header {
+        padding-left: 8px;
       }
 
-      .viewer-crop {
-        border-radius: 9px;
+      .hero-stats,
+      .hero-actions,
+      .hero-lead {
+        padding-left: 8px;
       }
 
-      .viewer-frame {
-        top: -48px;
-        height: calc(100% + 96px);
+      .hero-stat {
+        grid-template-columns: 110px 1fr 24px;
+      }
+
+      .hero-media {
+        min-height: 420px;
+      }
+
+      .section-heading {
+        grid-template-columns: 132px 1fr;
+      }
+
+      .section-title-wrap {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .section-title-wrap p {
+        text-align: left;
+      }
+
+      .feature-row {
+        grid-template-columns: 150px 1fr 32px;
+      }
+
+      .module-grid,
+      .workflow-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .viewer-footer,
+      .cta {
+        align-items: flex-start;
+        grid-template-columns: 1fr;
+        flex-direction: column;
       }
     }
 
-    @media (max-width: 560px) {
-      .page {
-        width: min(100% - 14px, 1240px);
-        padding: 14px 0 66px;
+    @media (max-width: 520px) {
+      h1 {
+        font-size: clamp(54px, 20vw, 80px);
       }
 
-      .section {
-        margin-top: 22px;
+      .hero-id {
+        display: none;
       }
 
-      .placeholder-card {
-        min-height: 330px;
-        border-radius: 12px;
+      .section-heading {
+        grid-template-columns: 1fr;
       }
 
-      .hero-content {
-        padding: 22px 18px;
+      .section-index {
+        min-height: 28px;
       }
 
-      .hero h1 {
-        font-size: clamp(48px, 17vw, 76px);
+      .feature-row {
+        grid-template-columns: 1fr 34px;
       }
 
-      .hero p {
-        margin-top: 16px;
-        font-size: 14px;
-        line-height: 1.55;
+      .feature-name {
+        min-height: 52px;
       }
 
-      .section-head h2 {
-        font-size: clamp(27px, 8vw, 36px);
+      .feature-copy {
+        grid-column: 1 / -1;
+        border-top: 1px solid var(--line);
       }
 
-      .section-head p {
-        font-size: 15px;
-        line-height: 1.55;
+      .feature-code {
+        grid-column: 2;
+        grid-row: 1;
       }
 
       .viewer-crop {
         aspect-ratio: 4 / 3;
       }
 
-      .viewer-frame {
+      .viewer-crop iframe {
         top: -42px;
         height: calc(100% + 84px);
-      }
-
-      .empty-slot {
-        min-height: 120px;
       }
     }
 
@@ -512,83 +1133,525 @@
         scroll-behavior: auto;
       }
 
-      .bg-orb,
-      .liquid-sheen::before,
-      .glass-card::before,
-      .viewer-shell::before,
-      .placeholder-card::before {
-        animation: none;
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
       }
     }
   </style>
 </head>
 
-<body>
-  <div class="bg-orb one"></div>
-  <div class="bg-orb two"></div>
-  <div class="bg-orb three"></div>
-  <div class="spotlight"></div>
-
+<body id="top">
   <main class="page">
-    <section class="hero">
-      <div class="placeholder-card">
-        <div class="hero-grid"></div>
+    <header class="system-bar">
+      <div class="system-name">Metalworks Material Laboratory</div>
+      <div class="system-code">MW / MATERIAL SYSTEM / BUILD 01</div>
+    </header>
 
-        <div class="hero-content">
-          <div class="eyebrow">Product page placeholder</div>
-          <h1>Metalworks</h1>
+    <div class="locator">
+      <div class="locator-label">Record Locator</div>
+      <div class="locator-track">
+        <span>Procedural Metal Surface Database</span>
+      </div>
+    </div>
+
+    <section class="hero reveal">
+      <div class="hero-copy">
+        <div class="hero-header">
+          <div>
+            <div class="hero-kicker">Lazy 3D / Blender Material System</div>
+            <h1>Metalworks</h1>
+          </div>
+
+          <div class="hero-id">
+            MATERIAL ID<br>
+            MW-150-PRO<br>
+            STATUS: ACTIVE
+          </div>
+        </div>
+
+        <p class="hero-lead">
+          Apply production-ready metal materials in one click, then refine them through a complete procedural surface system.
+          Begin with <strong>150+ professionally prepared presets</strong> and reach ultra-realistic results in only a few controlled adjustments.
+        </p>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-label">Preset Library</div>
+            <div class="hero-stat-value" style="--fill: 94%;"></div>
+            <div class="hero-stat-number">150+</div>
+          </div>
+
+          <div class="hero-stat">
+            <div class="hero-stat-label">Material Setup</div>
+            <div class="hero-stat-value" style="--fill: 82%;"></div>
+            <div class="hero-stat-number">01</div>
+          </div>
+
+          <div class="hero-stat">
+            <div class="hero-stat-label">Bake Workflow</div>
+            <div class="hero-stat-value" style="--fill: 76%;"></div>
+            <div class="hero-stat-number">ON</div>
+          </div>
+
+          <div class="hero-stat">
+            <div class="hero-stat-label">Custom Library</div>
+            <div class="hero-stat-value" style="--fill: 68%;"></div>
+            <div class="hero-stat-number">USR</div>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a class="ui-button primary" href="#presets">Access Preset Library</a>
+          <a class="ui-button" href="#shader">Inspect Shader Modules</a>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <div class="media-topline">Primary Material Visualization</div>
+
+        <div class="media-grid-placeholder">
+          <div class="media-grid-copy">
+            <div>
+              <strong>Hero Media Placeholder</strong>
+              <span>
+                Replace with a cinematic render, product trailer, animated material transition,
+                or close-up metal surface showcase.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="media-status">
+          <span>Display Channel: Product Overview</span>
+          <span>Media Slot 01</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="overview">
+      <div class="section-heading">
+        <div class="section-index">01 / System Overview</div>
+
+        <div class="section-title-wrap">
+          <h2>Realism Without Rebuilding</h2>
           <p>
-            The complete Metalworks product presentation will be added here.
-            This temporary page preserves the final visual system while the content is prepared.
+            A controlled material workflow for clean, damaged, painted,
+            oxidized, worn, and heavily weathered metal surfaces.
           </p>
         </div>
       </div>
-    </section>
 
-    <section class="section" aria-label="Reserved product content">
-      <div class="glass-card">
-        <div class="empty-slot">
-          <span>Reserved for product content</span>
+      <div class="panel-grid">
+        <article class="panel">
+          <div class="panel-inner">
+            <h3>Fast Visual Decisions</h3>
+
+            <p>
+              Metalworks removes the need to rebuild complex node setups for every object.
+              Choose a material, apply it, then adjust only the layers that matter to the scene.
+            </p>
+
+            <p>
+              The system keeps advanced procedural controls organized while preserving full editability inside Blender.
+            </p>
+
+            <ul class="system-list">
+              <li>One-click material application</li>
+              <li>Global scale and coordinate control</li>
+              <li>Independent procedural modules</li>
+              <li>Production-ready baking workflow</li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="media-placeholder dark">
+          <div class="media-placeholder-inner">
+            <div class="media-placeholder-copy">
+              <strong>Main Workflow Media</strong>
+              <span>
+                Suggested content: add-on interface, one-click preset application,
+                or a rapid basic-to-realistic material transformation.
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="experimental-viewer">
-      <div class="section-head">
-        <div class="section-chip liquid-sheen">Experimental</div>
-        <h2>Interactive material preview</h2>
-        <p>
-          Drag directly on the object to rotate it. The embedded viewer is intentionally presented without visible interface controls.
-        </p>
+    <section class="section reveal" id="presets">
+      <div class="section-heading">
+        <div class="section-index">02 / Material Database</div>
+
+        <div class="section-title-wrap">
+          <h2>150+ Presets</h2>
+          <p>
+            A broad library of practical metal materials and surface conditions,
+            prepared for immediate use and further procedural refinement.
+          </p>
+        </div>
       </div>
 
-      <div class="viewer-shell">
+      <div class="media-placeholder" style="min-height: 470px; margin-bottom: 10px;">
+        <div class="media-placeholder-inner">
+          <div class="media-placeholder-copy">
+            <strong>Preset Catalog Placeholder</strong>
+            <span>
+              Replace with a scrolling preset browser, thumbnail catalog,
+              category montage, or animated library showcase.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-stack">
+        <article class="feature-row">
+          <div class="feature-name">One-Click Application</div>
+          <div class="feature-copy">
+            Apply a complete Metalworks material directly to the selected object.
+            The material structure, shader, and supporting texture setup are prepared automatically.
+          </div>
+          <div class="feature-code"></div>
+        </article>
+
+        <article class="feature-row">
+          <div class="feature-name">Editable Foundation</div>
+          <div class="feature-copy">
+            Every preset remains fully adjustable. Simplify the material, intensify selected effects,
+            or rebuild its visual history through the organized modules.
+          </div>
+          <div class="feature-code"></div>
+        </article>
+
+        <article class="feature-row">
+          <div class="feature-name">Consistent Workflow</div>
+          <div class="feature-copy">
+            Move between presets without changing the way you work.
+            The same control logic remains available across clean, painted, damaged, and corroded surfaces.
+          </div>
+          <div class="feature-code"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal" id="realism">
+      <div class="section-heading">
+        <div class="section-index">03 / Surface Fidelity</div>
+
+        <div class="section-title-wrap">
+          <h2>Ultra Realism in a Few Clicks</h2>
+          <p>
+            Add the small surface events that make reflections, roughness,
+            damage, and material aging feel physically believable.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel-grid">
+        <div class="media-placeholder dark">
+          <div class="media-placeholder-inner">
+            <div class="media-placeholder-copy">
+              <strong>Before / After Placeholder</strong>
+              <span>
+                Suggested content: default Principled BSDF versus the completed Metalworks material,
+                preferably with a draggable comparison.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <article class="panel">
+          <div class="panel-inner">
+            <h3>Build Surface History</h3>
+
+            <p>
+              A convincing metal material is defined by more than its base color.
+              Metalworks helps you describe how the surface was manufactured, exposed, used, damaged, and aged.
+            </p>
+
+            <ul class="system-list">
+              <li>Roughness breakup and micro variation</li>
+              <li>Edge wear and exposed metal</li>
+              <li>Paint damage and chipped coating</li>
+              <li>Rust, dirt, leaks, and deposits</li>
+              <li>Surface bumps and small-scale detail</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal" id="shader">
+      <div class="section-heading">
+        <div class="section-index">04 / Shader Laboratory</div>
+
+        <div class="section-title-wrap">
+          <h2>Modular Procedural Shader</h2>
+          <p>
+            Use a simplified control set for fast work, or open the complete module system
+            when the material requires deeper art direction.
+          </p>
+        </div>
+      </div>
+
+      <div class="media-placeholder dark" style="min-height: 390px; margin-bottom: 10px;">
+        <div class="media-placeholder-inner">
+          <div class="media-placeholder-copy">
+            <strong>Shader Interface Placeholder</strong>
+            <span>
+              Replace with a node animation, interface walkthrough,
+              module demonstration, or real-time material adjustment video.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-grid">
+        <article class="module-card">
+          <div class="module-tag">Base Surface / 01</div>
+          <h3>Metal & Roughness</h3>
+          <p>
+            Define the core physical response and introduce controlled variation
+            to remove uniform digital reflections.
+          </p>
+        </article>
+
+        <article class="module-card">
+          <div class="module-tag">Surface Wear / 02</div>
+          <h3>Edge Wear</h3>
+          <p>
+            Reveal worn corners, exposed metal, and localized abrasion with independent scale,
+            contrast, and placement controls.
+          </p>
+        </article>
+
+        <article class="module-card">
+          <div class="module-tag">Coating Damage / 03</div>
+          <h3>Paint Damage</h3>
+          <p>
+            Build damaged coatings, scratches, and chipped paint while preserving art-directable masks.
+          </p>
+        </article>
+
+        <article class="module-card">
+          <div class="module-tag">Corrosion / 04</div>
+          <h3>Rust Systems</h3>
+          <p>
+            Add broad oxidation, localized corrosion, directional rust leaks,
+            and additional texture layers for more complex aging.
+          </p>
+        </article>
+
+        <article class="module-card">
+          <div class="module-tag">Environment / 05</div>
+          <h3>Dirt & Leaks</h3>
+          <p>
+            Add dust, deposits, grime, directional streaks, and surface accumulation
+            that respond to the object and its environment.
+          </p>
+        </article>
+
+        <article class="module-card">
+          <div class="module-tag">Micro Detail / 06</div>
+          <h3>Chipping & Bumps</h3>
+          <p>
+            Introduce fine surface breakup that improves close-up reflections
+            and removes the appearance of perfect computer-generated materials.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal" id="interactive">
+      <div class="section-heading">
+        <div class="section-index">05 / Interactive Specimen</div>
+
+        <div class="section-title-wrap">
+          <h2>Inspect the Surface in 3D</h2>
+          <p>
+            Rotate, move, and zoom the object directly inside the embedded viewer.
+          </p>
+        </div>
+      </div>
+
+      <div class="viewer-frame-shell">
         <div class="viewer-crop">
           <iframe
-            class="viewer-frame"
-            title="Metalworks experimental cracked concrete preview"
-            src="https://sketchfab.com/models/057b596da2994188bcc5192209d90ad3/embed?autostart=1&amp;preload=1&amp;camera=0&amp;navigation=orbit&amp;scrollwheel=0&amp;ui_infos=0&amp;ui_controls=0&amp;ui_stop=0&amp;ui_watermark=0&amp;ui_watermark_link=0&amp;ui_hint=0&amp;ui_help=0&amp;ui_settings=0&amp;ui_inspector=0&amp;ui_vr=0&amp;ui_ar=0&amp;ui_fullscreen=0&amp;ui_annotations=0&amp;ui_loading=0&amp;ui_start=0&amp;ui_general_controls=0&amp;animation_autoplay=0&amp;dnt=1&amp;double_click=0&amp;orbit_constraint_pan=1"
+            title="Metalworks interactive material preview"
+            src="https://sketchfab.com/models/057b596da2994188bcc5192209d90ad3/embed?autostart=1&preload=1&camera=0&navigation=orbit&scrollwheel=1&ui_infos=0&ui_controls=0&ui_stop=0&ui_watermark=0&ui_watermark_link=0&ui_hint=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_vr=0&ui_ar=0&ui_fullscreen=0&ui_annotations=0&ui_loading=0&ui_start=0&ui_general_controls=0&animation_autoplay=0&dnt=1&double_click=0&orbit_constraint_pan=0"
             loading="lazy"
             allow="autoplay; fullscreen; xr-spatial-tracking"
             allowfullscreen>
           </iframe>
+        </div>
 
-          <div class="viewer-glass-edge"></div>
+        <div class="viewer-footer">
+          <span>Viewer interface suppressed for clean presentation.</span>
+
+          <div class="viewer-controls">
+            <span class="viewer-control">Drag: Rotate</span>
+            <span class="viewer-control">Shift / Right Drag: Move</span>
+            <span class="viewer-control">Wheel / Pinch: Zoom</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <footer class="footer">
-      Metalworks | Lazy 3D
+    <section class="section reveal" id="bake">
+      <div class="section-heading">
+        <div class="section-index">06 / Bake & Transfer</div>
+
+        <div class="section-title-wrap">
+          <h2>One-Click Baking</h2>
+          <p>
+            Keep the material procedural while developing it,
+            then convert the approved result into portable texture maps.
+          </p>
+        </div>
+      </div>
+
+      <div class="bake-banner">
+        <div class="bake-grid">
+          <div class="bake-copy">
+            <div class="hero-kicker">Export Procedure Available</div>
+            <h2>Finish in Blender. Use It Anywhere.</h2>
+            <p>
+              Bake the final surface into practical texture maps and rebuild it in another Blender material,
+              renderer, game engine, or external 3D application.
+            </p>
+          </div>
+
+          <div class="bake-media">
+            <div>
+              <strong style="display:block; margin-bottom:9px; font-family:var(--display); font-size:18px; letter-spacing:0.08em; text-transform:uppercase;">
+                Bake & Export Media Placeholder
+              </strong>
+              <span style="font-size:9px; line-height:1.6; text-transform:uppercase;">
+                Suggested content: the baking process, generated maps,
+                and the same material reconstructed in another engine.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="workflow-grid">
+        <article class="workflow-card">
+          <div class="workflow-index">PROCEDURE / 01</div>
+          <h3>Build Procedurally</h3>
+          <p>
+            Apply a preset and art-direct every important layer through the Metalworks controls.
+          </p>
+        </article>
+
+        <article class="workflow-card">
+          <div class="workflow-index">PROCEDURE / 02</div>
+          <h3>Bake the Result</h3>
+          <p>
+            Convert the approved surface into a clean texture set through the dedicated bake workflow.
+          </p>
+        </article>
+
+        <article class="workflow-card">
+          <div class="workflow-index">PROCEDURE / 03</div>
+          <h3>Transfer Anywhere</h3>
+          <p>
+            Use the maps in another engine, application, optimized scene, or custom material setup.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal" id="custom-presets">
+      <div class="section-heading">
+        <div class="section-index">07 / User Library</div>
+
+        <div class="section-title-wrap">
+          <h2>Save Custom Presets</h2>
+          <p>
+            Convert successful material setups into reusable assets inside your own Metalworks library.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel-grid">
+        <article class="panel">
+          <div class="panel-inner">
+            <h3>Build Once. Reuse Later.</h3>
+
+            <p>
+              Save a finished material as a custom preset with its own preview.
+              The material becomes easy to recognize, easy to apply, and ready for future production.
+            </p>
+
+            <ul class="system-list">
+              <li>Dedicated custom material library</li>
+              <li>Generated visual preview</li>
+              <li>Reusable production recipes</li>
+              <li>Fast access across future projects</li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="media-placeholder">
+          <div class="media-placeholder-inner">
+            <div class="media-placeholder-copy">
+              <strong>Custom Preset Workflow Placeholder</strong>
+              <span>
+                Replace with saving a material, generating its preview,
+                and locating it inside the User Library.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="cta">
+        <div>
+          <h2>Spend Less Time Building Shaders.</h2>
+          <p>
+            Start with 150+ presets, refine the material through a modular procedural system,
+            bake the final result, and preserve your best work as reusable custom presets.
+          </p>
+        </div>
+
+        <a class="ui-button primary" href="#">Acquire Metalworks</a>
+      </div>
+    </section>
+
+    <footer>
+      <span>Metalworks / Procedural Material System</span>
+      <span>Lazy 3D / Product Interface Build 01</span>
     </footer>
   </main>
 
   <script>
-    const root = document.documentElement;
+    document.addEventListener("DOMContentLoaded", () => {
+      const items = Array.from(document.querySelectorAll(".reveal"));
 
-    window.addEventListener("mousemove", (event) => {
-      root.style.setProperty("--x", event.clientX + "px");
-      root.style.setProperty("--y", event.clientY + "px");
+      if (!("IntersectionObserver" in window)) {
+        items.forEach((item) => item.classList.add("visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          });
+        },
+        {
+          threshold: 0.08,
+          rootMargin: "0px 0px -36px 0px"
+        }
+      );
+
+      items.forEach((item) => observer.observe(item));
     });
   </script>
 </body>
