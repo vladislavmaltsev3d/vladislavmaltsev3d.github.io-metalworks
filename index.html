@@ -1980,6 +1980,91 @@
       }
     }
 
+  
+    /* Bake section: full-width text on top, large comparer below */
+    .bake-banner-vertical {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .bake-banner-vertical::after {
+      pointer-events: none;
+    }
+
+    .bake-copy-wide {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      max-width: none;
+      padding: 40px 44px 34px;
+      border-bottom: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .bake-copy-wide .hero-kicker {
+      margin-bottom: 12px;
+      color: rgba(234,243,242,0.58);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .bake-copy-wide h2 {
+      max-width: 860px;
+      margin: 0 0 18px;
+      color: #f1f6f5;
+      font-size: 56px;
+      line-height: 0.92;
+      letter-spacing: 0.035em;
+    }
+
+    .bake-copy-wide p {
+      max-width: 900px;
+      margin: 0;
+      color: rgba(234,243,242,0.74);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.7;
+      letter-spacing: 0.025em;
+    }
+
+    .bake-comparison-wrap {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      padding: 18px;
+    }
+
+    .bake-comparison-wrap .bake-comparison {
+      width: 100%;
+      min-height: 0;
+      margin: 0;
+      border: 1px solid rgba(255,255,255,0.24);
+      box-shadow: 0 18px 36px rgba(7,16,20,0.26);
+    }
+
+    .bake-comparison-wrap .comparison-frame {
+      width: 100%;
+      aspect-ratio: 2 / 1;
+    }
+
+    @media (max-width: 760px) {
+      .bake-copy-wide {
+        padding: 28px 24px 24px;
+      }
+
+      .bake-copy-wide h2 {
+        font-size: 39px;
+      }
+
+      .bake-copy-wide p {
+        font-size: 12px;
+      }
+
+      .bake-comparison-wrap {
+        padding: 10px;
+      }
+    }
+
   </style>
 </head>
 
@@ -2272,18 +2357,20 @@
         </div>
       </div>
 
-      <div class="bake-banner">
-        <div class="bake-grid">
-          <div class="bake-copy">
-            <div class="hero-kicker">Export Procedure Available</div>
-            <h2>Finish in Blender. Use It Anywhere.</h2>
-            <p>
-              Baking is automatic and starts in just a few clicks. Convert the final surface into practical texture maps,
-              then rebuild it in another Blender material, renderer, game engine, or external 3D application.
-            </p>
-          </div>
+      <div class="bake-banner bake-banner-vertical">
+        <div class="bake-copy bake-copy-wide">
+          <div class="hero-kicker">Export Procedure Available</div>
 
-          <!-- Interactive bake comparison. Both images are 4000 × 2000 px, ratio 2:1. -->
+          <h2>Finish in Blender. Use It Anywhere.</h2>
+
+          <p>
+            Baking is automatic and starts in just a few clicks.
+            Convert the final surface into practical texture maps, then rebuild it
+            in another Blender material, renderer, game engine, or external 3D application.
+          </p>
+        </div>
+
+        <div class="bake-comparison-wrap">
           <div class="bake-media bake-comparison">
             <div class="comparison-frame" style="--split: 50%;">
               <img
@@ -2303,13 +2390,15 @@
                   height="2000"
                   loading="lazy">
               </div>
-<div class="comparison-divider" aria-hidden="true"></div>
+
+              <div class="comparison-divider" aria-hidden="true"></div>
 
               <div class="comparison-hint" aria-hidden="true">
                 <span class="comparison-hint-arrows">← →</span>
                 <span>Drag to compare</span>
               </div>
-<input
+
+              <input
                 class="comparison-range"
                 type="range"
                 min="0"
