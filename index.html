@@ -1856,6 +1856,130 @@
       object-position: center center;
     }
 
+  
+    /* Interactive Before / After bake comparison */
+    .bake-comparison {
+      min-height: 0;
+      display: block;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: #17262c;
+      text-align: left;
+      color: #ffffff;
+    }
+
+    .comparison-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2 / 1;
+      overflow: hidden;
+      background: #17262c;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y;
+    }
+
+    .comparison-image {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: center center;
+      pointer-events: none;
+    }
+
+    .comparison-before-layer {
+      position: absolute;
+      inset: 0 auto 0 0;
+      z-index: 2;
+      width: var(--split);
+      overflow: hidden;
+    }
+
+    .comparison-before-layer .comparison-before {
+      width: calc(100% / (var(--split) / 100%));
+      min-width: 100%;
+    }
+
+    .comparison-divider {
+      position: absolute;
+      z-index: 4;
+      top: 0;
+      bottom: 0;
+      left: var(--split);
+      width: 0.75px;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 0 16px rgba(0,0,0,0.30);
+      pointer-events: none;
+    }
+
+
+
+    .comparison-range {
+      position: absolute;
+      z-index: 6;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      opacity: 0;
+      cursor: ew-resize;
+    }
+
+
+  
+    .comparison-hint {
+      position: absolute;
+      z-index: 5;
+      top: 50%;
+      left: var(--split);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(255,255,255,0.38);
+      border-radius: 7px;
+      color: rgba(255,255,255,0.92);
+      background: rgba(31,47,53,0.76);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.20);
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+    }
+
+    .comparison-hint-arrows {
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
+    .comparison-frame.is-touched .comparison-hint {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    @media (max-width: 760px) {
+      .comparison-hint {
+        gap: 6px;
+        padding: 7px 9px;
+        font-size: 8px;
+      }
+
+      .comparison-hint-arrows {
+        font-size: 12px;
+      }
+    }
+
   </style>
 </head>
 
@@ -2159,10 +2283,39 @@
             </p>
           </div>
 
-          <!-- Recommended bake media: 1920 × 1080 px, 16:9 -->
-          <div class="bake-media">
-            <div>
-              <strong class="bake-media-title">Bake & Export Media</strong>
+          <!-- Interactive bake comparison. Both images are 4000 × 2000 px, ratio 2:1. -->
+          <div class="bake-media bake-comparison">
+            <div class="comparison-frame" style="--split: 50%;">
+              <img
+                class="comparison-image comparison-after"
+                src="https://assets.superhivemarket.com/cache/62c6815c51bb9a7984436d46f58318e3.jpg"
+                alt="Metalworks baked material result"
+                width="4000"
+                height="2000"
+                loading="lazy">
+
+              <div class="comparison-before-layer">
+                <img
+                  class="comparison-image comparison-before"
+                  src="https://assets.superhivemarket.com/cache/65a9796bf8045a3c087b479adf983412.jpg"
+                  alt="Metalworks procedural material before baking"
+                  width="4000"
+                  height="2000"
+                  loading="lazy">
+              </div>
+<div class="comparison-divider" aria-hidden="true"></div>
+
+              <div class="comparison-hint" aria-hidden="true">
+                <span class="comparison-hint-arrows">← →</span>
+                <span>Drag to compare</span>
+              </div>
+<input
+                class="comparison-range"
+                type="range"
+                min="0"
+                max="100"
+                value="50"
+                aria-label="Drag to compare the material before and after baking">
             </div>
           </div>
         </div>
@@ -2453,6 +2606,38 @@
         api.async = true;
         document.head.appendChild(api);
       }
+    });
+  </script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var sliders = document.querySelectorAll(".comparison-range");
+
+      sliders.forEach(function(slider) {
+        var frame = slider.closest(".comparison-frame");
+
+        function updateComparison() {
+          if (!frame) return;
+          frame.style.setProperty("--split", slider.value + "%");
+        }
+
+        function hideComparisonHint() {
+          if (!frame) return;
+          frame.classList.add("is-touched");
+        }
+
+        slider.addEventListener("pointerdown", hideComparisonHint, { once: true });
+        slider.addEventListener("touchstart", hideComparisonHint, { once: true, passive: true });
+        slider.addEventListener("mousedown", hideComparisonHint, { once: true });
+        slider.addEventListener("keydown", hideComparisonHint, { once: true });
+        slider.addEventListener("input", function() {
+          hideComparisonHint();
+          updateComparison();
+        });
+        slider.addEventListener("change", updateComparison);
+        updateComparison();
+      });
     });
   </script>
 
