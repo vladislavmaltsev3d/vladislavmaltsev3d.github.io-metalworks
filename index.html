@@ -1561,37 +1561,11 @@
       margin-top: 24px;
     }
 
-    .realism-intro {
-      margin-bottom: 10px;
-    }
-
-    .realism-intro .panel-inner {
-      padding-top: 22px;
-      padding-bottom: 22px;
-    }
 
     .realism-media {
       min-height: 430px;
     }
 
-    .media-label-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 42px;
-      padding: 0 16px;
-      color: rgba(255,255,255,0.88);
-      background: var(--dark);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .shader-media-blank {
-      min-height: 430px;
-      margin-bottom: 10px;
-    }
 
     .module-grid-two {
       grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -1788,6 +1762,76 @@
       }
     }
 
+  
+    /* Surface Fidelity summary moved into the section header */
+    .section-summary {
+      max-width: 540px;
+      color: var(--muted);
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .section-summary strong {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.06em;
+    }
+
+    .section-summary span {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.55;
+      letter-spacing: 0.04em;
+    }
+
+    /* Larger shader modules, fixed at two columns */
+    .module-grid-expanded {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 12px;
+    }
+
+    .module-grid-expanded .module-card-large {
+      min-height: 230px;
+      padding: 28px;
+    }
+
+    .module-grid-expanded .module-card-large .module-tag {
+      margin-bottom: 42px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .module-grid-expanded .module-card-large h3 {
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .module-grid-expanded .module-card-wide {
+      grid-column: 1 / -1;
+      min-height: 190px;
+    }
+
+    @media (max-width: 760px) {
+      .section-summary {
+        max-width: none;
+        text-align: left;
+      }
+
+      .module-grid-expanded {
+        grid-template-columns: 1fr !important;
+      }
+
+      .module-grid-expanded .module-card-wide {
+        grid-column: auto;
+      }
+    }
+
   </style>
 </head>
 
@@ -1949,22 +1993,17 @@
 
         <div class="section-title-wrap">
           <h2>Ultra Realism in a Few Clicks</h2>
-          <p>
-            Add the subtle surface events that make reflections, roughness,
-            damage, and material aging feel physically believable.
-          </p>
+
+          <div class="section-summary">
+            <strong>Build Surface History</strong>
+            <span>
+              A convincing metal material is defined by more than its base color.
+              Metalworks helps describe how a surface was manufactured, exposed,
+              used, damaged, and aged.
+            </span>
+          </div>
         </div>
       </div>
-
-      <article class="panel realism-intro">
-        <div class="panel-inner">
-          <h3>Build Surface History</h3>
-          <p>
-            A convincing metal material is defined by more than its base color.
-            Metalworks helps describe how a surface was manufactured, exposed, used, damaged, and aged.
-          </p>
-        </div>
-      </article>
 
       <!-- Recommended comparison media: 1920 × 1080 px, 16:9 -->
       <div class="media-placeholder dark realism-media">
@@ -1983,50 +2022,55 @@
         <div class="section-title-wrap">
           <h2>Modular Procedural Shader</h2>
           <p>
-            Use a simplified control set for fast work, or open the complete module system
-            when the material requires deeper art direction.
+            Combine independent material systems to build clean, worn,
+            painted, damaged, oxidized, and heavily weathered surfaces.
           </p>
         </div>
       </div>
 
-      <div class="media-label-row">
-        <span>Shader Interface Media</span>
-        <span>Recommended: 1920 × 1080 px</span>
-      </div>
-
-      <!-- Recommended shader media: 1920 × 1080 px, 16:9 -->
-      <div class="media-placeholder dark shader-media-blank">
-        <div class="media-placeholder-inner"></div>
-      </div>
-
-      <div class="module-grid module-grid-two">
+      <div class="module-grid module-grid-two module-grid-expanded">
         <article class="module-card module-card-large">
           <div class="module-tag">Base Surface / 01</div>
           <h3>Metal & Roughness</h3>
         </article>
 
         <article class="module-card module-card-large">
-          <div class="module-tag">Surface Wear / 02</div>
+          <div class="module-tag">Surface Variation / 02</div>
+          <h3>Discoloration</h3>
+        </article>
+
+        <article class="module-card module-card-large">
+          <div class="module-tag">Surface Wear / 03</div>
           <h3>Edge Wear</h3>
         </article>
 
         <article class="module-card module-card-large">
-          <div class="module-tag">Coating Damage / 03</div>
+          <div class="module-tag">Coating Damage / 04</div>
           <h3>Paint Damage</h3>
         </article>
 
         <article class="module-card module-card-large">
-          <div class="module-tag">Corrosion / 04</div>
+          <div class="module-tag">Material Damage / 05</div>
+          <h3>Damage</h3>
+        </article>
+
+        <article class="module-card module-card-large">
+          <div class="module-tag">Corrosion / 06</div>
           <h3>Rust Systems</h3>
         </article>
 
         <article class="module-card module-card-large">
-          <div class="module-tag">Environment / 05</div>
+          <div class="module-tag">Environment / 07</div>
           <h3>Dirt & Leaks</h3>
         </article>
 
         <article class="module-card module-card-large">
-          <div class="module-tag">Micro Detail / 06</div>
+          <div class="module-tag">Paint Detail / 08</div>
+          <h3>Paint Bumps</h3>
+        </article>
+
+        <article class="module-card module-card-large module-card-wide">
+          <div class="module-tag">Micro Detail / 09</div>
           <h3>Chipping & Bumps</h3>
         </article>
       </div>
