@@ -1189,6 +1189,206 @@
         transition: none;
       }
     }
+  
+    /* Custom Preset showcase */
+    .custom-preset-showcase {
+      position: relative;
+      display: grid;
+      grid-template-columns: 34% 66%;
+      min-height: 430px;
+      overflow: hidden;
+      color: #eaf3f2;
+      border: 1px solid rgba(27,45,51,0.72);
+      background:
+        radial-gradient(circle at 82% 24%, rgba(75,169,183,0.20), transparent 25%),
+        linear-gradient(135deg, #34474e 0%, #283a41 56%, #22343b 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .custom-preset-showcase::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.14;
+      background:
+        repeating-linear-gradient(
+          120deg,
+          transparent 0 22px,
+          rgba(255,255,255,0.13) 22px 24px
+        );
+    }
+
+    .custom-preset-copy {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 54px 34px 54px 46px;
+    }
+
+    .custom-preset-copy::before {
+      content: "";
+      position: absolute;
+      top: 54px;
+      bottom: 54px;
+      left: 22px;
+      width: 5px;
+      background: var(--accent);
+    }
+
+    .custom-preset-brand {
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-size: 9px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .custom-preset-copy h2 {
+      margin: 0 0 18px;
+      color: #f1f6f5;
+      font-family: var(--display);
+      font-size: 43px;
+      font-weight: 600;
+      line-height: 0.94;
+      letter-spacing: 0.035em;
+      text-transform: uppercase;
+    }
+
+    .custom-preset-copy p {
+      margin: 0 0 20px;
+      color: rgba(234,243,242,0.66);
+      font-size: 11px;
+      line-height: 1.72;
+      text-transform: uppercase;
+    }
+
+    .custom-preset-spec {
+      color: rgba(234,243,242,0.46);
+      font-size: 8px;
+      line-height: 1.6;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .custom-preset-media {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      padding: 24px 24px 24px 10px;
+    }
+
+    .custom-preset-video {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 15px;
+      background: #10181b;
+      box-shadow: 0 20px 42px rgba(10,20,24,0.28);
+    }
+
+    .custom-preset-video-player,
+    .custom-preset-video-player iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .custom-preset-video-player iframe {
+      pointer-events: none;
+    }
+
+    .custom-preset-start {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 26px;
+      border: 0;
+      color: #ffffff;
+      background:
+        linear-gradient(rgba(25,41,47,0.48), rgba(25,41,47,0.64)),
+        url("https://i.ytimg.com/vi/pwI5oaUi7Mk/maxresdefault.jpg") center center / cover no-repeat,
+        #283a41;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .custom-preset-start-content {
+      display: block;
+      max-width: 410px;
+    }
+
+    .custom-preset-play-icon {
+      display: block;
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 16px;
+      border: 1px solid rgba(255,255,255,0.68);
+      border-radius: 50%;
+      background: rgba(40,58,65,0.72);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+    }
+
+    .custom-preset-play-icon::before {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      margin: 18px 0 0 23px;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      border-left: 17px solid #ffffff;
+    }
+
+    .custom-preset-start-title {
+      display: block;
+      margin-bottom: 8px;
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .custom-preset-start-text {
+      display: block;
+      color: rgba(255,255,255,0.68);
+      font-size: 9px;
+      line-height: 1.55;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    .custom-preset-video-shield {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: none;
+      background: transparent;
+      cursor: default;
+    }
+
+    .custom-preset-video.is-playing .custom-preset-start {
+      display: none;
+    }
+
+    .custom-preset-video.is-playing .custom-preset-video-shield {
+      display: block;
+    }
+
   </style>
 </head>
 
@@ -1595,33 +1795,47 @@
         </div>
       </div>
 
-      <div class="panel-grid">
-        <article class="panel">
-          <div class="panel-inner">
-            <h3>Build Once. Reuse Later.</h3>
+      <div class="custom-preset-showcase">
+        <div class="custom-preset-copy">
+          <div class="custom-preset-brand">Metalworks / User Library</div>
 
-            <p>
-              Save a finished material as a custom preset with its own preview.
-              The material becomes easy to recognize, easy to apply, and ready for future production.
-            </p>
+          <h2>Create Custom Presets</h2>
 
-            <ul class="system-list">
-              <li>Dedicated custom material library</li>
-              <li>Generated visual preview</li>
-              <li>Reusable production recipes</li>
-              <li>Fast access across future projects</li>
-            </ul>
+          <p>
+            Save a finished material with its own rendered preview,
+            then reuse the complete setup in future projects with one click.
+          </p>
+
+          <div class="custom-preset-spec">
+            Media format: 16:9 video<br>
+            Recommended source: 1920 × 1080 px
           </div>
-        </article>
+        </div>
 
-        <div class="media-placeholder">
-          <div class="media-placeholder-inner">
-            <div class="media-placeholder-copy">
-              <strong>Custom Preset Workflow Placeholder</strong>
-              <span>
-                Replace with saving a material, generating its preview,
-                and locating it inside the User Library.
+        <div class="custom-preset-media">
+          <div class="custom-preset-video" id="customPresetVideo">
+            <div
+              class="custom-preset-video-player"
+              id="customPresetYoutubePlayer">
+            </div>
+
+            <button
+              class="custom-preset-start"
+              id="customPresetStart"
+              type="button"
+              aria-label="Play the custom preset workflow video">
+              <span class="custom-preset-start-content">
+                <span class="custom-preset-play-icon"></span>
+                <span class="custom-preset-start-title">Custom Preset Workflow</span>
+                <span class="custom-preset-start-text">
+                  Click once to start the muted looping video
+                </span>
               </span>
+            </button>
+
+            <div
+              class="custom-preset-video-shield"
+              aria-hidden="true">
             </div>
           </div>
         </div>
@@ -1713,5 +1927,105 @@
       items.forEach((item) => observer.observe(item));
     });
   </script>
+
+  <script>
+    var customPresetPlayer = null;
+    var customPresetReady = false;
+    var customPresetRequested = false;
+
+    function createCustomPresetPlayer() {
+      if (customPresetPlayer || !window.YT || !window.YT.Player) return;
+
+      customPresetPlayer = new YT.Player("customPresetYoutubePlayer", {
+        host: "https://www.youtube-nocookie.com",
+        videoId: "pwI5oaUi7Mk",
+        width: "100%",
+        height: "100%",
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          disablekb: 1,
+          enablejsapi: 1,
+          fs: 0,
+          iv_load_policy: 3,
+          loop: 1,
+          playlist: "pwI5oaUi7Mk",
+          playsinline: 1,
+          rel: 0,
+          modestbranding: 1,
+          showinfo: 0
+        },
+        events: {
+          onReady: function(event) {
+            customPresetReady = true;
+            event.target.mute();
+
+            var frame = event.target.getIframe();
+            if (frame) {
+              frame.setAttribute("tabindex", "-1");
+              frame.setAttribute("aria-hidden", "true");
+            }
+
+            if (customPresetRequested) {
+              playCustomPresetVideo();
+            }
+          },
+          onStateChange: function(event) {
+            var wrapper = document.getElementById("customPresetVideo");
+
+            if (event.data === YT.PlayerState.PLAYING && wrapper) {
+              wrapper.classList.add("is-playing");
+            }
+
+            if (
+              event.data === YT.PlayerState.PAUSED &&
+              wrapper &&
+              wrapper.classList.contains("is-playing")
+            ) {
+              event.target.playVideo();
+            }
+
+            if (event.data === YT.PlayerState.ENDED) {
+              event.target.seekTo(0, true);
+              event.target.playVideo();
+            }
+          }
+        }
+      });
+    }
+
+    function playCustomPresetVideo() {
+      customPresetRequested = true;
+
+      if (!customPresetReady || !customPresetPlayer) return;
+
+      customPresetPlayer.mute();
+      customPresetPlayer.playVideo();
+    }
+
+    window.onYouTubeIframeAPIReady = function() {
+      createCustomPresetPlayer();
+    };
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var button = document.getElementById("customPresetStart");
+
+      if (button) {
+        button.addEventListener("click", function() {
+          playCustomPresetVideo();
+        });
+      }
+
+      if (window.YT && window.YT.Player) {
+        createCustomPresetPlayer();
+      } else {
+        var api = document.createElement("script");
+        api.src = "https://www.youtube.com/iframe_api";
+        api.async = true;
+        document.head.appendChild(api);
+      }
+    });
+  </script>
+
 </body>
 </html>
