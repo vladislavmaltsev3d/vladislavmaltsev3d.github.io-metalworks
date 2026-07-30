@@ -1190,7 +1190,212 @@
       }
     }
   
-    /* Custom Preset showcase */
+    /* Cursor-following ambient background light */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.38;
+      background:
+        radial-gradient(
+          520px circle at var(--cursor-x, 50%) var(--cursor-y, 18%),
+          rgba(255,255,255,0.30),
+          rgba(75,169,183,0.08) 28%,
+          transparent 68%
+        );
+      transition: opacity 0.18s ease;
+    }
+
+    body:not(.cursor-active)::after {
+      opacity: 0.18;
+    }
+
+    /* Opening section based on the supplied reference */
+    .hero {
+      display: block;
+      min-height: 0;
+    }
+
+    .hero-shell {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(300px, 0.85fr);
+      gap: 0;
+      min-height: 330px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: rgba(225,231,228,0.84);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      min-height: 330px;
+      padding: 34px 34px 34px 44px;
+      border: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .hero-copy::before {
+      top: 22px;
+      bottom: 22px;
+      left: 15px;
+      width: 4px;
+      background: var(--accent);
+    }
+
+    .hero-header {
+      margin-bottom: 30px;
+    }
+
+    .hero-side-media {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 18px 18px 18px 10px;
+    }
+
+    .hero-side-media-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: #ffffff;
+      border: 5px solid #69d9f5;
+      background:
+        radial-gradient(circle at 72% 28%, rgba(75,169,183,0.22), transparent 32%),
+        #050708;
+      box-shadow: 0 16px 34px rgba(24,41,47,0.18);
+    }
+
+    .hero-side-media-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.10;
+      background:
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 34px 34px;
+    }
+
+    .hero-side-media-copy {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .hero-side-media-copy strong {
+      display: block;
+      margin-bottom: 7px;
+      font-family: var(--display);
+      font-size: 31px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero-side-media-copy span {
+      color: rgba(255,255,255,0.62);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    .hero-side-media-spec {
+      padding-top: 9px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .hero-primary-media {
+      display: grid;
+      grid-template-rows: 40px auto 46px;
+      min-height: 500px;
+      margin-top: 10px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background:
+        radial-gradient(circle at 72% 24%, rgba(75,169,183,0.14), transparent 22%),
+        linear-gradient(135deg, rgba(240,243,241,0.97), rgba(199,209,206,0.78));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-primary-media .media-grid-placeholder {
+      aspect-ratio: 2.61 / 1;
+    }
+
+    /* Fewer micro labels and larger secondary typography */
+    .system-code,
+    .locator-label,
+    .locator-track,
+    .hero-kicker,
+    .hero-id,
+    .media-topline,
+    .media-status,
+    .section-index,
+    .section-title-wrap p,
+    .module-tag,
+    .workflow-index,
+    .viewer-footer,
+    .viewer-control,
+    footer {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .panel p,
+    .feature-copy,
+    .module-card p,
+    .workflow-card p,
+    .bake-copy p,
+    .cta p,
+    .media-placeholder-copy span,
+    .media-grid-copy span {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.62;
+    }
+
+    .media-grid-placeholder::before,
+    .media-grid-placeholder::after {
+      display: none;
+    }
+
+    @media (max-width: 760px) {
+      .hero-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-side-media {
+        padding: 0 18px 20px;
+      }
+
+      .hero-side-media-frame {
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      .hero-side-media-spec {
+        max-width: 640px;
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+
+  
+    /* Custom preset autoplay video */
     .custom-preset-showcase {
       position: relative;
       display: grid;
@@ -1262,17 +1467,17 @@
 
     .custom-preset-copy p {
       margin: 0 0 20px;
-      color: rgba(234,243,242,0.66);
-      font-size: 11px;
+      color: rgba(234,243,242,0.76);
+      font-size: 12px;
       line-height: 1.72;
       text-transform: uppercase;
     }
 
     .custom-preset-spec {
-      color: rgba(234,243,242,0.46);
-      font-size: 8px;
+      color: rgba(234,243,242,0.58);
+      font-size: 10px;
       line-height: 1.6;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
     }
 
@@ -1308,87 +1513,15 @@
       pointer-events: none;
     }
 
-    .custom-preset-start {
-      position: absolute;
-      inset: 0;
-      z-index: 6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 26px;
-      border: 0;
-      color: #ffffff;
-      background:
-        linear-gradient(rgba(25,41,47,0.48), rgba(25,41,47,0.64)),
-        url("https://i.ytimg.com/vi/pwI5oaUi7Mk/maxresdefault.jpg") center center / cover no-repeat,
-        #283a41;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .custom-preset-start-content {
-      display: block;
-      max-width: 410px;
-    }
-
-    .custom-preset-play-icon {
-      display: block;
-      width: 60px;
-      height: 60px;
-      margin: 0 auto 16px;
-      border: 1px solid rgba(255,255,255,0.68);
-      border-radius: 50%;
-      background: rgba(40,58,65,0.72);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.22);
-    }
-
-    .custom-preset-play-icon::before {
-      content: "";
-      display: block;
-      width: 0;
-      height: 0;
-      margin: 18px 0 0 23px;
-      border-top: 11px solid transparent;
-      border-bottom: 11px solid transparent;
-      border-left: 17px solid #ffffff;
-    }
-
-    .custom-preset-start-title {
-      display: block;
-      margin-bottom: 8px;
-      font-family: var(--display);
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .custom-preset-start-text {
-      display: block;
-      color: rgba(255,255,255,0.68);
-      font-size: 9px;
-      line-height: 1.55;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-    }
-
     .custom-preset-video-shield {
       position: absolute;
       inset: 0;
       z-index: 5;
-      display: none;
+      display: block;
       background: transparent;
       cursor: default;
     }
-
-    .custom-preset-video.is-playing .custom-preset-start {
-      display: none;
-    }
-
-    .custom-preset-video.is-playing .custom-preset-video-shield {
-      display: block;
-    }
-
+    
   </style>
 </head>
 
@@ -1408,45 +1541,59 @@
     </div>
 
     <section class="hero reveal">
-      <div class="hero-copy">
-        <div class="hero-header">
-          <div>
-            <div class="hero-kicker">Lazy 3D / Blender Material System</div>
-            <h1>Metalworks</h1>
-          </div>
-
-          <div class="hero-id">
-            MATERIAL ID<br>
-            MW-150-PRO<br>
-            STATUS: ACTIVE
-          </div>
-        </div>
-
-        <p class="hero-lead">
-          Apply production-ready metal materials in one click, then refine them through a complete procedural surface system.
-          Begin with <strong>150+ professionally prepared presets</strong> and reach ultra-realistic results in only a few controlled adjustments.
-        </p>
-
-      </div>
-
-      <div class="hero-media">
-        <div class="media-topline">Primary Material Visualization</div>
-
-        <div class="media-grid-placeholder">
-          <div class="media-grid-copy">
+      <div class="hero-shell">
+        <div class="hero-copy">
+          <div class="hero-header">
             <div>
-              <strong>Primary Media Placeholder</strong>
-              <span>
-                Cinematic render / product trailer / animated material transition / close-up surface study
-              </span>
+              <div class="hero-kicker">Lazy 3D / Blender Material System</div>
+              <h1>Metalworks</h1>
+            </div>
+
+            <div class="hero-id">
+              MATERIAL ID<br>
+              MW-150-PRO<br>
+              STATUS: ACTIVE
             </div>
           </div>
+
+          <p class="hero-lead">
+            Apply production-ready metal materials in one click, then refine them through a complete procedural surface system.
+            Begin with <strong>150+ professionally prepared presets</strong> and reach ultra-realistic results in only a few controlled adjustments.
+          </p>
         </div>
 
-        <div class="media-status">
-          <span>Display Channel: Product Overview</span>
-          <span>Media Slot 01</span>
+        <div class="hero-side-media">
+          <div class="hero-side-media-frame">
+            <div class="hero-side-media-copy">
+              <strong>Hero Media</strong>
+              <span>Product render or short loop</span>
+            </div>
+          </div>
+
+          <div class="hero-side-media-spec">
+            Recommended: 1600 × 1200 px / 4:3
+          </div>
         </div>
+      </div>
+    </section>
+
+    <section class="hero-primary-media reveal">
+      <div class="media-topline">Primary Material Visualization</div>
+
+      <div class="media-grid-placeholder">
+        <div class="media-grid-copy">
+          <div>
+            <strong>Primary Media Placeholder</strong>
+            <span>
+              Cinematic render / product trailer / animated material transition
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-status">
+        <span>Recommended: 1920 × 736 px</span>
+        <span>Wide media / 2.61:1</span>
       </div>
     </section>
 
@@ -1819,20 +1966,6 @@
               id="customPresetYoutubePlayer">
             </div>
 
-            <button
-              class="custom-preset-start"
-              id="customPresetStart"
-              type="button"
-              aria-label="Play the custom preset workflow video">
-              <span class="custom-preset-start-content">
-                <span class="custom-preset-play-icon"></span>
-                <span class="custom-preset-start-title">Custom Preset Workflow</span>
-                <span class="custom-preset-start-text">
-                  Click once to start the muted looping video
-                </span>
-              </span>
-            </button>
-
             <div
               class="custom-preset-video-shield"
               aria-hidden="true">
@@ -1865,6 +1998,17 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+
+      document.addEventListener("mousemove", function(event) {
+        document.documentElement.style.setProperty("--cursor-x", event.clientX + "px");
+        document.documentElement.style.setProperty("--cursor-y", event.clientY + "px");
+        document.body.classList.add("cursor-active");
+      }, { passive: true });
+
+      document.addEventListener("mouseleave", function() {
+        document.body.classList.remove("cursor-active");
+      });
+
       const DESIGN_WIDTH = 1056;
       const stage = document.getElementById("viewportStage");
       const page = document.getElementById("designPage");
@@ -1930,8 +2074,6 @@
 
   <script>
     var customPresetPlayer = null;
-    var customPresetReady = false;
-    var customPresetRequested = false;
 
     function createCustomPresetPlayer() {
       if (customPresetPlayer || !window.YT || !window.YT.Player) return;
@@ -1942,7 +2084,7 @@
         width: "100%",
         height: "100%",
         playerVars: {
-          autoplay: 0,
+          autoplay: 1,
           controls: 0,
           disablekb: 1,
           enablejsapi: 1,
@@ -1952,36 +2094,21 @@
           playlist: "pwI5oaUi7Mk",
           playsinline: 1,
           rel: 0,
-          modestbranding: 1,
-          showinfo: 0
+          modestbranding: 1
         },
         events: {
           onReady: function(event) {
-            customPresetReady = true;
             event.target.mute();
+            event.target.playVideo();
 
             var frame = event.target.getIframe();
             if (frame) {
               frame.setAttribute("tabindex", "-1");
               frame.setAttribute("aria-hidden", "true");
             }
-
-            if (customPresetRequested) {
-              playCustomPresetVideo();
-            }
           },
           onStateChange: function(event) {
-            var wrapper = document.getElementById("customPresetVideo");
-
-            if (event.data === YT.PlayerState.PLAYING && wrapper) {
-              wrapper.classList.add("is-playing");
-            }
-
-            if (
-              event.data === YT.PlayerState.PAUSED &&
-              wrapper &&
-              wrapper.classList.contains("is-playing")
-            ) {
+            if (event.data === YT.PlayerState.PAUSED) {
               event.target.playVideo();
             }
 
@@ -1994,28 +2121,11 @@
       });
     }
 
-    function playCustomPresetVideo() {
-      customPresetRequested = true;
-
-      if (!customPresetReady || !customPresetPlayer) return;
-
-      customPresetPlayer.mute();
-      customPresetPlayer.playVideo();
-    }
-
     window.onYouTubeIframeAPIReady = function() {
       createCustomPresetPlayer();
     };
 
     document.addEventListener("DOMContentLoaded", function() {
-      var button = document.getElementById("customPresetStart");
-
-      if (button) {
-        button.addEventListener("click", function() {
-          playCustomPresetVideo();
-        });
-      }
-
       if (window.YT && window.YT.Player) {
         createCustomPresetPlayer();
       } else {
