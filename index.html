@@ -2611,7 +2611,7 @@
     .surface-history-media {
       position: relative;
       width: 100%;
-      aspect-ratio: 2000 / 2000;
+      aspect-ratio: 1 / 1;
       overflow: hidden;
       border: 1px solid var(--line-strong);
       background: #cfd4d2;
@@ -2807,6 +2807,19 @@
       width: 100%;
     }
 
+  
+    .surface-history-step-label {
+      margin: 0 0 12px;
+      color: #2d3e44;
+      font-family: var(--display);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.11em;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
   </style>
 </head>
 
@@ -2974,7 +2987,7 @@
             src="https://assets.superhivemarket.com/cache/7d1ec68aaae02882e8c891f327e5a896.jpg"
             alt="Metalworks surface history step 1"
             width="2000"
-            height="2030"
+            height="2000"
             loading="lazy">
         </div>
 
@@ -2987,6 +3000,8 @@
               the polished edge touched a thousand times, the scratch left by impact,
               the oxidation born from exposure, and the dirt gathered through years of use.
             </p>
+
+            <div class="surface-history-step-label" id="surfaceHistoryStepLabel">Ready</div>
 
             <div class="surface-history-progress" id="surfaceHistoryProgress">
               Step 01 / 01
@@ -3585,56 +3600,115 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      var sliders = document.querySelectorAll(".comparison-range");
-
-      sliders.forEach(function(slider) {
-        var frame = slider.closest(".comparison-frame");
-
-        function updateComparison() {
-          if (!frame) return;
-          frame.style.setProperty("--split", slider.value + "%");
+      /*
+       * Surface History sequence.
+       * Index 0 is the initial idle start image.
+       */
+      var surfaceHistorySteps = [
+        {
+          src: "https://assets.superhivemarket.com/cache/7d1ec68aaae02882e8c891f327e5a896.jpg",
+          label: "Ready",
+          progress: "Step 00 / 08"
+        },
+        {
+          src: "https://assets.superhivemarket.com/cache/5094891af824cc75b34ddcb75fe0b260.jpg",
+          label: "Starting Point",
+          progress: "Step 01 / 08"
+        },
+        {
+          src: "https://assets.superhivemarket.com/cache/d33330249970ebbcdb0e6d5b10bd3e02.jpg",
+          label: "Discoloration & Metallic Map",
+          progress: "Step 02 / 08"
+        },
+        {
+          src: "https://assets.superhivemarket.com/cache/83eb32af600a54d94157f6bd05bbe3bd.jpg",
+          label: "Roughness Map",
+          progress: "Step 03 / 08"
+        },
+        {
+          src: "https://assets.superhivemarket.com/cache/4e45925c4e620669773cc1481bde5b5c.jpg",
+          label: "Edge Wear",
+          progress: "Step 04 / 08"
+        },
+        {
+          src: "https://assets.superhivemarket.com/cache/5a6b99a80fcc9b5498b2cb4acaaced5b.jpg",
+          label: "Damage",
+          progress: "Step 05 / 08"
+        },
+        {
+          src: "https://assets.superhivemarket.com/cache/fac5b1e45622589c9d4790632dbe1538.jpg",
+          label: "Rust",
+          progress: "Step 06 / 08"
+        },
+        {
+          src: "https://assets.superhivemarket.com/cache/e27ae63182fa2669ada0e08e327c7bbc.jpg",
+          label: "Dirt",
+          progress: "Step 07 / 08"
+        },
+        {
+          src: "https://assets.superhivemarket.com/cache/3ab41267ee4e9e69ae292cef1352570d.jpg",
+          label: "Paint Bumps & Chippings",
+          progress: "Step 08 / 08"
         }
+      ];
 
-        function hideComparisonHint() {
-          if (!frame) return;
-          frame.classList.add("is-touched");
+      var image = document.getElementById("surfaceHistoryImage");
+      var button = document.getElementById("surfaceHistoryButton");
+      var label = button ? button.querySelector(".surface-history-button-label") : null;
+      var progress = document.getElementById("surfaceHistoryProgress");
+      var stepLabel = document.getElementById("surfaceHistoryStepLabel");
+      var media = image ? image.closest(".surface-history-media") : null;
+      var currentStep = 0;
+
+      function updateSurfaceHistoryUi() {
+        if (!button || !label || !progress || !stepLabel) return;
+
+        var stepData = surfaceHistorySteps[currentStep];
+
+        stepLabel.textContent = stepData.label;
+        progress.textContent = stepData.progress;
+
+        if (currentStep === 0) {
+          label.textContent = "Start";
+          button.setAttribute("aria-label", "Start surface history sequence");
+        } else if (currentStep === surfaceHistorySteps.length - 1) {
+          label.textContent = "Restore";
+          button.setAttribute("aria-label", "Restore the first surface history image");
+        } else {
+          label.textContent = "Next Step";
+          button.setAttribute("aria-label", "Show the next surface history step");
         }
+      }
 
-        slider.addEventListener("pointerdown", hideComparisonHint, { once: true });
-        slider.addEventListener("touchstart", hideComparisonHint, { once: true, passive: true });
-        slider.addEventListener("mousedown", hideComparisonHint, { once: true });
-        slider.addEventListener("keydown", hideComparisonHint, { once: true });
-        slider.addEventListener("input", function() {
-          hideComparisonHint();
-          updateComparison();
-        });
-        slider.addEventListener("change", updateComparison);
-        updateComparison();
-      });
+      function changeSurfaceHistoryImage(nextIndex) {
+        if (!image || !media) return;
 
-      var specButton = document.querySelector(".spec-toggle-button");
-      if (specButton) {
-        var comparisonRoot = specButton.closest(".bake-subsection");
-        var afterImage = comparisonRoot ? comparisonRoot.querySelector(".spec-after-image") : null;
+        media.classList.add("is-changing");
 
-        specButton.addEventListener("click", function() {
-          if (!afterImage) return;
+        window.setTimeout(function() {
+          currentStep = nextIndex;
+          var stepData = surfaceHistorySteps[currentStep];
+          image.src = stepData.src;
+          image.alt = "Metalworks surface history step " + currentStep;
+          updateSurfaceHistoryUi();
 
-          var corrected = specButton.getAttribute("data-state") === "corrected";
+          window.setTimeout(function() {
+            media.classList.remove("is-changing");
+          }, 80);
+        }, 120);
+      }
 
-          if (corrected) {
-            afterImage.src = specButton.getAttribute("data-default-src");
-            specButton.textContent = "Add Specular Correction";
-            specButton.setAttribute("data-state", "default");
-            specButton.setAttribute("aria-pressed", "false");
+      if (button) {
+        button.addEventListener("click", function() {
+          if (currentStep === surfaceHistorySteps.length - 1) {
+            changeSurfaceHistoryImage(0);
           } else {
-            afterImage.src = specButton.getAttribute("data-corrected-src");
-            specButton.textContent = "Remove Specular Correction";
-            specButton.setAttribute("data-state", "corrected");
-            specButton.setAttribute("aria-pressed", "true");
+            changeSurfaceHistoryImage(currentStep + 1);
           }
         });
       }
+
+      updateSurfaceHistoryUi();
     });
   </script>
 
@@ -3643,7 +3717,7 @@
     document.addEventListener("DOMContentLoaded", function() {
       /*
        * Add future step image URLs to this array in order.
-       * The first item is the initial 2000 × 2030 image.
+       * The first item is the initial 2000 × 2000 image.
        */
       var surfaceHistorySteps = [
         "https://assets.superhivemarket.com/cache/7d1ec68aaae02882e8c891f327e5a896.jpg"
