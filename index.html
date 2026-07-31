@@ -2634,11 +2634,6 @@
       max-width: none;
       object-fit: cover;
       object-position: center center;
-      transition: opacity 0.16s ease;
-    }
-
-    .surface-history-media.is-changing img {
-      opacity: 0.20;
     }
 
     .surface-history-panel {
@@ -2820,6 +2815,174 @@
       text-transform: uppercase;
     }
 
+  
+    /* Master hero rebuilt from the supplied layout */
+    .master-hero {
+      position: relative;
+      margin: 0;
+    }
+
+    .master-hero-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3840 / 1472;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: #dfe4e1;
+      box-shadow: var(--shadow);
+    }
+
+    .master-hero-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: inset 0 0 0 1px rgba(27,43,49,0.10);
+    }
+
+    .master-hero-media > img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    .master-hero-copy {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 3;
+      width: 61%;
+      min-height: 228px;
+      padding: 28px 34px 28px 76px;
+      color: #ffffff;
+      background: transparent;
+      border: 0;
+      clip-path: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .master-hero-copy::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      bottom: 18px;
+      left: 48px;
+      width: 3px;
+      background: linear-gradient(var(--line-strong), var(--accent));
+      opacity: 0.70;
+    }
+
+    .master-hero-kicker {
+      margin: 0 0 8px;
+      color: #eef4f2;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .master-hero-copy h1 {
+      margin: 0 0 20px;
+      color: #ffffff;
+      font-size: 74px;
+      font-weight: 700;
+      line-height: 0.82;
+      letter-spacing: 0.025em;
+    }
+
+    .master-hero-copy p {
+      max-width: 560px;
+      margin: 0;
+      color: #f3f7f5;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.70;
+    }
+
+    .master-hero-copy strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    #overview {
+      margin-top: 10px;
+    }
+
+    @media (max-width: 760px) {
+      .master-hero-copy {
+        width: 68%;
+        min-height: 205px;
+        padding: 25px 26px 24px 64px;
+      }
+
+      .master-hero-copy::before {
+        left: 40px;
+      }
+
+      .master-hero-copy h1 {
+        font-size: 62px;
+      }
+
+      .master-hero-copy p {
+        font-size: 11px;
+      }
+    }
+
+  
+    .master-hero-kicker,
+    .master-hero-copy h1,
+    .master-hero-copy p {
+      text-shadow: none !important;
+    }
+
+    /* Reliable pointer-driven Bake comparison controls */
+    .comparison-frame {
+      cursor: ew-resize;
+      touch-action: none;
+    }
+
+    .comparison-range {
+      pointer-events: none;
+    }
+
+    .comparison-frame:focus-visible {
+      outline: 2px solid rgba(105, 217, 245, 0.92);
+      outline-offset: 2px;
+    }
+
+  
+    /* Dark master-hero typography for the light revolver background */
+    .master-hero-copy {
+      color: #26353b;
+    }
+
+    .master-hero-kicker {
+      color: #56676d;
+      text-shadow: none !important;
+    }
+
+    .master-hero-copy h1 {
+      color: #202f35;
+      text-shadow: none !important;
+    }
+
+    .master-hero-copy p {
+      color: #46575d;
+      text-shadow: none !important;
+    }
+
+    .master-hero-copy strong {
+      color: #202f35;
+    }
+
   </style>
 </head>
 
@@ -2831,50 +2994,28 @@
       <div class="system-code">MW / MATERIAL SYSTEM / BUILD 01</div>
     </header>
 
-    <section class="hero reveal">
-      <div class="hero-shell">
-        <div class="hero-copy">
-          <div class="hero-header">
-            <div>
-              <div class="hero-kicker">Lazy 3D / Blender Material System</div>
-              <h1>Metalworks</h1>
-            </div>
-          </div>
+    <section class="master-hero reveal" aria-labelledby="masterHeroTitle">
+      <div class="master-hero-media">
+        <img
+          src="https://assets.superhivemarket.com/cache/f748d9a8d0f1234be815a98c36c3955e.jpg"
+          alt="Metalworks procedural metal material applied to a revolver"
+          width="3840"
+          height="1472"
+          loading="eager"
+          fetchpriority="high">
 
-          <p class="hero-lead">
-            Apply production-ready metal materials in one click, then refine them through a complete procedural surface system.
-            Begin with <strong>150+ professionally prepared presets</strong> and reach ultra-realistic results in only a few controlled adjustments.
+        <div class="master-hero-copy">
+          <div class="master-hero-kicker">Lazy 3D / Blender Material System</div>
+
+          <h1 id="masterHeroTitle">Metalworks</h1>
+
+          <p>
+            Apply production-ready metal materials in one click, then refine them
+            through a complete procedural surface system. Begin with
+            <strong>150+ professionally prepared presets</strong> and reach
+            ultra-realistic results in only a few controlled adjustments.
           </p>
         </div>
-
-        <div class="hero-side-media">
-          <div class="hero-side-media-frame">
-            <div class="hero-side-media-copy">
-              <strong>Hero Media</strong>
-              <span>Product render or short loop</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="hero-primary-media reveal">
-      <div class="media-topline">Primary Material Visualization</div>
-
-      <div class="media-grid-placeholder">
-        <div class="media-grid-copy">
-          <div>
-            <strong>Primary Media Placeholder</strong>
-            <span>
-              Cinematic render / product trailer / animated material transition
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="media-status">
-        <span>Primary media / 1920 × 736 px</span>
-        <span>Media Slot 01</span>
       </div>
     </section>
 
@@ -2944,36 +3085,7 @@
           </div>
         </div>
       </div>
-
-      <div class="feature-stack">
-        <article class="feature-row">
-          <div class="feature-name">One-Click Application</div>
-          <div class="feature-copy">
-            Apply a complete Metalworks material directly to the selected object.
-            The material structure, shader, and supporting texture setup are prepared automatically.
-          </div>
-          <div class="feature-code"></div>
-        </article>
-
-        <article class="feature-row">
-          <div class="feature-name">Editable Foundation</div>
-          <div class="feature-copy">
-            Every preset remains fully adjustable. Simplify the material, intensify selected effects,
-            or rebuild its visual history through the organized modules.
-          </div>
-          <div class="feature-code"></div>
-        </article>
-
-        <article class="feature-row">
-          <div class="feature-name">Consistent Workflow</div>
-          <div class="feature-copy">
-            Move between presets without changing the way you work.
-            The same control logic remains available across clean, painted, damaged, and corroded surfaces.
-          </div>
-          <div class="feature-code"></div>
-        </article>
-      </div>
-    </section>
+</section>
 
     <section class="section reveal" id="realism">
       <div class="section-heading surface-history-heading">
@@ -3686,21 +3798,13 @@
       }
 
       function changeSurfaceHistoryImage(nextIndex) {
-        if (!image || !media) return;
+        if (!image) return;
 
-        media.classList.add("is-changing");
-
-        window.setTimeout(function() {
-          currentStep = nextIndex;
-          var stepData = surfaceHistorySteps[currentStep];
-          image.src = stepData.src;
-          image.alt = "Metalworks surface history step " + currentStep;
-          updateSurfaceHistoryUi();
-
-          window.setTimeout(function() {
-            media.classList.remove("is-changing");
-          }, 80);
-        }, 120);
+        currentStep = nextIndex;
+        var stepData = surfaceHistorySteps[currentStep];
+        image.src = stepData.src;
+        image.alt = "Metalworks surface history step " + currentStep;
+        updateSurfaceHistoryUi();
       }
 
       if (button) {
@@ -3719,6 +3823,172 @@
 
 
   
+
+
+  <script>
+    (function () {
+      function initializeMetalworksComparisons() {
+        var frames = document.querySelectorAll(".comparison-frame");
+
+        frames.forEach(function (frame) {
+          if (frame.dataset.comparisonReady === "true") return;
+          frame.dataset.comparisonReady = "true";
+
+          var range = frame.querySelector(".comparison-range");
+          var dragging = false;
+
+          frame.setAttribute("tabindex", "0");
+          frame.setAttribute("role", "slider");
+          frame.setAttribute("aria-valuemin", "0");
+          frame.setAttribute("aria-valuemax", "100");
+
+          function clamp(value) {
+            return Math.max(0, Math.min(100, value));
+          }
+
+          function setSplit(value, markTouched) {
+            var nextValue = clamp(Number(value) || 0);
+
+            frame.style.setProperty("--split", nextValue + "%");
+            frame.setAttribute("aria-valuenow", String(Math.round(nextValue)));
+
+            if (range) {
+              range.value = String(nextValue);
+            }
+
+            if (markTouched) {
+              frame.classList.add("is-touched");
+            }
+          }
+
+          function valueFromClientX(clientX) {
+            var rect = frame.getBoundingClientRect();
+
+            if (!rect.width) return 50;
+
+            return ((clientX - rect.left) / rect.width) * 100;
+          }
+
+          function updateFromPointer(event) {
+            setSplit(valueFromClientX(event.clientX), true);
+          }
+
+          frame.addEventListener("pointerdown", function (event) {
+            if (event.button !== undefined && event.button !== 0) return;
+
+            dragging = true;
+            frame.focus({ preventScroll: true });
+
+            try {
+              frame.setPointerCapture(event.pointerId);
+            } catch (error) {
+              // Pointer capture is optional; dragging still works without it.
+            }
+
+            updateFromPointer(event);
+            event.preventDefault();
+          });
+
+          frame.addEventListener("pointermove", function (event) {
+            if (!dragging) return;
+            updateFromPointer(event);
+            event.preventDefault();
+          });
+
+          function stopDragging(event) {
+            if (!dragging) return;
+            dragging = false;
+
+            if (event && event.pointerId !== undefined) {
+              try {
+                frame.releasePointerCapture(event.pointerId);
+              } catch (error) {
+                // Ignore browsers that already released capture.
+              }
+            }
+          }
+
+          frame.addEventListener("pointerup", stopDragging);
+          frame.addEventListener("pointercancel", stopDragging);
+          frame.addEventListener("lostpointercapture", function () {
+            dragging = false;
+          });
+
+          frame.addEventListener("keydown", function (event) {
+            var current = range
+              ? Number(range.value)
+              : parseFloat(
+                  getComputedStyle(frame).getPropertyValue("--split")
+                ) || 50;
+
+            var next = current;
+
+            if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+              next = current - 2;
+            } else if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+              next = current + 2;
+            } else if (event.key === "Home") {
+              next = 0;
+            } else if (event.key === "End") {
+              next = 100;
+            } else {
+              return;
+            }
+
+            setSplit(next, true);
+            event.preventDefault();
+          });
+
+          if (range) {
+            range.addEventListener("input", function () {
+              setSplit(range.value, true);
+            });
+          }
+
+          setSplit(range ? range.value : 50, false);
+        });
+
+        var specButton = document.querySelector(".spec-toggle-button");
+
+        if (specButton && specButton.dataset.toggleReady !== "true") {
+          specButton.dataset.toggleReady = "true";
+
+          specButton.addEventListener("click", function () {
+            var image = document.querySelector(".spec-after-image");
+            if (!image) return;
+
+            var corrected = specButton.dataset.state === "corrected";
+
+            if (corrected) {
+              image.src = specButton.dataset.defaultSrc;
+              specButton.dataset.state = "default";
+              specButton.setAttribute("aria-pressed", "false");
+              specButton.textContent = "Add Specular Correction";
+            } else {
+              image.src = specButton.dataset.correctedSrc;
+              specButton.dataset.state = "corrected";
+              specButton.setAttribute("aria-pressed", "true");
+              specButton.textContent = "Remove Specular Correction";
+            }
+          });
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener(
+          "DOMContentLoaded",
+          initializeMetalworksComparisons,
+          { once: true }
+        );
+      } else {
+        initializeMetalworksComparisons();
+      }
+
+      window.addEventListener("load", initializeMetalworksComparisons, {
+        once: true
+      });
+    })();
+  </script>
 
 </body>
 </html>
