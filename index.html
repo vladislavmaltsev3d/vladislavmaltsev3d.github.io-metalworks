@@ -3660,6 +3660,11 @@
       var media = image ? image.closest(".surface-history-media") : null;
       var currentStep = 0;
 
+      surfaceHistorySteps.forEach(function(step) {
+        var preloadedImage = new Image();
+        preloadedImage.src = step.src;
+      });
+
       function updateSurfaceHistoryUi() {
         if (!button || !label || !progress || !stepLabel) return;
 
@@ -3713,85 +3718,7 @@
   </script>
 
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      /*
-       * Add future step image URLs to this array in order.
-       * The first item is the initial 2000 × 2000 image.
-       */
-      var surfaceHistorySteps = [
-        "https://assets.superhivemarket.com/cache/7d1ec68aaae02882e8c891f327e5a896.jpg"
-      ];
-
-      var image = document.getElementById("surfaceHistoryImage");
-      var button = document.getElementById("surfaceHistoryButton");
-      var label = button ? button.querySelector(".surface-history-button-label") : null;
-      var progress = document.getElementById("surfaceHistoryProgress");
-      var media = image ? image.closest(".surface-history-media") : null;
-      var currentStep = 0;
-
-      function updateSurfaceHistoryUi() {
-        if (!button || !label || !progress) return;
-
-        var total = surfaceHistorySteps.length;
-        progress.textContent =
-          "Step " + String(currentStep + 1).padStart(2, "0") +
-          " / " + String(total).padStart(2, "0");
-
-        if (total <= 1) {
-          label.textContent = "Start";
-          button.setAttribute("aria-label", "More surface history steps coming soon");
-          button.disabled = true;
-          return;
-        }
-
-        button.disabled = false;
-
-        if (currentStep === 0) {
-          label.textContent = "Start";
-          button.setAttribute("aria-label", "Start surface history sequence");
-        } else if (currentStep === total - 1) {
-          label.textContent = "Restore";
-          button.setAttribute("aria-label", "Restore the first surface history image");
-        } else {
-          label.textContent = "Next Step";
-          button.setAttribute("aria-label", "Show the next surface history step");
-        }
-      }
-
-      function changeSurfaceHistoryImage(nextIndex) {
-        if (!image || !media) return;
-
-        media.classList.add("is-changing");
-
-        window.setTimeout(function() {
-          currentStep = nextIndex;
-          image.src = surfaceHistorySteps[currentStep];
-          image.alt = "Metalworks surface history step " + (currentStep + 1);
-          updateSurfaceHistoryUi();
-
-          window.setTimeout(function() {
-            media.classList.remove("is-changing");
-          }, 80);
-        }, 120);
-      }
-
-      if (button) {
-        button.addEventListener("click", function() {
-          var total = surfaceHistorySteps.length;
-          if (total <= 1) return;
-
-          if (currentStep === total - 1) {
-            changeSurfaceHistoryImage(0);
-          } else {
-            changeSurfaceHistoryImage(currentStep + 1);
-          }
-        });
-      }
-
-      updateSurfaceHistoryUi();
-    });
-  </script>
+  
 
 </body>
 </html>
