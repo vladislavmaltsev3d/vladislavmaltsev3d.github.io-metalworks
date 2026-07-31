@@ -2983,6 +2983,187 @@
       color: #202f35;
     }
 
+  
+    /* Section 01 workflow media magnifier */
+    .workflow-zoom-shell {
+      position: relative;
+      width: 100%;
+    }
+
+    .workflow-zoom-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 10 / 3;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: #d6ddda;
+      box-shadow: var(--shadow);
+      cursor: zoom-in;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .workflow-zoom-media.is-magnifying {
+      cursor: none;
+    }
+
+    .workflow-zoom-media > img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: center center;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+
+    .workflow-zoom-lens {
+      --lens-size: 345px;
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      width: var(--lens-size);
+      height: var(--lens-size);
+      display: none;
+      border: 2px solid rgba(238,247,247,0.96);
+      border-radius: 50%;
+      background-image: url("https://assets.superhivemarket.com/cache/53f2b04d8fc65d86aec71fd3a927b98d.jpg");
+      background-repeat: no-repeat;
+      box-shadow:
+        0 0 0 2px rgba(35,57,64,0.80),
+        0 16px 36px rgba(20,36,42,0.34),
+        inset 0 0 0 1px rgba(255,255,255,0.32);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+    }
+
+    .workflow-zoom-media.is-magnifying .workflow-zoom-lens {
+      display: block;
+    }
+
+    .workflow-zoom-hint {
+      position: absolute;
+      right: 14px;
+      bottom: 12px;
+      z-index: 4;
+      padding: 8px 11px;
+      color: rgba(244,249,248,0.94);
+      background: rgba(34,51,57,0.78);
+      border: 1px solid rgba(255,255,255,0.22);
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .workflow-zoom-hint-mobile {
+      display: none;
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      .workflow-zoom-media {
+        cursor: pointer;
+      }
+
+      .workflow-zoom-hint-desktop {
+        display: none;
+      }
+
+      .workflow-zoom-hint-mobile {
+        display: inline;
+      }
+
+      .workflow-zoom-lens {
+        --lens-size: 270px;
+      }
+    }
+
+  
+    /* Preset workflow documentation reference */
+    .preset-workflow-reference {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .preset-workflow-chapters {
+      margin: 14px 0 16px;
+      padding: 0;
+      list-style: none;
+      counter-reset: workflow-chapter;
+    }
+
+    .preset-workflow-chapters li {
+      position: relative;
+      min-height: 28px;
+      padding: 6px 12px 6px 42px;
+      border-top: 1px solid rgba(72, 91, 96, 0.18);
+      color: #3f4f55;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.45;
+      letter-spacing: 0.025em;
+      counter-increment: workflow-chapter;
+    }
+
+    .preset-workflow-chapters li:last-child {
+      border-bottom: 1px solid rgba(72, 91, 96, 0.18);
+    }
+
+    .preset-workflow-chapters li::before {
+      content: "0" counter(workflow-chapter);
+      position: absolute;
+      top: 6px;
+      left: 10px;
+      color: var(--accent);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+    }
+
+    .preset-workflow-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 42px;
+      margin-top: 6px;
+      padding: 0 15px 0 0;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      background: rgba(255,255,255,0.20);
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .preset-workflow-button:hover,
+    .preset-workflow-button:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(255,255,255,0.42);
+    }
+
+    .preset-workflow-button-platform {
+      display: inline-flex;
+      align-items: center;
+      align-self: stretch;
+      padding: 0 12px;
+      color: #ffffff;
+      background: #283a41;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+    }
+
   </style>
 </head>
 
@@ -3021,41 +3202,32 @@
 
     <section class="section reveal" id="overview">
       <div class="section-heading">
-        <div class="section-index">01 / System Overview</div>
+        <div class="section-index">01 / Material Application</div>
 
         <div class="section-title-wrap">
-          <h2>Realism Without Rebuilding</h2>
+          <h2>Complete Surface Detail.</h2>
           <p>
-            A controlled workflow for clean, damaged, painted, oxidized,
-            worn, and heavily weathered metal surfaces.
+            Apply a production-ready Metalworks material instantly, then refine
+            every layer without rebuilding the shader.
           </p>
         </div>
       </div>
 
-      <div class="panel-grid overview-grid">
-        <article class="panel overview-copy-panel">
-          <div class="panel-inner">
-            <h3>Fast Visual Decisions</h3>
+      <div class="workflow-zoom-shell">
+        <div class="workflow-zoom-media" id="workflowZoomMedia">
+          <img
+            id="workflowZoomImage"
+            src="https://assets.superhivemarket.com/cache/53f2b04d8fc65d86aec71fd3a927b98d.jpg"
+            alt="Metalworks one-click material application workflow"
+            width="8000"
+            height="2400"
+            loading="lazy">
 
-            <p>
-              Choose a preset, apply it, and refine only the layers that matter.
-              Advanced controls remain organized and fully editable inside Blender.
-            </p>
+          <div class="workflow-zoom-lens" id="workflowZoomLens" aria-hidden="true"></div>
 
-            <ul class="system-list">
-              <li>One-click material application</li>
-              <li>Independent procedural modules</li>
-              <li>Production-ready baking workflow</li>
-            </ul>
-          </div>
-        </article>
-
-        <!-- Recommended media: 1600 × 1200 px or 1920 × 1440 px, 4:3 -->
-        <div class="media-placeholder dark overview-media">
-          <div class="media-placeholder-inner">
-            <div class="media-placeholder-copy">
-              <strong>Main Workflow Media</strong>
-            </div>
+          <div class="workflow-zoom-hint">
+            <span class="workflow-zoom-hint-desktop">Hold left mouse button to magnify · Use mouse wheel to adjust zoom</span>
+            <span class="workflow-zoom-hint-mobile">Tap image to magnify</span>
           </div>
         </div>
       </div>
@@ -3529,6 +3701,42 @@
             </p>
           </div>
         </article>
+
+        <article class="limitation-item">
+          <div class="limitation-number">04</div>
+
+          <div class="limitation-copy">
+            <h3>Preset Adjustments</h3>
+
+            <p>
+              Each preset provides a carefully prepared starting point for a specific material style,
+              but the final appearance can vary depending on the physical scale of the object and the lighting setup.
+            </p>
+
+            <p>
+              For the closest one-click match, use realistic object dimensions similar to those used when the preset was created.
+              For example, a rifle preset was developed on a realistically scaled rifle. If your object is several times larger
+              or smaller, the wear, scratches, dirt, and other procedural details may appear too large or too fine.
+            </p>
+
+            <p>
+              Small adjustments to texture scale, effect strength, roughness, or related controls are therefore recommended
+              so the preset fits your model and scene correctly.
+            </p>
+
+            <div class="preset-workflow-reference">
+              <a
+                class="preset-workflow-button"
+                href="https://www.youtube.com/watch?v=fyncPPwlfTo&t=126s"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Watch how customizing a preset works on YouTube">
+                <span class="preset-workflow-button-platform">YouTube</span>
+                <span>See How Customizing Preset Works</span>
+              </a>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -3987,6 +4195,140 @@
       window.addEventListener("load", initializeMetalworksComparisons, {
         once: true
       });
+    })();
+  </script>
+
+
+  <script>
+    (function () {
+      function initWorkflowMagnifier() {
+        var media = document.getElementById("workflowZoomMedia");
+        var lens = document.getElementById("workflowZoomLens");
+
+        if (!media || !lens || media.dataset.zoomReady === "true") return;
+
+        media.dataset.zoomReady = "true";
+
+        var zoom = 4;
+        var minZoom = 2;
+        var maxZoom = 8;
+        var isPointerDown = false;
+        var isTouchMode = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+        var lastX = 0.5;
+        var lastY = 0.5;
+
+        function clamp(value, min, max) {
+          return Math.max(min, Math.min(max, value));
+        }
+
+        function updateLensNormalized(nx, ny) {
+          var rect = media.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+
+          nx = clamp(nx, 0, 1);
+          ny = clamp(ny, 0, 1);
+          lastX = nx;
+          lastY = ny;
+
+          var x = nx * rect.width;
+          var y = ny * rect.height;
+          var lensSize = lens.offsetWidth || 345;
+
+          lens.style.left = x + "px";
+          lens.style.top = y + "px";
+          lens.style.backgroundSize =
+            (rect.width * zoom) + "px " + (rect.height * zoom) + "px";
+          lens.style.backgroundPosition =
+            (-(x * zoom - lensSize / 2)) + "px " +
+            (-(y * zoom - lensSize / 2)) + "px";
+        }
+
+        function updateLensClient(clientX, clientY) {
+          var rect = media.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+
+          updateLensNormalized(
+            (clientX - rect.left) / rect.width,
+            (clientY - rect.top) / rect.height
+          );
+        }
+
+        function showLens(clientX, clientY) {
+          media.classList.add("is-magnifying");
+          updateLensClient(clientX, clientY);
+        }
+
+        function hideLens() {
+          media.classList.remove("is-magnifying");
+          isPointerDown = false;
+        }
+
+        media.addEventListener("pointerdown", function (event) {
+          if (isTouchMode) return;
+          if (event.button !== undefined && event.button !== 0) return;
+
+          isPointerDown = true;
+          showLens(event.clientX, event.clientY);
+
+          try {
+            media.setPointerCapture(event.pointerId);
+          } catch (error) {}
+
+          event.preventDefault();
+        });
+
+        media.addEventListener("pointermove", function (event) {
+          if (!isPointerDown || isTouchMode) return;
+          updateLensClient(event.clientX, event.clientY);
+          event.preventDefault();
+        });
+
+        media.addEventListener("pointerup", function (event) {
+          if (isTouchMode) return;
+
+          try {
+            media.releasePointerCapture(event.pointerId);
+          } catch (error) {}
+
+          hideLens();
+        });
+
+        media.addEventListener("pointercancel", hideLens);
+        media.addEventListener("lostpointercapture", function () {
+          if (!isTouchMode) hideLens();
+        });
+
+        media.addEventListener("wheel", function (event) {
+          if (isTouchMode || !media.classList.contains("is-magnifying")) return;
+
+          zoom = clamp(zoom + (event.deltaY < 0 ? 0.5 : -0.5), minZoom, maxZoom);
+          updateLensNormalized(lastX, lastY);
+          event.preventDefault();
+        }, { passive: false });
+
+        media.addEventListener("click", function (event) {
+          if (!isTouchMode) return;
+
+          if (media.classList.contains("is-magnifying")) {
+            hideLens();
+          } else {
+            zoom = 4;
+            showLens(event.clientX, event.clientY);
+          }
+        });
+
+        window.addEventListener("resize", function () {
+          if (media.classList.contains("is-magnifying")) {
+            updateLensNormalized(lastX, lastY);
+          }
+        }, { passive: true });
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initWorkflowMagnifier, { once: true });
+      } else {
+        initWorkflowMagnifier();
+      }
     })();
   </script>
 
