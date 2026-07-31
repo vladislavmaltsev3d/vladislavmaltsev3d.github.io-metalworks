@@ -2410,6 +2410,44 @@
       color: #ffffff;
     }
 
+  
+    /* Damage module background image */
+    .module-card-damage {
+      position: relative;
+      overflow: hidden;
+      color: #ffffff;
+      background: url("https://assets.superhivemarket.com/cache/b7b3e4e48b032b08cbd155921e24ad6a.jpg") center center / cover no-repeat;
+    }
+
+    .module-card-damage::before {
+      display: none;
+    }
+
+    .module-card-damage .module-tag,
+    .module-card-damage h3 {
+      position: relative;
+      z-index: 1;
+      color: #ffffff;
+      text-shadow:
+        2px 2px 0 rgba(8, 17, 21, 0.96),
+        -1px -1px 0 rgba(8, 17, 21, 0.88),
+        1px -1px 0 rgba(8, 17, 21, 0.88),
+        -1px 1px 0 rgba(8, 17, 21, 0.88),
+        3px 3px 0 rgba(19, 43, 50, 0.72),
+        0 0 2px rgba(105, 217, 245, 0.52);
+    }
+
+    .module-card-damage:hover {
+      transform: none;
+      color: #ffffff;
+      background: url("https://assets.superhivemarket.com/cache/b7b3e4e48b032b08cbd155921e24ad6a.jpg") center center / cover no-repeat;
+    }
+
+    .module-card-damage:hover .module-tag,
+    .module-card-damage:hover h3 {
+      color: #ffffff;
+    }
+
   </style>
 </head>
 
@@ -2627,7 +2665,7 @@
           <h3>Paint Damage</h3>
         </article>
 
-        <article class="module-card module-card-large">
+        <article class="module-card module-card-large module-card-image module-card-damage">
           <div class="module-tag">Material Damage / 05</div>
           <h3>Damage</h3>
         </article>
