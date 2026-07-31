@@ -3164,6 +3164,236 @@
       letter-spacing: 0.12em;
     }
 
+  
+    /* Final CTA without purchase button */
+    .cta {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cta > div {
+      max-width: 860px;
+    }
+
+    /* Collapsible Product Information */
+    .product-information {
+      margin-top: 12px;
+    }
+
+    .product-information-details {
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: rgba(225, 231, 228, 0.78);
+      box-shadow: 0 12px 28px rgba(47, 62, 66, 0.08);
+    }
+
+    .product-information-summary {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 72px;
+      padding: 14px 20px 14px 24px;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(230, 235, 232, 0.96), rgba(207, 217, 214, 0.88));
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .product-information-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .product-information-summary::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      bottom: 14px;
+      left: 12px;
+      width: 3px;
+      background: linear-gradient(var(--line-strong), var(--accent));
+    }
+
+    .product-information-summary:hover,
+    .product-information-summary:focus-visible {
+      outline: none;
+      background:
+        linear-gradient(90deg, rgba(237, 241, 239, 0.98), rgba(215, 224, 221, 0.94));
+    }
+
+    .product-information-summary strong {
+      display: block;
+      margin-top: 5px;
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: 0.045em;
+      text-transform: uppercase;
+    }
+
+    .product-information-kicker {
+      display: block;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .product-information-toggle {
+      position: relative;
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.20);
+    }
+
+    .product-information-toggle::before,
+    .product-information-toggle::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 14px;
+      height: 1px;
+      background: var(--ink);
+      transform: translate(-50%, -50%);
+      transition: transform 0.18s ease;
+    }
+
+    .product-information-toggle::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .product-information-details[open] .product-information-toggle::after {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    .product-information-content {
+      border-top: 1px solid var(--line-strong);
+    }
+
+    .product-information-block {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .product-information-block:last-child {
+      border-bottom: 0;
+    }
+
+    .product-information-label {
+      padding: 24px 20px;
+      color: rgba(255, 255, 255, 0.90);
+      background: var(--dark);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.4;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .product-information-copy {
+      padding: 22px 26px 24px;
+      color: #4c5a60;
+      background: rgba(238, 242, 240, 0.68);
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.70;
+    }
+
+    .product-information-copy p {
+      max-width: 760px;
+      margin: 0 0 14px;
+    }
+
+    .product-information-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .product-information-copy strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .product-information-copy a {
+      color: #315f68;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .product-information-list {
+      max-width: 790px;
+      margin: 0 0 14px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .product-information-list:last-child {
+      margin-bottom: 0;
+    }
+
+    .product-information-list li {
+      position: relative;
+      margin-bottom: 10px;
+      padding-left: 18px;
+    }
+
+    .product-information-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .product-information-list li::before {
+      content: "";
+      position: absolute;
+      top: 0.72em;
+      left: 0;
+      width: 7px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .product-information-license-note {
+      margin-top: 18px !important;
+      padding: 12px 14px;
+      border: 1px solid rgba(72, 91, 96, 0.24);
+      background: rgba(75, 169, 183, 0.08);
+    }
+
+    @media (max-width: 760px) {
+      .product-information-summary {
+        min-height: 64px;
+        padding: 12px 14px 12px 22px;
+      }
+
+      .product-information-summary strong {
+        font-size: 24px;
+      }
+
+      .product-information-kicker {
+        font-size: 8px;
+      }
+
+      .product-information-block {
+        grid-template-columns: 1fr;
+      }
+
+      .product-information-label {
+        padding: 12px 16px;
+      }
+
+      .product-information-copy {
+        padding: 18px 18px 20px;
+      }
+    }
+
   </style>
 </head>
 
@@ -3765,8 +3995,119 @@
           </p>
         </div>
 
-        <a class="ui-button primary" href="#">Acquire Metalworks</a>
       </div>
+    </section>
+
+    <section class="product-information reveal" aria-label="Product information">
+      <details class="product-information-details">
+        <summary class="product-information-summary">
+          <span>
+            <span class="product-information-kicker">Credits / License / Responsibilities</span>
+            <strong>Product Information</strong>
+          </span>
+
+          <span class="product-information-toggle" aria-hidden="true"></span>
+        </summary>
+
+        <div class="product-information-content">
+          <div class="product-information-block">
+            <div class="product-information-label">Credits</div>
+
+            <div class="product-information-copy">
+              <p>
+                Metalworks was developed through a combination of product design,
+                shader development, technical scripting, and original texture resources.
+              </p>
+
+              <ul class="product-information-list">
+                <li>
+                  Product concept, addon development, scripting, product styling,
+                  file organization, documentation, marketing, and distribution by <strong>Lazy3D</strong>.
+                </li>
+                <li>
+                  Node-group and shader development by <strong>Lazy3D</strong>, in collaboration with
+                  <strong>Konstantin Feyer</strong>, an independent freelance technical artist
+                  commissioned for specific shader and node-group development work.
+                </li>
+                <li>
+                  All included texture maps and surface-pattern resources—including roughness maps,
+                  metallic maps, wear, damage, rust, dirt, and related masks—by
+                  <strong>Vyacheslav CGI</strong> (Vyacheslav M. —
+                  <a href="mailto:vyacheslavmarkov3d@mail.ru">vyacheslavmarkov3d@mail.ru</a>).
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="product-information-block">
+            <div class="product-information-label">Lazy3D Responsibility</div>
+
+            <div class="product-information-copy">
+              <p>Lazy3D is responsible for:</p>
+
+              <ul class="product-information-list">
+                <li>The overall product concept and development of the addon code.</li>
+                <li>
+                  Shader and node-group development, organization, and scripting,
+                  including commissioned collaborative work with Konstantin Feyer.
+                </li>
+                <li>
+                  Product styling, file organization, documentation, marketing,
+                  customer-facing presentation, sales, and distribution.
+                </li>
+              </ul>
+
+              <p>
+                Lazy3D does not claim authorship of the credited texture maps and
+                surface-pattern resources created by Vyacheslav CGI.
+              </p>
+            </div>
+          </div>
+
+          <div class="product-information-block">
+            <div class="product-information-label">License &amp; Responsibilities</div>
+
+            <div class="product-information-copy">
+              <ul class="product-information-list">
+                <li>
+                  <strong>Addon script:</strong> GNU GPL v3
+                  (GNU General Public License, version 3).
+                </li>
+                <li>
+                  <strong>Included texture maps and pattern assets:</strong> Royalty Free.
+                  Authorship, rights, and asset-related responsibilities remain with
+                  their original credited creator.
+                </li>
+                <li>
+                  For texture-asset licensing questions or requests beyond the supplied
+                  product license, contact the original creator directly.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="product-information-block">
+            <div class="product-information-label">Sales &amp; Distribution</div>
+
+            <div class="product-information-copy">
+              <p>
+                All sales are handled through Lazy3D’s SuperHive Market
+                storefront, formerly BlenderMarket.
+              </p>
+
+              <p>
+                Please review and understand this division of authorship,
+                licensing, and responsibility before purchasing or using the product.
+              </p>
+
+              <p class="product-information-license-note">
+                The complete license text is included with the product files in
+                the <strong>License Info</strong> file.
+              </p>
+            </div>
+          </div>
+        </div>
+      </details>
     </section>
 
     <footer>
