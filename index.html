@@ -3745,10 +3745,148 @@
       }
     }
 
+  
+    /* Editable launch sale strip */
+    .launch-sale-strip {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      min-height: 54px;
+      margin-top: 10px;
+      padding: 10px 16px;
+      overflow: hidden;
+      border: 1px solid rgba(107, 190, 205, 0.46);
+      color: #edf7f8;
+      background:
+        linear-gradient(90deg, #142d3b 0%, #173746 56%, #102733 100%);
+      box-shadow: 0 12px 28px rgba(16, 39, 51, 0.18);
+    }
+
+    .launch-sale-strip::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(94, 205, 224, 0.11),
+          transparent 28%,
+          transparent 72%,
+          rgba(94, 205, 224, 0.07)
+        );
+    }
+
+    .launch-sale-status,
+    .launch-sale-offer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .launch-sale-status {
+      gap: 9px;
+      color: rgba(237, 247, 248, 0.72);
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .launch-sale-signal {
+      width: 7px;
+      height: 7px;
+      border: 1px solid rgba(121, 225, 239, 0.72);
+      background: #63cddd;
+      box-shadow: 0 0 10px rgba(99, 205, 221, 0.55);
+    }
+
+    .launch-sale-offer {
+      justify-content: flex-end;
+      gap: 12px;
+      color: rgba(237, 247, 248, 0.66);
+      font-size: 9px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    .launch-sale-offer > strong {
+      color: #ffffff;
+      font-family: var(--display);
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.055em;
+    }
+
+    .launch-sale-offer span strong {
+      color: #8ee5f0;
+      font-weight: 700;
+    }
+
+    .launch-sale-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(190, 229, 234, 0.28);
+    }
+
+    @media (max-width: 620px) {
+      .launch-sale-strip {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px 14px;
+      }
+
+      .launch-sale-offer {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .launch-sale-divider {
+        height: 18px;
+      }
+    }
+
   </style>
 </head>
 
 <body id="top">
+  <script>
+    /*
+      METALWORKS LAUNCH SALE SETTINGS
+      Change only these values when updating the offer.
+    */
+    var METALWORKS_LAUNCH_SALE_LABEL = "Launch Sale";
+    var METALWORKS_LAUNCH_SALE_DISCOUNT_PERCENT = 19;
+    var METALWORKS_LAUNCH_SALE_PURCHASE_LIMIT = "XX";
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var label = document.getElementById("launchSaleLabel");
+      var discount = document.getElementById("launchSaleDiscount");
+      var purchaseLimit = document.getElementById("launchSalePurchaseLimit");
+
+      if (label) {
+        label.textContent = METALWORKS_LAUNCH_SALE_LABEL;
+      }
+
+      if (discount) {
+        discount.textContent =
+          METALWORKS_LAUNCH_SALE_DISCOUNT_PERCENT + "% OFF";
+      }
+
+      if (purchaseLimit) {
+        purchaseLimit.textContent =
+          METALWORKS_LAUNCH_SALE_PURCHASE_LIMIT + " purchases";
+      }
+    });
+  </script>
   <div class="viewport-stage" id="viewportStage">
   <main class="page" id="designPage">
     <header class="system-bar">
@@ -3778,6 +3916,22 @@
             ultra-realistic results in only a few controlled adjustments.
           </p>
         </div>
+      </div>
+    </section>
+
+    <section class="launch-sale-strip reveal" aria-label="Metalworks launch sale">
+      <div class="launch-sale-status">
+        <span class="launch-sale-signal" aria-hidden="true"></span>
+        <span id="launchSaleLabel">Launch Sale</span>
+      </div>
+
+      <div class="launch-sale-offer">
+        <strong id="launchSaleDiscount">19% OFF</strong>
+        <span class="launch-sale-divider" aria-hidden="true"></span>
+        <span>
+          Available until
+          <strong id="launchSalePurchaseLimit">XX purchases</strong>
+        </span>
       </div>
     </section>
 
@@ -3814,78 +3968,9 @@
       </div>
     </section>
 
-    <section class="section reveal" id="presets">
-      <div class="section-heading">
-        <div class="section-index">02 / Material Database</div>
-
-        <div class="section-title-wrap">
-          <h2>150+ Presets</h2>
-          <p>
-            A broad library of practical metal materials and surface conditions,
-            prepared for immediate use and further procedural refinement.
-          </p>
-        </div>
-      </div>
-
-      <div class="presets-showcase">
-        <img
-          id="presetsSetImage"
-          src="https://assets.superhivemarket.com/cache/7323676094e4d3552aca66320c8ba611.jpg"
-          alt="Metalworks Material Set 1 preview"
-          width="2000"
-          height="1000"
-          loading="lazy">
-      </div>
-
-      <div class="presets-control-row">
-        <div class="presets-set-switcher" role="group" aria-label="Select a Metalworks material set">
-          <button
-            class="presets-set-button is-active"
-            type="button"
-            data-set-index="0"
-            data-set-src="https://assets.superhivemarket.com/cache/7323676094e4d3552aca66320c8ba611.jpg"
-            aria-pressed="true">
-            <span class="presets-set-code">SET / 01</span>
-            <span>Material Set 1</span>
-          </button>
-
-          <button
-            class="presets-set-button"
-            type="button"
-            data-set-index="1"
-            data-set-src="https://assets.superhivemarket.com/cache/3b07d33c9122a49aeabdf58d119d4055.jpeg"
-            aria-pressed="false">
-            <span class="presets-set-code">SET / 02</span>
-            <span>Material Set 2</span>
-          </button>
-
-          <button
-            class="presets-set-button"
-            type="button"
-            data-set-index="2"
-            data-set-src="https://assets.superhivemarket.com/cache/8a31be4e2ebcf89a52503ae0b247701e.jpg"
-            aria-pressed="false">
-            <span class="presets-set-code">SET / 03</span>
-            <span>Material Set 3</span>
-          </button>
-        </div>
-
-        <a
-          class="presets-catalog-button"
-          id="presetsCatalogButton"
-          href="https://drive.google.com/file/d/1dw3jGyx_GXulGfqP7uAQqfVb5KSPP63K/view?usp=sharing"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Open the Metalworks presets catalog as a PDF file on Google Drive">
-          <span class="presets-catalog-button-main">Open Presets Catalog</span>
-          <span class="presets-catalog-button-meta">Opens Google Drive PDF file</span>
-        </a>
-      </div>
-    </section>
-
     <section class="section reveal" id="realism">
       <div class="section-heading surface-history-heading">
-        <div class="section-index">03 / Surface Fidelity</div>
+        <div class="section-index">02 / Surface Fidelity</div>
       </div>
 
       <div class="surface-history">
@@ -3930,7 +4015,7 @@
 
     <section class="section reveal" id="shader">
       <div class="section-heading">
-        <div class="section-index">04 / Shader Laboratory</div>
+        <div class="section-index">03 / Shader Laboratory</div>
 
         <div class="section-title-wrap">
           <h2>Modular Procedural Shader</h2>
@@ -3989,44 +4074,9 @@
       </div>
     </section>
 
-    <section class="section reveal" id="interactive">
-      <div class="section-heading">
-        <div class="section-index">05 / Interactive Specimen</div>
-
-        <div class="section-title-wrap">
-          <h2>Inspect the Surface in 3D</h2>
-          <p>
-            Rotate, move, and zoom the object directly inside the embedded viewer.
-          </p>
-        </div>
-      </div>
-
-      <div class="viewer-frame-shell">
-        <div class="viewer-crop">
-          <iframe
-            title="Metalworks interactive head preview"
-            src="https://sketchfab.com/models/51a16df0499d4886bf5c992889156a89/embed?autostart=1&preload=1&camera=0&navigation=orbit&scrollwheel=1&ui_infos=0&ui_controls=0&ui_stop=0&ui_watermark=0&ui_watermark_link=0&ui_hint=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_vr=0&ui_ar=0&ui_fullscreen=0&ui_annotations=0&ui_loading=0&ui_start=0&ui_general_controls=0&animation_autoplay=0&dnt=1&double_click=0&orbit_constraint_pan=0"
-            loading="lazy"
-            allow="autoplay; fullscreen; xr-spatial-tracking"
-            allowfullscreen>
-          </iframe>
-        </div>
-
-        <div class="viewer-footer">
-          <span>The shader appearance may differ from what you see in Blender due to significant rendering limitations in the Sketchfab engine.</span>
-
-          <div class="viewer-controls">
-            <span class="viewer-control">Drag: Rotate</span>
-            <span class="viewer-control">Shift / Right Drag: Move</span>
-            <span class="viewer-control">Wheel / Pinch: Zoom</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="section reveal" id="bake">
       <div class="section-heading">
-        <div class="section-index">06 / Bake & Transfer</div>
+        <div class="section-index">04 / Bake & Transfer</div>
 
         <div class="section-title-wrap">
           <h2>One-Click Baking</h2>
@@ -4160,55 +4210,113 @@
       </div>
     </section>
 
-    <section class="section reveal" id="custom-presets">
+    <section class="section reveal" id="presets">
       <div class="section-heading">
-        <div class="section-index">07 / User Library</div>
+        <div class="section-index">05 / Material Database</div>
 
         <div class="section-title-wrap">
-          <h2>Save Custom Presets</h2>
+          <h2>150+ Presets</h2>
           <p>
-            Convert successful material setups into reusable assets inside your own Metalworks library.
+            A broad library of practical metal materials and surface conditions,
+            prepared for immediate use and further procedural refinement.
           </p>
         </div>
       </div>
 
-      <div class="custom-preset-showcase">
-        <div class="custom-preset-copy">
-          <div class="custom-preset-brand">Metalworks / User Library</div>
+      <div class="presets-showcase">
+        <img
+          id="presetsSetImage"
+          src="https://assets.superhivemarket.com/cache/7323676094e4d3552aca66320c8ba611.jpg"
+          alt="Metalworks Material Set 1 preview"
+          width="2000"
+          height="1000"
+          loading="lazy">
+      </div>
 
-          <h2>Create Custom Presets</h2>
+      <div class="presets-control-row">
+        <div class="presets-set-switcher" role="group" aria-label="Select a Metalworks material set">
+          <button
+            class="presets-set-button is-active"
+            type="button"
+            data-set-index="0"
+            data-set-src="https://assets.superhivemarket.com/cache/7323676094e4d3552aca66320c8ba611.jpg"
+            aria-pressed="true">
+            <span class="presets-set-code">SET / 01</span>
+            <span>Material Set 1</span>
+          </button>
 
-          <p>
-            Save a finished material with its own rendered preview,
-            then reuse the complete setup in future projects with one click.
-          </p>
+          <button
+            class="presets-set-button"
+            type="button"
+            data-set-index="1"
+            data-set-src="https://assets.superhivemarket.com/cache/3b07d33c9122a49aeabdf58d119d4055.jpeg"
+            aria-pressed="false">
+            <span class="presets-set-code">SET / 02</span>
+            <span>Material Set 2</span>
+          </button>
 
-          <div class="custom-preset-spec">
-            Media format: 16:9 video<br>
-            Recommended source: 1920 × 1080 px
-          </div>
+          <button
+            class="presets-set-button"
+            type="button"
+            data-set-index="2"
+            data-set-src="https://assets.superhivemarket.com/cache/8a31be4e2ebcf89a52503ae0b247701e.jpg"
+            aria-pressed="false">
+            <span class="presets-set-code">SET / 03</span>
+            <span>Material Set 3</span>
+          </button>
         </div>
 
-        <div class="custom-preset-media">
-          <div class="custom-preset-video" id="customPresetVideo">
-            <div
-              class="custom-preset-video-player"
-              id="customPresetYoutubePlayer">
-            </div>
+        <a
+          class="presets-catalog-button"
+          id="presetsCatalogButton"
+          href="https://drive.google.com/file/d/1dw3jGyx_GXulGfqP7uAQqfVb5KSPP63K/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open the Metalworks presets catalog as a PDF file on Google Drive">
+          <span class="presets-catalog-button-main">Open Presets Catalog</span>
+          <span class="presets-catalog-button-meta">Opens Google Drive PDF file</span>
+        </a>
+      </div>
+    </section>
 
-            <div
-              class="custom-preset-video-shield"
-              aria-hidden="true">
-            </div>
+    <section class="section reveal" id="interactive">
+      <div class="section-heading">
+        <div class="section-index">06 / Interactive Specimen</div>
+
+        <div class="section-title-wrap">
+          <h2>Inspect the Surface in 3D</h2>
+          <p>
+            Rotate, move, and zoom the object directly inside the embedded viewer.
+          </p>
+        </div>
+      </div>
+
+      <div class="viewer-frame-shell">
+        <div class="viewer-crop">
+          <iframe
+            title="Metalworks interactive head preview"
+            src="https://sketchfab.com/models/51a16df0499d4886bf5c992889156a89/embed?autostart=1&preload=1&camera=0&navigation=orbit&scrollwheel=1&ui_infos=0&ui_controls=0&ui_stop=0&ui_watermark=0&ui_watermark_link=0&ui_hint=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_vr=0&ui_ar=0&ui_fullscreen=0&ui_annotations=0&ui_loading=0&ui_start=0&ui_general_controls=0&animation_autoplay=0&dnt=1&double_click=0&orbit_constraint_pan=0"
+            loading="lazy"
+            allow="autoplay; fullscreen; xr-spatial-tracking"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="viewer-footer">
+          <span>The shader appearance may differ from what you see in Blender due to significant rendering limitations in the Sketchfab engine.</span>
+
+          <div class="viewer-controls">
+            <span class="viewer-control">Drag: Rotate</span>
+            <span class="viewer-control">Shift / Right Drag: Move</span>
+            <span class="viewer-control">Wheel / Pinch: Zoom</span>
           </div>
         </div>
       </div>
     </section>
 
-
     <section class="section reveal" id="gallery">
       <div class="section-heading">
-        <div class="section-index">08 / Image Gallery</div>
+        <div class="section-index">07 / Material Gallery</div>
 
         <div class="section-title-wrap">
           <h2>Material Gallery</h2>
@@ -4252,6 +4360,51 @@
           width="4000"
           height="1000"
           loading="lazy">
+      </div>
+    </section>
+
+    <section class="section reveal" id="custom-presets">
+      <div class="section-heading">
+        <div class="section-index">08 / User Library</div>
+
+        <div class="section-title-wrap">
+          <h2>Save Custom Presets</h2>
+          <p>
+            Convert successful material setups into reusable assets inside your own Metalworks library.
+          </p>
+        </div>
+      </div>
+
+      <div class="custom-preset-showcase">
+        <div class="custom-preset-copy">
+          <div class="custom-preset-brand">Metalworks / User Library</div>
+
+          <h2>Create Custom Presets</h2>
+
+          <p>
+            Save a finished material with its own rendered preview,
+            then reuse the complete setup in future projects with one click.
+          </p>
+
+          <div class="custom-preset-spec">
+            Media format: 16:9 video<br>
+            Recommended source: 1920 × 1080 px
+          </div>
+        </div>
+
+        <div class="custom-preset-media">
+          <div class="custom-preset-video" id="customPresetVideo">
+            <div
+              class="custom-preset-video-player"
+              id="customPresetYoutubePlayer">
+            </div>
+
+            <div
+              class="custom-preset-video-shield"
+              aria-hidden="true">
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -4503,7 +4656,6 @@
         </div>
       </details>
     </section>
-
 
     <section class="section reveal more-lazy3d-section" aria-labelledby="moreLazy3DTitle">
       <div class="section-heading">
