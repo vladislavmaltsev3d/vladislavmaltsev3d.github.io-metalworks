@@ -2065,6 +2065,119 @@
       }
     }
 
+  
+    /* Final full-width Material Gallery image: 4000 × 1000 px */
+    .gallery-wide-final {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 1;
+      margin-top: 10px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: rgba(225,231,228,0.82);
+      box-shadow: 0 12px 26px rgba(47,62,66,0.07);
+    }
+
+    .gallery-wide-final img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+  
+    .bake-subsection {
+      position: relative;
+      z-index: 3;
+      margin-top: 10px;
+      padding: 26px 18px 18px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .bake-subsection-copy {
+      padding: 0 26px 8px;
+    }
+
+    .bake-subsection-kicker {
+      margin-bottom: 12px;
+      color: #f1f6f5;
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .bake-subsection-copy p {
+      max-width: 1040px;
+      margin: 0 0 12px;
+      color: rgba(234,243,242,0.76);
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+    }
+
+    .spec-toggle-row {
+      padding: 2px 26px 18px;
+    }
+
+    .spec-toggle-button {
+      appearance: none;
+      -webkit-appearance: none;
+      display: inline-block;
+      padding: 11px 16px;
+      border: 1px solid rgba(255,255,255,0.30);
+      background: rgba(255,255,255,0.06);
+      color: #f1f6f5;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+    }
+
+    .spec-toggle-button:hover,
+    .spec-toggle-button:focus {
+      outline: none;
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.42);
+    }
+
+    .notice-compare {
+      padding-top: 0;
+    }
+
+    .notice-compare .comparison-frame {
+      aspect-ratio: 4 / 1;
+    }
+
+    @media (max-width: 760px) {
+      .bake-subsection {
+        padding: 20px 10px 10px;
+      }
+
+      .bake-subsection-copy,
+      .spec-toggle-row {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .bake-subsection-kicker {
+        font-size: 17px;
+      }
+
+      .bake-subsection-copy p {
+        font-size: 12px;
+      }
+    }
+
   </style>
 </head>
 
@@ -2408,6 +2521,75 @@
             </div>
           </div>
         </div>
+
+        <div class="bake-subsection">
+          <div class="bake-subsection-copy">
+            <div class="bake-subsection-kicker">Important Notice</div>
+
+            <p>
+              The baked result may differ slightly from the original procedural look
+              due to the extraction process. If needed, make a few simple adjustments,
+              such as Normal Map strength or Bump Height strength.
+            </p>
+
+            <p>
+              To achieve a closer match to the original procedural appearance,
+              Metalworks also includes a <strong>Specular Correction</strong> feature,
+              demonstrated below.
+            </p>
+          </div>
+
+          <div class="spec-toggle-row">
+            <button
+              class="spec-toggle-button"
+              type="button"
+              data-default-src="https://assets.superhivemarket.com/cache/6e237e2cd3ad00a82fc76b671da8e8e5.jpg"
+              data-corrected-src="https://assets.superhivemarket.com/cache/bb226a9b261ddc1746245c0c3f0def63.jpg"
+              data-state="default"
+              aria-pressed="false">
+              Add Specular Correction
+            </button>
+          </div>
+
+          <div class="bake-comparison-wrap notice-compare">
+            <div class="bake-media bake-comparison">
+              <div class="comparison-frame comparison-frame-wide" style="--split: 50%;">
+                <img
+                  class="comparison-image comparison-after spec-after-image"
+                  src="https://assets.superhivemarket.com/cache/6e237e2cd3ad00a82fc76b671da8e8e5.jpg"
+                  alt="Metalworks baked material result"
+                  width="4000"
+                  height="1000"
+                  loading="lazy">
+
+                <div class="comparison-before-layer">
+                  <img
+                    class="comparison-image comparison-before"
+                    src="https://assets.superhivemarket.com/cache/355cddb3d4143c91433a787ee1560aaa.jpg"
+                    alt="Metalworks procedural material before specular correction"
+                    width="4000"
+                    height="1000"
+                    loading="lazy">
+                </div>
+
+                <div class="comparison-divider" aria-hidden="true"></div>
+
+                <div class="comparison-hint" aria-hidden="true">
+                  <span class="comparison-hint-arrows">← →</span>
+                  <span>Drag to compare</span>
+                </div>
+
+                <input
+                  class="comparison-range"
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="50"
+                  aria-label="Drag to compare the material before and after specular correction">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2497,7 +2679,15 @@
         <div class="gallery-placeholder gallery-d"><span>Image 04</span></div>
         <div class="gallery-placeholder gallery-e"><span>Image 05</span></div>
         <div class="gallery-placeholder gallery-f"><span>Image 06</span></div>
-        <div class="gallery-placeholder gallery-g"><span>Image 07</span></div>
+      </div>
+
+      <div class="gallery-wide-final">
+        <img
+          src="https://assets.superhivemarket.com/cache/09c4fdf5d610e3f7cbc7d2cece5506d6.jpg"
+          alt="Metalworks wide material gallery image"
+          width="4000"
+          height="1000"
+          loading="lazy">
       </div>
     </section>
 
@@ -2727,6 +2917,30 @@
         slider.addEventListener("change", updateComparison);
         updateComparison();
       });
+
+      var specButton = document.querySelector(".spec-toggle-button");
+      if (specButton) {
+        var comparisonRoot = specButton.closest(".bake-subsection");
+        var afterImage = comparisonRoot ? comparisonRoot.querySelector(".spec-after-image") : null;
+
+        specButton.addEventListener("click", function() {
+          if (!afterImage) return;
+
+          var corrected = specButton.getAttribute("data-state") === "corrected";
+
+          if (corrected) {
+            afterImage.src = specButton.getAttribute("data-default-src");
+            specButton.textContent = "Add Specular Correction";
+            specButton.setAttribute("data-state", "default");
+            specButton.setAttribute("aria-pressed", "false");
+          } else {
+            afterImage.src = specButton.getAttribute("data-corrected-src");
+            specButton.textContent = "Remove Specular Correction";
+            specButton.setAttribute("data-state", "corrected");
+            specButton.setAttribute("aria-pressed", "true");
+          }
+        });
+      }
     });
   </script>
 
