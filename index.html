@@ -2178,6 +2178,92 @@
       }
     }
 
+  
+    /* Detailed limitations section */
+    .limitations-detailed {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .limitations-detailed::before {
+      display: none;
+    }
+
+    .limitation-item {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .limitation-item:last-child {
+      border-bottom: 0;
+    }
+
+    .limitation-number {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 28px;
+      color: var(--warm);
+      background: rgba(185,102,70,0.06);
+      border-right: 1px solid var(--line);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .limitation-copy {
+      padding: 26px 30px 28px;
+    }
+
+    .limitation-copy h3 {
+      margin: 0 0 12px;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 23px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.045em;
+      text-transform: uppercase;
+    }
+
+    .limitation-copy p {
+      max-width: 940px;
+      margin: 0 0 12px;
+      color: #4f5c61;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.72;
+    }
+
+    .limitation-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 760px) {
+      .limitation-item {
+        grid-template-columns: 48px minmax(0, 1fr);
+      }
+
+      .limitation-number {
+        padding-top: 23px;
+        font-size: 9px;
+      }
+
+      .limitation-copy {
+        padding: 22px 18px 24px;
+      }
+
+      .limitation-copy h3 {
+        font-size: 19px;
+      }
+
+      .limitation-copy p {
+        font-size: 11px;
+      }
+    }
+
   </style>
 </head>
 
@@ -2697,17 +2783,70 @@
 
         <div class="section-title-wrap">
           <h2>Important Notes</h2>
-          <p>Review the current workflow requirements before production use.</p>
+          <p>
+            Review the renderer, animation, and baked-material considerations
+            before using Metalworks in production.
+          </p>
         </div>
       </div>
 
-      <div class="limitations-panel">
-        <p>
-          Metalworks is designed primarily for Blender's Cycles renderer. Some procedural nodes may not display correctly in EEVEE,
-          so the built-in baking workflow should be used for EEVEE and external engines. Final results depend on object scale,
-          UV quality, topology, lighting, and texture resolution. Complex procedural layers and high-resolution maps may increase
-          memory use and render time.
-        </p>
+      <div class="limitations-panel limitations-detailed">
+        <article class="limitation-item">
+          <div class="limitation-number">01</div>
+
+          <div class="limitation-copy">
+            <h3>Designed Primarily for Cycles</h3>
+            <p>
+              Metalworks was developed primarily for the Cycles renderer.
+              The full procedural effect will not work correctly in EEVEE because
+              some of the required procedural shading features are not supported there.
+              For EEVEE, first bake the material in Cycles and then use the generated
+              texture maps in the baked PBR material.
+            </p>
+          </div>
+        </article>
+
+        <article class="limitation-item">
+          <div class="limitation-number">02</div>
+
+          <div class="limitation-copy">
+            <h3>Animated and Deforming Objects</h3>
+            <p>
+              The procedural material is not recommended for objects whose mesh
+              deforms or changes during animation. On rigged characters, shape keys,
+              cloth, or other deforming geometry, the procedural surface may be
+              recalculated as the mesh moves. This can cause rust, wear, dirt, or
+              other effects to shift or appear in places where they were not visible
+              in the original pose.
+            </p>
+
+            <p>
+              For animated characters and deforming objects, bake the material before
+              animation or final rendering. The baked texture maps remain fixed to the
+              UV layout and preserve the surface appearance while the object moves.
+            </p>
+          </div>
+        </article>
+
+        <article class="limitation-item">
+          <div class="limitation-number">03</div>
+
+          <div class="limitation-copy">
+            <h3>Baked Result Adjustments</h3>
+
+            <p>
+              The baked material is designed to match the procedural result as closely
+              as possible, but small differences may remain in Specular, Roughness,
+              Bump, and Normal Maps.
+            </p>
+
+            <p>
+              Minor adjustments to Bump Height, Normal Map Strength, Roughness, or
+              Specular Correction may be required. See the One-Click Baking comparison
+              above for a direct example.
+            </p>
+          </div>
+        </article>
       </div>
     </section>
 
