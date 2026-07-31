@@ -2611,7 +2611,7 @@
     .surface-history-media {
       position: relative;
       width: 100%;
-      aspect-ratio: 3 / 4;
+      aspect-ratio: 2000 / 2000;
       overflow: hidden;
       border: 1px solid var(--line-strong);
       background: #cfd4d2;
@@ -2798,6 +2798,15 @@
       }
     }
 
+  
+    .surface-history-heading {
+      grid-template-columns: 1fr;
+    }
+
+    .surface-history-heading .section-index {
+      width: 100%;
+    }
+
   </style>
 </head>
 
@@ -2954,26 +2963,18 @@
     </section>
 
     <section class="section reveal" id="realism">
-      <div class="section-heading">
+      <div class="section-heading surface-history-heading">
         <div class="section-index">03 / Surface Fidelity</div>
-
-        <div class="section-title-wrap">
-          <h2>Build Surface History</h2>
-          <p>
-            Shape a believable material through progressive layers of use,
-            exposure, wear, damage, and age.
-          </p>
-        </div>
       </div>
 
       <div class="surface-history">
         <div class="surface-history-media">
           <img
             id="surfaceHistoryImage"
-            src="https://assets.superhivemarket.com/cache/2a82ee868be5e633b41b522eac4aa899.jpg"
+            src="https://assets.superhivemarket.com/cache/7d1ec68aaae02882e8c891f327e5a896.jpg"
             alt="Metalworks surface history step 1"
-            width="3000"
-            height="4000"
+            width="2000"
+            height="2030"
             loading="lazy">
         </div>
 
@@ -3642,10 +3643,10 @@
     document.addEventListener("DOMContentLoaded", function() {
       /*
        * Add future step image URLs to this array in order.
-       * The first item is the initial image.
+       * The first item is the initial 2000 × 2030 image.
        */
       var surfaceHistorySteps = [
-        "https://assets.superhivemarket.com/cache/2a82ee868be5e633b41b522eac4aa899.jpg"
+        "https://assets.superhivemarket.com/cache/7d1ec68aaae02882e8c891f327e5a896.jpg"
       ];
 
       var image = document.getElementById("surfaceHistoryImage");
