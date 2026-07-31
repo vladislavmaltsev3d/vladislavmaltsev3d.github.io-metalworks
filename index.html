@@ -2600,6 +2600,204 @@
       color: #ffffff;
     }
 
+  
+    /* Surface History step sequence */
+    .surface-history {
+      position: relative;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .surface-history-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: #cfd4d2;
+      box-shadow: var(--shadow);
+    }
+
+    .surface-history-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: inset 0 0 0 1px rgba(24,41,47,0.16);
+    }
+
+    .surface-history-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: center center;
+      transition: opacity 0.16s ease;
+    }
+
+    .surface-history-media.is-changing img {
+      opacity: 0.20;
+    }
+
+    .surface-history-panel {
+      position: relative;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 150px;
+      min-height: 132px;
+      margin: -54px 18px 0;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: rgba(238,242,240,0.96);
+      box-shadow: 0 16px 32px rgba(31,47,53,0.16);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .surface-history-copy {
+      position: relative;
+      padding: 24px 28px 22px;
+      border-right: 1px solid var(--line);
+    }
+
+    .surface-history-copy::after {
+      content: "";
+      position: absolute;
+      right: 28px;
+      bottom: 14px;
+      left: 28px;
+      height: 2px;
+      background:
+        linear-gradient(
+          90deg,
+          var(--accent) 0 36%,
+          rgba(80,105,112,0.24) 36% 100%
+        );
+    }
+
+    .surface-history-kicker {
+      margin-bottom: 10px;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 23px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.055em;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .surface-history-copy p {
+      max-width: 610px;
+      margin: 0;
+      color: #506066;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.65;
+      letter-spacing: 0.025em;
+      text-align: left;
+    }
+
+    .surface-history-progress {
+      margin-top: 13px;
+      padding-bottom: 8px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.13em;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .surface-history-button {
+      appearance: none;
+      -webkit-appearance: none;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+      padding: 18px 12px;
+      border: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.82), rgba(215,224,221,0.90));
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s ease;
+    }
+
+    .surface-history-button:hover,
+    .surface-history-button:focus {
+      outline: none;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.96), rgba(199,216,214,0.96));
+    }
+
+    .surface-history-button:disabled {
+      cursor: default;
+      opacity: 0.62;
+    }
+
+    .surface-history-button-label {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .surface-history-button-arrow {
+      display: block;
+      font-family: Arial, sans-serif;
+      font-size: 55px;
+      font-weight: 300;
+      line-height: 0.62;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 760px) {
+      .surface-history {
+        max-width: none;
+      }
+
+      .surface-history-panel {
+        grid-template-columns: minmax(0, 1fr) 104px;
+        margin: -34px 8px 0;
+      }
+
+      .surface-history-copy {
+        padding: 20px 18px 20px;
+      }
+
+      .surface-history-copy::after {
+        right: 18px;
+        left: 18px;
+      }
+
+      .surface-history-kicker {
+        font-size: 18px;
+      }
+
+      .surface-history-copy p {
+        font-size: 10px;
+      }
+
+      .surface-history-button-label {
+        font-size: 13px;
+      }
+
+      .surface-history-button-arrow {
+        font-size: 45px;
+      }
+    }
+
   </style>
 </head>
 
@@ -2760,25 +2958,48 @@
         <div class="section-index">03 / Surface Fidelity</div>
 
         <div class="section-title-wrap">
-          <h2>Ultra Realism in a Few Clicks</h2>
-
-          <div class="section-summary">
-            <strong>Build Surface History</strong>
-            <span>
-              A convincing metal material is defined by more than its base color.
-              Metalworks helps describe how a surface was manufactured, exposed,
-              used, damaged, and aged.
-            </span>
-          </div>
+          <h2>Build Surface History</h2>
+          <p>
+            Shape a believable material through progressive layers of use,
+            exposure, wear, damage, and age.
+          </p>
         </div>
       </div>
 
-      <!-- Recommended comparison media: 1920 × 1080 px, 16:9 -->
-      <div class="media-placeholder dark realism-media">
-        <div class="media-placeholder-inner">
-          <div class="media-placeholder-copy">
-            <strong>Before / After Media</strong>
+      <div class="surface-history">
+        <div class="surface-history-media">
+          <img
+            id="surfaceHistoryImage"
+            src="https://assets.superhivemarket.com/cache/2a82ee868be5e633b41b522eac4aa899.jpg"
+            alt="Metalworks surface history step 1"
+            width="3000"
+            height="4000"
+            loading="lazy">
+        </div>
+
+        <div class="surface-history-panel">
+          <div class="surface-history-copy">
+            <div class="surface-history-kicker">Build Surface History</div>
+
+            <p>
+              A convincing material is not just a shader, but a record of its history:
+              the polished edge touched a thousand times, the scratch left by impact,
+              the oxidation born from exposure, and the dirt gathered through years of use.
+            </p>
+
+            <div class="surface-history-progress" id="surfaceHistoryProgress">
+              Step 01 / 01
+            </div>
           </div>
+
+          <button
+            class="surface-history-button"
+            id="surfaceHistoryButton"
+            type="button"
+            aria-label="Start surface history sequence">
+            <span class="surface-history-button-label">Start</span>
+            <span class="surface-history-button-arrow" aria-hidden="true">›</span>
+          </button>
         </div>
       </div>
     </section>
@@ -3413,6 +3634,87 @@
           }
         });
       }
+    });
+  </script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      /*
+       * Add future step image URLs to this array in order.
+       * The first item is the initial image.
+       */
+      var surfaceHistorySteps = [
+        "https://assets.superhivemarket.com/cache/2a82ee868be5e633b41b522eac4aa899.jpg"
+      ];
+
+      var image = document.getElementById("surfaceHistoryImage");
+      var button = document.getElementById("surfaceHistoryButton");
+      var label = button ? button.querySelector(".surface-history-button-label") : null;
+      var progress = document.getElementById("surfaceHistoryProgress");
+      var media = image ? image.closest(".surface-history-media") : null;
+      var currentStep = 0;
+
+      function updateSurfaceHistoryUi() {
+        if (!button || !label || !progress) return;
+
+        var total = surfaceHistorySteps.length;
+        progress.textContent =
+          "Step " + String(currentStep + 1).padStart(2, "0") +
+          " / " + String(total).padStart(2, "0");
+
+        if (total <= 1) {
+          label.textContent = "Start";
+          button.setAttribute("aria-label", "More surface history steps coming soon");
+          button.disabled = true;
+          return;
+        }
+
+        button.disabled = false;
+
+        if (currentStep === 0) {
+          label.textContent = "Start";
+          button.setAttribute("aria-label", "Start surface history sequence");
+        } else if (currentStep === total - 1) {
+          label.textContent = "Restore";
+          button.setAttribute("aria-label", "Restore the first surface history image");
+        } else {
+          label.textContent = "Next Step";
+          button.setAttribute("aria-label", "Show the next surface history step");
+        }
+      }
+
+      function changeSurfaceHistoryImage(nextIndex) {
+        if (!image || !media) return;
+
+        media.classList.add("is-changing");
+
+        window.setTimeout(function() {
+          currentStep = nextIndex;
+          image.src = surfaceHistorySteps[currentStep];
+          image.alt = "Metalworks surface history step " + (currentStep + 1);
+          updateSurfaceHistoryUi();
+
+          window.setTimeout(function() {
+            media.classList.remove("is-changing");
+          }, 80);
+        }, 120);
+      }
+
+      if (button) {
+        button.addEventListener("click", function() {
+          var total = surfaceHistorySteps.length;
+          if (total <= 1) return;
+
+          if (currentStep === total - 1) {
+            changeSurfaceHistoryImage(0);
+          } else {
+            changeSurfaceHistoryImage(currentStep + 1);
+          }
+        });
+      }
+
+      updateSurfaceHistoryUi();
     });
   </script>
 
