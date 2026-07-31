@@ -3456,6 +3456,295 @@
       }
     }
 
+  
+    /* More from Lazy3D */
+    .more-lazy3d-section {
+      margin-top: 18px;
+    }
+
+    .more-lazy3d-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .more-lazy3d-card {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      color: inherit;
+      background: rgba(225, 231, 228, 0.82);
+      box-shadow: 0 12px 26px rgba(47, 62, 66, 0.08);
+      text-decoration: none;
+      transition:
+        border-color 0.16s ease,
+        box-shadow 0.16s ease;
+    }
+
+    .more-lazy3d-card:hover,
+    .more-lazy3d-card:focus-visible {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 16px 34px rgba(38, 57, 63, 0.15);
+    }
+
+    .more-lazy3d-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2 / 1;
+      overflow: hidden;
+      background: #26373e;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .more-lazy3d-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          to bottom,
+          transparent 54%,
+          rgba(25, 40, 46, 0.18) 100%
+        );
+    }
+
+    .more-lazy3d-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: contain;
+      object-position: center;
+      transition: transform 0.22s ease;
+    }
+
+    .more-lazy3d-card:hover .more-lazy3d-media img,
+    .more-lazy3d-card:focus-visible .more-lazy3d-media img {
+      transform: none;
+    }
+
+    .more-lazy3d-card-info {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto minmax(38px, auto) auto;
+      min-height: 112px;
+      padding: 13px 14px 12px;
+      color: rgba(244, 248, 247, 0.92);
+      background:
+        linear-gradient(135deg, var(--dark-2), var(--dark));
+    }
+
+    .more-lazy3d-card-info::before {
+      content: "";
+      position: absolute;
+      top: 12px;
+      bottom: 12px;
+      left: 6px;
+      width: 2px;
+      background: linear-gradient(var(--accent), rgba(75, 169, 183, 0.20));
+    }
+
+    .more-lazy3d-card-index {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(235, 243, 241, 0.48);
+      font-size: 8px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .more-lazy3d-card-info strong {
+      display: block;
+      align-self: start;
+      font-family: var(--display);
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 0.98;
+      letter-spacing: 0.035em;
+      text-transform: uppercase;
+    }
+
+    .more-lazy3d-card-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      align-self: end;
+      padding-top: 10px;
+      color: rgba(235, 243, 241, 0.62);
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+      font-size: 8px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    .more-lazy3d-card-action::after {
+      content: "↗";
+      color: var(--accent);
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    @media (max-width: 900px) {
+      .more-lazy3d-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .more-lazy3d-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .more-lazy3d-card {
+        display: block;
+      }
+
+      .more-lazy3d-media {
+        aspect-ratio: 2 / 1;
+        min-height: 0;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .more-lazy3d-card-info {
+        min-height: 112px;
+      }
+    }
+
+  
+    /* Material Database image sets and catalog controls */
+    .presets-showcase {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2 / 1;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: #283a41;
+      box-shadow: var(--shadow);
+    }
+
+    .presets-showcase img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .presets-control-row {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 10px;
+      pointer-events: auto;
+    }
+
+    .presets-set-switcher {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .presets-set-button {
+      appearance: none;
+      -webkit-appearance: none;
+      display: grid;
+      grid-template-columns: auto;
+      gap: 4px;
+      min-width: 0;
+      padding: 10px 12px;
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      background: rgba(232, 237, 234, 0.76);
+      font-family: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .presets-set-button:hover,
+    .presets-set-button:focus-visible {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(242, 245, 243, 0.94);
+    }
+
+    .presets-set-button.is-active {
+      color: #f0f6f4;
+      border-color: var(--dark-2);
+      background: linear-gradient(135deg, var(--dark-2), var(--dark));
+    }
+
+    .presets-set-code {
+      color: var(--accent);
+      font-size: 8px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .presets-set-button > span:last-child {
+      overflow: hidden;
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.045em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .presets-catalog-button {
+      position: relative;
+      z-index: 25;
+      flex: 0 0 276px;
+      min-width: 276px;
+      pointer-events: auto !important;
+      cursor: pointer;
+    }
+
+    @media (max-width: 760px) {
+      .presets-control-row {
+        flex-direction: column;
+      }
+
+      .presets-set-switcher {
+        width: 100%;
+      }
+
+      .presets-catalog-button {
+        width: 100%;
+        min-width: 0;
+        flex-basis: auto;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .presets-set-switcher {
+        grid-template-columns: 1fr;
+      }
+
+      .presets-set-button {
+        grid-template-columns: 62px minmax(0, 1fr);
+        align-items: center;
+      }
+    }
+
   </style>
 </head>
 
@@ -3538,21 +3827,52 @@
         </div>
       </div>
 
-      <div class="media-placeholder" style="min-height: 470px; margin-bottom: 10px;">
-        <div class="media-placeholder-inner">
-          <div class="media-placeholder-copy">
-            <strong>Preset Catalog Placeholder</strong>
-            <span>
-              Replace with a scrolling preset browser, thumbnail catalog,
-              category montage, or animated library showcase.
-            </span>
-          </div>
-        </div>
+      <div class="presets-showcase">
+        <img
+          id="presetsSetImage"
+          src="https://assets.superhivemarket.com/cache/7323676094e4d3552aca66320c8ba611.jpg"
+          alt="Metalworks Material Set 1 preview"
+          width="2000"
+          height="1000"
+          loading="lazy">
       </div>
 
-      <div class="presets-catalog-action">
+      <div class="presets-control-row">
+        <div class="presets-set-switcher" role="group" aria-label="Select a Metalworks material set">
+          <button
+            class="presets-set-button is-active"
+            type="button"
+            data-set-index="0"
+            data-set-src="https://assets.superhivemarket.com/cache/7323676094e4d3552aca66320c8ba611.jpg"
+            aria-pressed="true">
+            <span class="presets-set-code">SET / 01</span>
+            <span>Material Set 1</span>
+          </button>
+
+          <button
+            class="presets-set-button"
+            type="button"
+            data-set-index="1"
+            data-set-src="https://assets.superhivemarket.com/cache/3b07d33c9122a49aeabdf58d119d4055.jpeg"
+            aria-pressed="false">
+            <span class="presets-set-code">SET / 02</span>
+            <span>Material Set 2</span>
+          </button>
+
+          <button
+            class="presets-set-button"
+            type="button"
+            data-set-index="2"
+            data-set-src="https://assets.superhivemarket.com/cache/8a31be4e2ebcf89a52503ae0b247701e.jpg"
+            aria-pressed="false">
+            <span class="presets-set-code">SET / 03</span>
+            <span>Material Set 3</span>
+          </button>
+        </div>
+
         <a
           class="presets-catalog-button"
+          id="presetsCatalogButton"
           href="https://drive.google.com/file/d/1dw3jGyx_GXulGfqP7uAQqfVb5KSPP63K/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
@@ -3561,7 +3881,7 @@
           <span class="presets-catalog-button-meta">Opens Google Drive PDF file</span>
         </a>
       </div>
-</section>
+    </section>
 
     <section class="section reveal" id="realism">
       <div class="section-heading surface-history-heading">
@@ -4184,6 +4504,175 @@
       </details>
     </section>
 
+
+    <section class="section reveal more-lazy3d-section" aria-labelledby="moreLazy3DTitle">
+      <div class="section-heading">
+        <div class="section-index">Lazy3D / Product Ecosystem</div>
+
+        <div class="section-title-wrap">
+          <h2 id="moreLazy3DTitle">More from Lazy3D</h2>
+          <p>
+            Explore additional procedural tools, physical effects, environment systems,
+            and workflow add-ons for Blender.
+          </p>
+        </div>
+      </div>
+
+      <div class="more-lazy3d-grid">
+        <a
+          class="more-lazy3d-card"
+          href="https://superhivemarket.com/products/physical-fog-addon"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Physical Fog on SuperHive Market">
+          <div class="more-lazy3d-media">
+            <img
+              src="https://assets.superhivemarket.com/cache/ccc9462aa9ba7e7a1951a306910d3a0f.jpg"
+              alt="Physical Fog"
+              loading="lazy">
+          </div>
+          <div class="more-lazy3d-card-info">
+            <span class="more-lazy3d-card-index">01 / Atmospheric FX</span>
+            <strong>Physical Fog</strong>
+            <span class="more-lazy3d-card-action">View Product</span>
+          </div>
+        </a>
+
+        <a
+          class="more-lazy3d-card"
+          href="https://superhivemarket.com/products/lazy-composer-2-pro"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Lazy Composer 2 Pro on SuperHive Market">
+          <div class="more-lazy3d-media">
+            <img
+              src="https://assets.superhivemarket.com/cache/8422a38a158a2f019bdaac8fd3ab05e7.png"
+              alt="Lazy Composer 2 Pro"
+              loading="lazy">
+          </div>
+          <div class="more-lazy3d-card-info">
+            <span class="more-lazy3d-card-index">02 / Workflow</span>
+            <strong>Lazy Composer 2 Pro</strong>
+            <span class="more-lazy3d-card-action">View Product</span>
+          </div>
+        </a>
+
+        <a
+          class="more-lazy3d-card"
+          href="https://superhivemarket.com/products/fauna-master-pro"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Fauna Master Pro on SuperHive Market">
+          <div class="more-lazy3d-media">
+            <img
+              src="https://assets.superhivemarket.com/cache/60686f07bbc879ade8381a9a3342c128.jpg"
+              alt="Fauna Master Pro"
+              loading="lazy">
+          </div>
+          <div class="more-lazy3d-card-info">
+            <span class="more-lazy3d-card-index">03 / Fauna System</span>
+            <strong>Fauna Master Pro</strong>
+            <span class="more-lazy3d-card-action">View Product</span>
+          </div>
+        </a>
+
+        <a
+          class="more-lazy3d-card"
+          href="https://blendermarket.com/products/physical-weather-master"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Physical Weather FX">
+          <div class="more-lazy3d-media">
+            <img
+              src="https://assets.superhivemarket.com/cache/9695dbd9f004846ec6eec88f8114b2f3.png"
+              alt="Physical Weather FX"
+              loading="lazy">
+          </div>
+          <div class="more-lazy3d-card-info">
+            <span class="more-lazy3d-card-index">04 / Weather System</span>
+            <strong>Physical Weather FX</strong>
+            <span class="more-lazy3d-card-action">View Product</span>
+          </div>
+        </a>
+
+        <a
+          class="more-lazy3d-card"
+          href="https://superhivemarket.com/products/water-vfx-master-real-time-fluid-effects"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Water VFX Master on SuperHive Market">
+          <div class="more-lazy3d-media">
+            <img
+              src="https://assets.superhivemarket.com/cache/cfcfb17dc2af54669708d3cbcd20f923.png"
+              alt="Water VFX Master"
+              loading="lazy">
+          </div>
+          <div class="more-lazy3d-card-info">
+            <span class="more-lazy3d-card-index">05 / Real-Time Water</span>
+            <strong>Water VFX Master</strong>
+            <span class="more-lazy3d-card-action">View Product</span>
+          </div>
+        </a>
+
+        <a
+          class="more-lazy3d-card"
+          href="https://superhivemarket.com/products/physical-water-deluxe"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Physical Water FX on SuperHive Market">
+          <div class="more-lazy3d-media">
+            <img
+              src="https://assets.superhivemarket.com/cache/5ef578ab6304302c11de42a2ad6c9c39.png"
+              alt="Physical Water FX"
+              loading="lazy">
+          </div>
+          <div class="more-lazy3d-card-info">
+            <span class="more-lazy3d-card-index">06 / Physical Water</span>
+            <strong>Physical Water FX</strong>
+            <span class="more-lazy3d-card-action">View Product</span>
+          </div>
+        </a>
+
+        <a
+          class="more-lazy3d-card"
+          href="https://superhivemarket.com/products/physical-cables-next-gen"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Physical Cables Next-Gen on SuperHive Market">
+          <div class="more-lazy3d-media">
+            <img
+              src="https://assets.superhivemarket.com/cache/051a59ae9f8decbaec40456d4fc98767.jpg"
+              alt="Physical Cables Next-Gen"
+              loading="lazy">
+          </div>
+          <div class="more-lazy3d-card-info">
+            <span class="more-lazy3d-card-index">07 / Cable System</span>
+            <strong>Physical Cables Next-Gen</strong>
+            <span class="more-lazy3d-card-action">View Product</span>
+          </div>
+        </a>
+
+        <a
+          class="more-lazy3d-card"
+          href="https://superhivemarket.com/products/geodroplets-plus-ultimate-droplet-toolkit"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open GeoDroplets Plus on SuperHive Market">
+          <div class="more-lazy3d-media">
+            <img
+              src="https://assets.superhivemarket.com/cache/7928c9dbf63d3b85c3c3e5788e6d9adf.png"
+              alt="GeoDroplets Plus"
+              loading="lazy">
+          </div>
+          <div class="more-lazy3d-card-info">
+            <span class="more-lazy3d-card-index">08 / Droplet Toolkit</span>
+            <strong>GeoDroplets Plus</strong>
+            <span class="more-lazy3d-card-action">View Product</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
     <footer>
       <span>Metalworks / Procedural Material System</span>
       <span>Lazy 3D / Product Interface Build 02</span>
@@ -4743,6 +5232,70 @@
         document.addEventListener("DOMContentLoaded", initWorkflowMagnifier, { once: true });
       } else {
         initWorkflowMagnifier();
+      }
+    })();
+  </script>
+
+
+  <script>
+    (function () {
+      function initPresetDatabaseControls() {
+        var image = document.getElementById("presetsSetImage");
+        var buttons = Array.prototype.slice.call(
+          document.querySelectorAll(".presets-set-button")
+        );
+        var catalogButton = document.getElementById("presetsCatalogButton");
+        var catalogUrl = "https://drive.google.com/file/d/1dw3jGyx_GXulGfqP7uAQqfVb5KSPP63K/view?usp=sharing";
+
+        if (image && buttons.length) {
+          buttons.forEach(function (button) {
+            var preloaded = new Image();
+            preloaded.src = button.dataset.setSrc;
+
+            button.addEventListener("click", function () {
+              image.src = button.dataset.setSrc;
+              image.alt =
+                "Metalworks Material Set " +
+                (Number(button.dataset.setIndex) + 1) +
+                " preview";
+
+              buttons.forEach(function (item) {
+                var isActive = item === button;
+                item.classList.toggle("is-active", isActive);
+                item.setAttribute("aria-pressed", isActive ? "true" : "false");
+              });
+            });
+          });
+        }
+
+        if (catalogButton && catalogButton.dataset.openReady !== "true") {
+          catalogButton.dataset.openReady = "true";
+
+          catalogButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            var opened = window.open(catalogUrl, "_blank");
+
+            if (opened) {
+              try {
+                opened.opener = null;
+              } catch (error) {}
+            } else {
+              window.location.href = catalogUrl;
+            }
+          });
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener(
+          "DOMContentLoaded",
+          initPresetDatabaseControls,
+          { once: true }
+        );
+      } else {
+        initPresetDatabaseControls();
       }
     })();
   </script>
