@@ -2448,6 +2448,44 @@
       color: #ffffff;
     }
 
+  
+    /* Rust Systems module background image */
+    .module-card-rust {
+      position: relative;
+      overflow: hidden;
+      color: #ffffff;
+      background: url("https://assets.superhivemarket.com/cache/33457b724c7978f89c522c12cc20cb37.jpg") center center / cover no-repeat;
+    }
+
+    .module-card-rust::before {
+      display: none;
+    }
+
+    .module-card-rust .module-tag,
+    .module-card-rust h3 {
+      position: relative;
+      z-index: 1;
+      color: #ffffff;
+      text-shadow:
+        2px 2px 0 rgba(8, 17, 21, 0.96),
+        -1px -1px 0 rgba(8, 17, 21, 0.88),
+        1px -1px 0 rgba(8, 17, 21, 0.88),
+        -1px 1px 0 rgba(8, 17, 21, 0.88),
+        3px 3px 0 rgba(19, 43, 50, 0.72),
+        0 0 2px rgba(105, 217, 245, 0.52);
+    }
+
+    .module-card-rust:hover {
+      transform: none;
+      color: #ffffff;
+      background: url("https://assets.superhivemarket.com/cache/33457b724c7978f89c522c12cc20cb37.jpg") center center / cover no-repeat;
+    }
+
+    .module-card-rust:hover .module-tag,
+    .module-card-rust:hover h3 {
+      color: #ffffff;
+    }
+
   </style>
 </head>
 
@@ -2670,7 +2708,7 @@
           <h3>Damage</h3>
         </article>
 
-        <article class="module-card module-card-large">
+        <article class="module-card module-card-large module-card-image module-card-rust">
           <div class="module-tag">Corrosion / 06</div>
           <h3>Rust Systems</h3>
         </article>
