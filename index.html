@@ -3854,40 +3854,313 @@
       }
     }
 
+  
+
+    /* Launch Sale — reference-matched three-zone banner */
+    .launch-sale-strip {
+      --sale-bg-left: #263f49;
+      --sale-bg-center: #2c4852;
+      --sale-bg-right: #29454f;
+      --sale-ink: #f4f7f6;
+      --sale-accent: #ff858d;
+      position: relative;
+      display: grid;
+      grid-template-columns: 26.5% 51% 22.5%;
+      width: 100%;
+      min-height: 126px;
+      margin-top: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid #172e37;
+      border-top: 0;
+      color: var(--sale-ink);
+      background: var(--sale-bg-center);
+      box-shadow: none;
+    }
+
+    .launch-sale-strip::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,0.025) 0%,
+          transparent 28%,
+          rgba(255,255,255,0.018) 52%,
+          transparent 76%,
+          rgba(255,255,255,0.022) 100%
+        );
+    }
+
+    .launch-sale-stripes {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2;
+      width: 34%;
+      height: 34px;
+      opacity: 0.34;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          120deg,
+          rgba(145, 185, 196, 0.34) 0 2px,
+          transparent 2px 15px
+        );
+      mask-image: linear-gradient(to left, #000 0%, #000 72%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, #000 0%, #000 72%, transparent 100%);
+    }
+
+    .launch-sale-panel {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      min-width: 0;
+      min-height: 126px;
+      overflow: hidden;
+    }
+
+    .launch-sale-panel-left {
+      align-items: center;
+      padding: 11px 16px 10px 17px;
+      background: var(--sale-bg-left);
+      border-right: 1px solid rgba(12, 31, 38, 0.62);
+    }
+
+    .launch-sale-panel-center {
+      align-items: center;
+      justify-content: center;
+      padding: 7px 12px 5px;
+      background: var(--sale-bg-center);
+      border-right: 1px solid rgba(12, 31, 38, 0.62);
+    }
+
+    .launch-sale-panel-right {
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px 6px;
+      background: var(--sale-bg-right);
+      text-align: center;
+    }
+
+    .launch-sale-title {
+      display: grid;
+      width: 100%;
+      color: var(--sale-ink);
+      font-family: var(--display);
+      font-size: clamp(42px, 5.35vw, 66px);
+      font-weight: 500;
+      line-height: 0.72;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+    }
+
+    .launch-sale-title span {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .launch-sale-percent {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      white-space: nowrap;
+      transform: translateY(-1px);
+    }
+
+    .launch-sale-percent > strong {
+      color: var(--sale-accent);
+      font-family: var(--display);
+      font-size: clamp(74px, 10.8vw, 132px);
+      font-weight: 500;
+      line-height: 0.72;
+      letter-spacing: -0.045em;
+    }
+
+    .launch-sale-percent-symbol {
+      align-self: center;
+      margin: 0 9px 0 2px;
+      color: var(--sale-accent);
+      font-family: var(--display);
+      font-size: clamp(50px, 7.2vw, 88px);
+      font-weight: 500;
+      line-height: 0.75;
+      letter-spacing: -0.035em;
+    }
+
+    .launch-sale-off-word {
+      align-self: center;
+      color: var(--sale-ink);
+      font-family: var(--display);
+      font-size: clamp(54px, 7.6vw, 92px);
+      font-weight: 500;
+      line-height: 0.74;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .launch-sale-limit {
+      display: grid;
+      grid-template-rows: auto auto auto;
+      justify-items: center;
+      align-items: center;
+      color: var(--sale-ink);
+      font-family: var(--display);
+      line-height: 0.72;
+      text-transform: uppercase;
+      transform: translateY(1px);
+    }
+
+    .launch-sale-limit-top,
+    .launch-sale-limit-bottom {
+      display: block;
+      font-size: clamp(24px, 3.05vw, 38px);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .launch-sale-limit strong {
+      display: block;
+      margin: 3px 0 1px;
+      color: var(--sale-accent);
+      font-size: clamp(49px, 6.25vw, 76px);
+      font-weight: 500;
+      line-height: 0.62;
+      letter-spacing: -0.045em;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 760px) {
+      .launch-sale-strip {
+        grid-template-columns: 28% 47% 25%;
+        min-height: 96px;
+      }
+
+      .launch-sale-panel {
+        min-height: 96px;
+      }
+
+      .launch-sale-panel-left {
+        padding: 9px 10px;
+      }
+
+      .launch-sale-panel-center {
+        padding: 7px 5px 5px;
+      }
+
+      .launch-sale-panel-right {
+        padding: 7px 6px 5px;
+      }
+
+      .launch-sale-title {
+        font-size: clamp(27px, 8vw, 43px);
+      }
+
+      .launch-sale-percent > strong {
+        font-size: clamp(48px, 14vw, 78px);
+      }
+
+      .launch-sale-percent-symbol {
+        margin-right: 5px;
+        font-size: clamp(31px, 9vw, 50px);
+      }
+
+      .launch-sale-off-word {
+        font-size: clamp(31px, 9vw, 50px);
+      }
+
+      .launch-sale-limit-top,
+      .launch-sale-limit-bottom {
+        font-size: clamp(14px, 4.1vw, 23px);
+      }
+
+      .launch-sale-limit strong {
+        font-size: clamp(30px, 8.8vw, 50px);
+      }
+
+      .launch-sale-stripes {
+        width: 46%;
+        height: 25px;
+      }
+    }
+
+    @media (max-width: 440px) {
+      .launch-sale-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .launch-sale-panel {
+        min-height: 82px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(12, 31, 38, 0.62);
+      }
+
+      .launch-sale-panel:last-child {
+        border-bottom: 0;
+      }
+
+      .launch-sale-panel-left,
+      .launch-sale-panel-center,
+      .launch-sale-panel-right {
+        justify-content: center;
+      }
+
+      .launch-sale-title {
+        width: auto;
+        font-size: 44px;
+        text-align: center;
+      }
+
+      .launch-sale-percent > strong {
+        font-size: 76px;
+      }
+
+      .launch-sale-percent-symbol,
+      .launch-sale-off-word {
+        font-size: 47px;
+      }
+
+      .launch-sale-limit-top,
+      .launch-sale-limit-bottom {
+        font-size: 24px;
+      }
+
+      .launch-sale-limit strong {
+        font-size: 54px;
+      }
+    }
+
+  
+    /* Full-width Photoshop launch sale banner */
+    .launch-sale-image-section {
+      width: 100%;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid #172e37;
+      border-top: 0;
+      background: #263f49;
+    }
+
+    .launch-sale-image-section img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: none;
+      aspect-ratio: 8 / 1;
+      object-fit: contain;
+      object-position: center;
+    }
+
   </style>
 </head>
 
 <body id="top">
-  <script>
-    /*
-      METALWORKS LAUNCH SALE SETTINGS
-      Change only these values when updating the offer.
-    */
-    var METALWORKS_LAUNCH_SALE_LABEL = "Launch Sale";
-    var METALWORKS_LAUNCH_SALE_DISCOUNT_PERCENT = 19;
-    var METALWORKS_LAUNCH_SALE_PURCHASE_LIMIT = "XX";
-
-    document.addEventListener("DOMContentLoaded", function () {
-      var label = document.getElementById("launchSaleLabel");
-      var discount = document.getElementById("launchSaleDiscount");
-      var purchaseLimit = document.getElementById("launchSalePurchaseLimit");
-
-      if (label) {
-        label.textContent = METALWORKS_LAUNCH_SALE_LABEL;
-      }
-
-      if (discount) {
-        discount.textContent =
-          METALWORKS_LAUNCH_SALE_DISCOUNT_PERCENT + "% OFF";
-      }
-
-      if (purchaseLimit) {
-        purchaseLimit.textContent =
-          METALWORKS_LAUNCH_SALE_PURCHASE_LIMIT + " purchases";
-      }
-    });
-  </script>
-  <div class="viewport-stage" id="viewportStage">
+<div class="viewport-stage" id="viewportStage">
   <main class="page" id="designPage">
     <header class="system-bar">
       <div class="system-name">Metalworks Material Laboratory</div>
@@ -3919,20 +4192,13 @@
       </div>
     </section>
 
-    <section class="launch-sale-strip reveal" aria-label="Metalworks launch sale">
-      <div class="launch-sale-status">
-        <span class="launch-sale-signal" aria-hidden="true"></span>
-        <span id="launchSaleLabel">Launch Sale</span>
-      </div>
-
-      <div class="launch-sale-offer">
-        <strong id="launchSaleDiscount">19% OFF</strong>
-        <span class="launch-sale-divider" aria-hidden="true"></span>
-        <span>
-          Available until
-          <strong id="launchSalePurchaseLimit">XX purchases</strong>
-        </span>
-      </div>
+    <section class="launch-sale-image-section reveal" aria-label="Metalworks launch sale">
+      <img
+        src="https://assets.superhivemarket.com/cache/3058dfc1dfc2229c93260aff98736fa2.jpg"
+        alt="Metalworks launch sale banner"
+        width="2000"
+        height="250"
+        loading="eager">
     </section>
 
     <section class="section reveal" id="overview">
