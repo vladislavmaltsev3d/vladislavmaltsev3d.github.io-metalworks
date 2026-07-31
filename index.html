@@ -3394,6 +3394,68 @@
       }
     }
 
+  
+    /* Material Database PDF catalog action */
+    .presets-catalog-action {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    .presets-catalog-button {
+      display: inline-grid;
+      grid-template-columns: auto;
+      gap: 4px;
+      min-width: 276px;
+      padding: 12px 16px 11px;
+      border: 1px solid var(--line-strong);
+      color: #eef5f3;
+      background: var(--dark);
+      box-shadow: 0 10px 22px rgba(37, 54, 60, 0.14);
+      text-decoration: none;
+      transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        transform 0.15s ease;
+    }
+
+    .presets-catalog-button:hover,
+    .presets-catalog-button:focus-visible {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--dark-2);
+      transform: translateY(-1px);
+    }
+
+    .presets-catalog-button-main {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .presets-catalog-button-meta {
+      color: rgba(238, 245, 243, 0.62);
+      font-size: 8px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 760px) {
+      .presets-catalog-action {
+        justify-content: stretch;
+      }
+
+      .presets-catalog-button {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+
   </style>
 </head>
 
@@ -3486,6 +3548,18 @@
             </span>
           </div>
         </div>
+      </div>
+
+      <div class="presets-catalog-action">
+        <a
+          class="presets-catalog-button"
+          href="https://drive.google.com/file/d/1dw3jGyx_GXulGfqP7uAQqfVb5KSPP63K/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open the Metalworks presets catalog as a PDF file on Google Drive">
+          <span class="presets-catalog-button-main">Open Presets Catalog</span>
+          <span class="presets-catalog-button-meta">Opens Google Drive PDF file</span>
+        </a>
       </div>
 </section>
 
