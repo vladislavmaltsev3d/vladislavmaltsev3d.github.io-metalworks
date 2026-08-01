@@ -4156,6 +4156,237 @@
       object-position: center;
     }
 
+  
+    /* Custom Presets — paused YouTube video with minimal custom controls */
+    .custom-preset-spec,
+    .custom-preset-video-shield {
+      display: none !important;
+    }
+
+    .custom-preset-video-player iframe {
+      pointer-events: none;
+    }
+
+    .custom-preset-play-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 11px;
+      border: 0;
+      color: #f3f7f6;
+      background:
+        linear-gradient(rgba(11, 25, 31, 0.28), rgba(11, 25, 31, 0.46));
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.16s ease, visibility 0.16s ease;
+    }
+
+    .custom-preset-play-overlay:hover,
+    .custom-preset-play-overlay:focus-visible {
+      outline: none;
+      background:
+        linear-gradient(rgba(11, 25, 31, 0.20), rgba(11, 25, 31, 0.40));
+    }
+
+    .custom-preset-play-overlay.is-hidden {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .custom-preset-play-icon {
+      position: relative;
+      width: 54px;
+      height: 54px;
+      border: 1px solid rgba(241, 248, 247, 0.72);
+      border-radius: 50%;
+      background: rgba(18, 39, 46, 0.72);
+      box-shadow: 0 10px 25px rgba(5, 16, 20, 0.24);
+    }
+
+    .custom-preset-play-icon::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 52%;
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 13px solid #f3f7f6;
+      transform: translate(-50%, -50%);
+    }
+
+    .custom-preset-controls {
+      position: absolute;
+      right: 12px;
+      bottom: 11px;
+      left: 12px;
+      z-index: 7;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 42px;
+      padding: 7px 10px;
+      border: 1px solid rgba(227, 240, 239, 0.20);
+      border-radius: 7px;
+      background: rgba(12, 28, 34, 0.84);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.16s ease, visibility 0.16s ease;
+    }
+
+    .custom-preset-controls.is-visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .custom-preset-toggle {
+      appearance: none;
+      -webkit-appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      flex: 0 0 auto;
+      min-height: 28px;
+      padding: 0 8px;
+      border: 0;
+      color: #eef5f3;
+      background: transparent;
+      font-family: inherit;
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .custom-preset-toggle:hover,
+    .custom-preset-toggle:focus-visible {
+      outline: none;
+      color: #8edbe6;
+    }
+
+    .custom-preset-toggle-icon {
+      position: relative;
+      width: 12px;
+      height: 14px;
+      flex: 0 0 12px;
+    }
+
+    .custom-preset-toggle-icon::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      bottom: 2px;
+      left: 1px;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 9px solid currentColor;
+    }
+
+    .custom-preset-toggle.is-playing .custom-preset-toggle-icon::before,
+    .custom-preset-toggle.is-playing .custom-preset-toggle-icon::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      bottom: 2px;
+      width: 3px;
+      border: 0;
+      background: currentColor;
+    }
+
+    .custom-preset-toggle.is-playing .custom-preset-toggle-icon::before {
+      left: 1px;
+    }
+
+    .custom-preset-toggle.is-playing .custom-preset-toggle-icon::after {
+      right: 1px;
+    }
+
+    .custom-preset-timeline {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      height: 20px;
+      margin: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .custom-preset-timeline::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 3px;
+      border-radius: 999px;
+      background:
+        linear-gradient(
+          to right,
+          #79d0dc 0%,
+          #79d0dc var(--video-progress, 0%),
+          rgba(235, 244, 243, 0.25) var(--video-progress, 0%),
+          rgba(235, 244, 243, 0.25) 100%
+        );
+    }
+
+    .custom-preset-timeline::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 11px;
+      height: 11px;
+      margin-top: -4px;
+      border: 1px solid #dff2f3;
+      border-radius: 50%;
+      background: #79d0dc;
+    }
+
+    .custom-preset-timeline::-moz-range-track {
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(235, 244, 243, 0.25);
+    }
+
+    .custom-preset-timeline::-moz-range-progress {
+      height: 3px;
+      border-radius: 999px;
+      background: #79d0dc;
+    }
+
+    .custom-preset-timeline::-moz-range-thumb {
+      width: 11px;
+      height: 11px;
+      border: 1px solid #dff2f3;
+      border-radius: 50%;
+      background: #79d0dc;
+    }
+
+    @media (max-width: 520px) {
+      .custom-preset-controls {
+        right: 8px;
+        bottom: 8px;
+        left: 8px;
+        gap: 7px;
+        padding: 6px 7px;
+      }
+
+      .custom-preset-toggle-label {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 
@@ -4194,7 +4425,7 @@
 
     <section class="launch-sale-image-section reveal" aria-label="Metalworks launch sale">
       <img
-        src="https://assets.superhivemarket.com/cache/0e0f9ac40e5bb91f3ff8239f1fe978e2.jpg"
+        src="https://assets.superhivemarket.com/cache/3058dfc1dfc2229c93260aff98736fa2.jpg"
         alt="Metalworks launch sale banner"
         width="2000"
         height="250"
@@ -4651,11 +4882,6 @@
             Save a finished material with its own rendered preview,
             then reuse the complete setup in future projects with one click.
           </p>
-
-          <div class="custom-preset-spec">
-            Media format: 16:9 video<br>
-            Recommended source: 1920 × 1080 px
-          </div>
         </div>
 
         <div class="custom-preset-media">
@@ -4665,9 +4891,37 @@
               id="customPresetYoutubePlayer">
             </div>
 
+            <button
+              class="custom-preset-play-overlay"
+              id="customPresetPlayOverlay"
+              type="button"
+              aria-label="Play the custom preset workflow video">
+              <span class="custom-preset-play-icon" aria-hidden="true"></span>
+              <span id="customPresetPlayOverlayText">Press to Play</span>
+            </button>
+
             <div
-              class="custom-preset-video-shield"
-              aria-hidden="true">
+              class="custom-preset-controls"
+              id="customPresetControls"
+              aria-label="Video controls">
+              <button
+                class="custom-preset-toggle"
+                id="customPresetToggle"
+                type="button"
+                aria-label="Play video">
+                <span class="custom-preset-toggle-icon" aria-hidden="true"></span>
+                <span class="custom-preset-toggle-label">Play</span>
+              </button>
+
+              <input
+                class="custom-preset-timeline"
+                id="customPresetTimeline"
+                type="range"
+                min="0"
+                max="1000"
+                value="0"
+                step="1"
+                aria-label="Video timeline">
             </div>
           </div>
         </div>
@@ -5175,68 +5429,245 @@
   </script>
 
   <script>
-    var customPresetPlayer = null;
+    (function () {
+      var customPresetPlayer = null;
+      var customPresetProgressTimer = null;
+      var customPresetVideoId = "BBjD0AzPm5M";
 
-    function createCustomPresetPlayer() {
-      if (customPresetPlayer || !window.YT || !window.YT.Player) return;
+      function getCustomPresetElements() {
+        return {
+          overlay: document.getElementById("customPresetPlayOverlay"),
+          overlayText: document.getElementById("customPresetPlayOverlayText"),
+          controls: document.getElementById("customPresetControls"),
+          toggle: document.getElementById("customPresetToggle"),
+          toggleLabel: document.querySelector("#customPresetToggle .custom-preset-toggle-label"),
+          timeline: document.getElementById("customPresetTimeline")
+        };
+      }
 
-      customPresetPlayer = new YT.Player("customPresetYoutubePlayer", {
-        host: "https://www.youtube-nocookie.com",
-        videoId: "pwI5oaUi7Mk",
-        width: "100%",
-        height: "100%",
-        playerVars: {
-          autoplay: 1,
-          controls: 0,
-          disablekb: 1,
-          enablejsapi: 1,
-          fs: 0,
-          iv_load_policy: 3,
-          loop: 1,
-          playlist: "pwI5oaUi7Mk",
-          playsinline: 1,
-          rel: 0,
-          modestbranding: 1
-        },
-        events: {
-          onReady: function(event) {
-            event.target.mute();
-            event.target.playVideo();
+      function setCustomPresetPlayingState(isPlaying) {
+        var elements = getCustomPresetElements();
 
-            var frame = event.target.getIframe();
-            if (frame) {
-              frame.setAttribute("tabindex", "-1");
-              frame.setAttribute("aria-hidden", "true");
+        if (elements.toggle) {
+          elements.toggle.classList.toggle("is-playing", isPlaying);
+          elements.toggle.setAttribute(
+            "aria-label",
+            isPlaying ? "Pause video" : "Play video"
+          );
+        }
+
+        if (elements.toggleLabel) {
+          elements.toggleLabel.textContent = isPlaying ? "Pause" : "Play";
+        }
+      }
+
+      function updateCustomPresetTimeline() {
+        if (!customPresetPlayer || !customPresetPlayer.getDuration) return;
+
+        var duration = customPresetPlayer.getDuration() || 0;
+        var current = customPresetPlayer.getCurrentTime() || 0;
+        var progress = duration > 0 ? current / duration : 0;
+        var value = Math.max(0, Math.min(1000, Math.round(progress * 1000)));
+        var timeline = document.getElementById("customPresetTimeline");
+
+        if (timeline && document.activeElement !== timeline) {
+          timeline.value = value;
+          timeline.style.setProperty(
+            "--video-progress",
+            (value / 10).toFixed(1) + "%"
+          );
+        }
+      }
+
+      function startCustomPresetProgressTimer() {
+        window.clearInterval(customPresetProgressTimer);
+        customPresetProgressTimer = window.setInterval(
+          updateCustomPresetTimeline,
+          250
+        );
+      }
+
+      function stopCustomPresetProgressTimer() {
+        window.clearInterval(customPresetProgressTimer);
+        customPresetProgressTimer = null;
+        updateCustomPresetTimeline();
+      }
+
+      function bindCustomPresetControls() {
+        var elements = getCustomPresetElements();
+
+        if (elements.overlay && elements.overlay.dataset.bound !== "true") {
+          elements.overlay.dataset.bound = "true";
+
+          elements.overlay.addEventListener("click", function () {
+            if (!customPresetPlayer || !customPresetPlayer.playVideo) return;
+
+            elements.overlay.classList.add("is-hidden");
+
+            if (elements.controls) {
+              elements.controls.classList.add("is-visible");
             }
+
+            customPresetPlayer.playVideo();
+          });
+        }
+
+        if (elements.toggle && elements.toggle.dataset.bound !== "true") {
+          elements.toggle.dataset.bound = "true";
+
+          elements.toggle.addEventListener("click", function () {
+            if (!customPresetPlayer || !customPresetPlayer.getPlayerState) return;
+
+            var state = customPresetPlayer.getPlayerState();
+
+            if (state === YT.PlayerState.PLAYING) {
+              customPresetPlayer.pauseVideo();
+            } else {
+              customPresetPlayer.playVideo();
+            }
+          });
+        }
+
+        if (elements.timeline && elements.timeline.dataset.bound !== "true") {
+          elements.timeline.dataset.bound = "true";
+
+          elements.timeline.addEventListener("input", function () {
+            var value = Number(elements.timeline.value) || 0;
+            elements.timeline.style.setProperty(
+              "--video-progress",
+              (value / 10).toFixed(1) + "%"
+            );
+          });
+
+          elements.timeline.addEventListener("change", function () {
+            if (!customPresetPlayer || !customPresetPlayer.getDuration) return;
+
+            var duration = customPresetPlayer.getDuration() || 0;
+            var value = Number(elements.timeline.value) || 0;
+
+            if (duration > 0) {
+              customPresetPlayer.seekTo(
+                duration * (value / 1000),
+                true
+              );
+            }
+          });
+        }
+      }
+
+      function createCustomPresetPlayer() {
+        if (customPresetPlayer || !window.YT || !window.YT.Player) return;
+
+        bindCustomPresetControls();
+
+        customPresetPlayer = new YT.Player("customPresetYoutubePlayer", {
+          host: "https://www.youtube-nocookie.com",
+          videoId: customPresetVideoId,
+          width: "100%",
+          height: "100%",
+          playerVars: {
+            autoplay: 0,
+            controls: 0,
+            disablekb: 1,
+            enablejsapi: 1,
+            fs: 0,
+            iv_load_policy: 3,
+            playsinline: 1,
+            rel: 0,
+            modestbranding: 1
           },
-          onStateChange: function(event) {
-            if (event.data === YT.PlayerState.PAUSED) {
-              event.target.playVideo();
-            }
+          events: {
+            onReady: function (event) {
+              event.target.pauseVideo();
+              event.target.seekTo(0, false);
+              updateCustomPresetTimeline();
+              setCustomPresetPlayingState(false);
 
-            if (event.data === YT.PlayerState.ENDED) {
-              event.target.seekTo(0, true);
-              event.target.playVideo();
+              var frame = event.target.getIframe();
+
+              if (frame) {
+                frame.setAttribute(
+                  "title",
+                  "Creating a custom Metalworks preset — YouTube video"
+                );
+              }
+            },
+            onStateChange: function (event) {
+              var elements = getCustomPresetElements();
+
+              if (event.data === YT.PlayerState.PLAYING) {
+                if (elements.overlay) {
+                  elements.overlay.classList.add("is-hidden");
+                }
+
+                if (elements.controls) {
+                  elements.controls.classList.add("is-visible");
+                }
+
+                setCustomPresetPlayingState(true);
+                startCustomPresetProgressTimer();
+              } else {
+                setCustomPresetPlayingState(false);
+                stopCustomPresetProgressTimer();
+              }
+
+              if (event.data === YT.PlayerState.ENDED) {
+                if (elements.overlay) {
+                  elements.overlay.classList.remove("is-hidden");
+                }
+
+                if (elements.overlayText) {
+                  elements.overlayText.textContent = "Press to Replay";
+                }
+
+                if (elements.controls) {
+                  elements.controls.classList.remove("is-visible");
+                }
+
+                event.target.seekTo(0, false);
+                updateCustomPresetTimeline();
+              }
             }
           }
-        }
-      });
-    }
-
-    window.onYouTubeIframeAPIReady = function() {
-      createCustomPresetPlayer();
-    };
-
-    document.addEventListener("DOMContentLoaded", function() {
-      if (window.YT && window.YT.Player) {
-        createCustomPresetPlayer();
-      } else {
-        var api = document.createElement("script");
-        api.src = "https://www.youtube.com/iframe_api";
-        api.async = true;
-        document.head.appendChild(api);
+        });
       }
-    });
+
+      var previousYouTubeReady = window.onYouTubeIframeAPIReady;
+
+      window.onYouTubeIframeAPIReady = function () {
+        if (typeof previousYouTubeReady === "function") {
+          previousYouTubeReady();
+        }
+
+        createCustomPresetPlayer();
+      };
+
+      function initializeCustomPresetVideo() {
+        bindCustomPresetControls();
+
+        if (window.YT && window.YT.Player) {
+          createCustomPresetPlayer();
+          return;
+        }
+
+        if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+          var api = document.createElement("script");
+          api.src = "https://www.youtube.com/iframe_api";
+          api.async = true;
+          document.head.appendChild(api);
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener(
+          "DOMContentLoaded",
+          initializeCustomPresetVideo,
+          { once: true }
+        );
+      } else {
+        initializeCustomPresetVideo();
+      }
+    })();
   </script>
 
 
