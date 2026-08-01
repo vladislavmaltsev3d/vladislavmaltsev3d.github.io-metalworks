@@ -6,7 +6,15 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap">
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap"
+    media="print"
+    onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap">
+  </noscript>
 
   <title>Metalworks | Procedural Material System</title>
   <meta
@@ -30,8 +38,23 @@
       --accent-soft: rgba(75, 169, 183, 0.20);
       --warm: #b96646;
       --shadow: 0 18px 44px rgba(47, 62, 66, 0.13);
-      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-      --display: "Rajdhani", "Arial Narrow", sans-serif;
+      --mono:
+        "IBM Plex Mono",
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        "Courier New",
+        monospace;
+      --display:
+        "Rajdhani",
+        "Arial Narrow",
+        "Roboto Condensed",
+        Arial,
+        Helvetica,
+        sans-serif;
     }
 
     * {
@@ -4862,6 +4885,125 @@
         height: 100% !important;
         object-fit: contain !important;
         object-position: center center !important;
+      }
+    }
+
+  
+    /*
+      Non-blocking typography and lightweight mobile rendering.
+      Desktop presentation is intentionally unchanged.
+    */
+    body {
+      font-display: swap;
+    }
+
+    @media (max-width: 760px) {
+      /*
+        Never wait for animations or web fonts before showing content.
+        System fallback fonts render immediately, then web fonts swap in.
+      */
+      .reveal,
+      .reveal.visible {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      body {
+        text-rendering: optimizeSpeed;
+      }
+
+      body::before {
+        display: none !important;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition-duration: 0s !important;
+      }
+
+      /*
+        Remove expensive paint effects only on mobile.
+      */
+      .system-bar,
+      .master-hero-media,
+      .workflow-zoom-media,
+      .surface-history-media,
+      .surface-history-panel,
+      .module-card,
+      .bake-banner,
+      .comparison-frame,
+      .presets-showcase,
+      .presets-set-button,
+      .presets-catalog-button,
+      .sketchfab-mobile-action,
+      .gallery-placeholder,
+      .gallery-wide-final,
+      .custom-preset-showcase,
+      .custom-preset-video,
+      .limitations-panel,
+      .documentation-tab,
+      .cta,
+      .product-information-details,
+      .more-lazy3d-card {
+        box-shadow: none !important;
+      }
+
+      .custom-preset-video,
+      .custom-preset-video iframe {
+        border-radius: 0 !important;
+      }
+
+      .custom-preset-video {
+        border: 0 !important;
+        background: #000 !important;
+      }
+
+      .custom-preset-video iframe {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        border: 0 !important;
+        pointer-events: auto !important;
+      }
+
+      .custom-preset-showcase::after,
+      .module-card::before,
+      .bake-banner::before,
+      .bake-banner::after,
+      .more-lazy3d-media::after {
+        display: none !important;
+      }
+
+      .custom-preset-controls,
+      .custom-preset-play-overlay,
+      .custom-preset-video-shield {
+        display: none !important;
+      }
+
+      [style*="backdrop-filter"],
+      .product-information-summary,
+      .custom-preset-controls {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+
+      /*
+        Product Information remains expandable by tapping its full header,
+        but the separate plus/append control is removed on mobile.
+      */
+      .product-information-toggle {
+        display: none !important;
+      }
+
+      .product-information-summary {
+        padding-right: 18px !important;
       }
     }
 
