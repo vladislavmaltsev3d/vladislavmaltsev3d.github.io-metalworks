@@ -4417,6 +4417,340 @@
       }
     }
 
+  
+    /* Standard YouTube embed — no custom overlay or custom controls */
+    .custom-preset-play-overlay,
+    .custom-preset-controls,
+    .custom-preset-video-shield,
+    .custom-preset-spec {
+      display: none !important;
+    }
+
+    .custom-preset-video {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 15px;
+      background: #10181b;
+      box-shadow: 0 20px 42px rgba(10,20,24,0.28);
+    }
+
+    .custom-preset-video iframe {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      pointer-events: auto;
+    }
+
+    /*
+      Mobile layout verification:
+      keep the fixed 1056px desktop canvas and apply only one scale operation.
+      These rules prevent any earlier mobile CSS from resizing the canvas itself.
+    */
+    .viewport-stage {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .page {
+      width: 1056px !important;
+      min-width: 1056px !important;
+      max-width: none !important;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: 1056px !important;
+        min-width: 1056px !important;
+        max-width: none !important;
+        margin: 0 !important;
+      }
+
+      .custom-preset-showcase {
+        grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      }
+
+      .custom-preset-copy {
+        padding: 42px 28px 42px 38px;
+      }
+
+      .custom-preset-copy::before {
+        top: 42px;
+        bottom: 42px;
+        left: 18px;
+      }
+
+      .custom-preset-media {
+        min-width: 0;
+        padding: 18px 18px 18px 8px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      /*
+        The complete page is scaled from the 1056px desktop canvas, so the
+        section keeps its desktop composition instead of being resized twice.
+      */
+      .custom-preset-video {
+        border-radius: 12px;
+      }
+    }
+
+  
+    /* Mobile readability and Sketchfab replacement */
+    .sketchfab-mobile-action {
+      display: none;
+    }
+
+    @media (max-width: 760px) {
+      /*
+        Increase only small and supporting typography.
+        Large display headings retain their existing proportions.
+      */
+      .master-hero-kicker,
+      .section-index,
+      .hero-kicker,
+      .module-tag,
+      .custom-preset-brand,
+      .documentation-kicker,
+      .product-information-kicker,
+      .presets-set-code,
+      .presets-catalog-button-meta,
+      .more-lazy3d-card-index,
+      .more-lazy3d-card-action,
+      .viewer-control {
+        font-size: 12px !important;
+        line-height: 1.35 !important;
+      }
+
+      .master-hero-copy p,
+      .section-title-wrap p,
+      .section-summary span,
+      .surface-history-copy p,
+      .bake-copy-wide p,
+      .custom-preset-copy p,
+      .limitation-copy p,
+      .product-information-copy,
+      .cta p,
+      .documentation-tab,
+      .viewer-footer,
+      .preset-workflow-reference,
+      .presets-set-button > span:last-child {
+        font-size: 16px !important;
+        line-height: 1.65 !important;
+      }
+
+      .surface-history-step-label,
+      .surface-history-progress,
+      .comparison-hint,
+      .workflow-zoom-hint,
+      .product-information-label {
+        font-size: 13px !important;
+        line-height: 1.45 !important;
+      }
+
+      .module-grid-expanded .module-card-large .module-tag {
+        font-size: 13px !important;
+      }
+
+      .more-lazy3d-card-info strong {
+        font-size: 23px !important;
+      }
+
+      /*
+        Move the hero text slightly lower and inward on phones.
+        Desktop positioning remains unchanged.
+      */
+      .master-hero-copy {
+        right: 18px !important;
+        bottom: 0 !important;
+        width: 66% !important;
+        min-height: 218px !important;
+        padding: 43px 30px 20px 66px !important;
+      }
+
+      .master-hero-copy::before {
+        top: 34px !important;
+        bottom: 20px !important;
+        left: 42px !important;
+      }
+
+      .master-hero-copy h1 {
+        margin-bottom: 18px !important;
+        font-size: 66px !important;
+      }
+
+      .master-hero-kicker {
+        margin-bottom: 11px !important;
+      }
+
+      /*
+        Mobile: remove the embedded Sketchfab canvas and offer a direct,
+        touch-friendly external viewer button instead.
+      */
+      #interactive .viewer-frame-shell {
+        display: none !important;
+      }
+
+      .sketchfab-mobile-action {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 28px;
+        min-height: 176px;
+        padding: 28px 30px 28px 38px;
+        overflow: hidden;
+        border: 1px solid var(--line-strong);
+        color: #edf4f3;
+        background:
+          linear-gradient(135deg, var(--dark-2), var(--dark));
+        box-shadow: var(--shadow);
+      }
+
+      .sketchfab-mobile-action::before {
+        content: "";
+        position: absolute;
+        top: 24px;
+        bottom: 24px;
+        left: 18px;
+        width: 4px;
+        background: var(--accent);
+      }
+
+      .sketchfab-mobile-action::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 35%;
+        height: 38px;
+        opacity: 0.24;
+        pointer-events: none;
+        background:
+          repeating-linear-gradient(
+            120deg,
+            transparent 0 13px,
+            rgba(255,255,255,0.18) 13px 15px
+          );
+      }
+
+      .sketchfab-mobile-copy {
+        position: relative;
+        z-index: 1;
+        min-width: 0;
+      }
+
+      .sketchfab-mobile-copy > span {
+        display: block;
+        margin-bottom: 10px;
+        color: rgba(234,243,242,0.56);
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .sketchfab-mobile-copy strong {
+        display: block;
+        color: #f1f6f5;
+        font-family: var(--display);
+        font-size: 30px;
+        line-height: 0.98;
+        letter-spacing: 0.035em;
+        text-transform: uppercase;
+      }
+
+      .sketchfab-mobile-copy p {
+        max-width: 650px;
+        margin: 12px 0 0;
+        color: rgba(234,243,242,0.72);
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .sketchfab-mobile-button {
+        position: relative;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 174px;
+        min-height: 64px;
+        padding: 0 24px;
+        border: 1px solid rgba(255,255,255,0.64);
+        color: var(--dark);
+        background: #edf4f3;
+        text-decoration: none;
+        font-family: var(--display);
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .sketchfab-mobile-button::after {
+        content: "↗";
+        margin-left: 14px;
+        color: var(--accent);
+        font-family: Arial, sans-serif;
+        font-size: 21px;
+      }
+    }
+
+  
+    /*
+      Mobile hero copy anchor:
+      enlarge the text block from the media's bottom-right corner.
+      The right and bottom edges remain fixed while the block expands
+      toward the left and upward.
+    */
+    @media (max-width: 760px) {
+      .master-hero-media {
+        position: relative;
+      }
+
+      .master-hero-copy {
+        --mobile-hero-copy-scale: 1.14;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 61% !important;
+        min-height: 228px !important;
+        padding: 28px 34px 28px 76px !important;
+        transform: scale(var(--mobile-hero-copy-scale)) !important;
+        transform-origin: right bottom !important;
+      }
+
+      .master-hero-copy::before {
+        top: 18px !important;
+        bottom: 18px !important;
+        left: 48px !important;
+      }
+
+      .master-hero-copy h1 {
+        margin-bottom: 20px !important;
+        font-size: 74px !important;
+      }
+
+      .master-hero-kicker {
+        margin-bottom: 8px !important;
+      }
+
+      .master-hero-copy p {
+        font-size: 12px !important;
+        line-height: 1.70 !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -4818,6 +5152,24 @@
         </div>
       </div>
 
+      <div class="sketchfab-mobile-action">
+        <div class="sketchfab-mobile-copy">
+          <span>Interactive Specimen / External Viewer</span>
+          <strong>Inspect the Surface on Sketchfab</strong>
+          <p>
+            Open the full interactive model to rotate, move, and inspect the material.
+          </p>
+        </div>
+
+        <a
+          class="sketchfab-mobile-button"
+          href="https://sketchfab.com/3d-models/head-51a16df0499d4886bf5c992889156a89"
+          target="_blank"
+          rel="noopener noreferrer">
+          Inspect
+        </a>
+      </div>
+
       <div class="viewer-frame-shell">
         <div class="viewer-crop">
           <iframe
@@ -4915,44 +5267,15 @@
         </div>
 
         <div class="custom-preset-media">
-          <div class="custom-preset-video" id="customPresetVideo">
-            <div
-              class="custom-preset-video-player"
-              id="customPresetYoutubePlayer">
-            </div>
-
-            <button
-              class="custom-preset-play-overlay"
-              id="customPresetPlayOverlay"
-              type="button"
-              aria-label="Play the custom preset workflow video">
-              <span class="custom-preset-play-icon" aria-hidden="true"></span>
-              <span id="customPresetPlayOverlayText">Press to Play</span>
-            </button>
-
-            <div
-              class="custom-preset-controls"
-              id="customPresetControls"
-              aria-label="Video controls">
-              <button
-                class="custom-preset-toggle"
-                id="customPresetToggle"
-                type="button"
-                aria-label="Play video">
-                <span class="custom-preset-toggle-icon" aria-hidden="true"></span>
-                <span class="custom-preset-toggle-label">Play</span>
-              </button>
-
-              <input
-                class="custom-preset-timeline"
-                id="customPresetTimeline"
-                type="range"
-                min="0"
-                max="1000"
-                value="0"
-                step="1"
-                aria-label="Video timeline">
-            </div>
+          <div class="custom-preset-video">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/BBjD0AzPm5M?autoplay=0&controls=1&rel=0&playsinline=1"
+              title="Creating a custom Metalworks preset — YouTube video"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
           </div>
         </div>
       </div>
@@ -5467,251 +5790,7 @@
       items.forEach((item) => observer.observe(item));
     });
   </script>
-
-  <script>
-    (function () {
-      var customPresetPlayer = null;
-      var customPresetProgressTimer = null;
-      var customPresetVideoId = "BBjD0AzPm5M";
-
-      function getCustomPresetElements() {
-        return {
-          overlay: document.getElementById("customPresetPlayOverlay"),
-          overlayText: document.getElementById("customPresetPlayOverlayText"),
-          controls: document.getElementById("customPresetControls"),
-          toggle: document.getElementById("customPresetToggle"),
-          toggleLabel: document.querySelector("#customPresetToggle .custom-preset-toggle-label"),
-          timeline: document.getElementById("customPresetTimeline")
-        };
-      }
-
-      function setCustomPresetPlayingState(isPlaying) {
-        var elements = getCustomPresetElements();
-
-        if (elements.toggle) {
-          elements.toggle.classList.toggle("is-playing", isPlaying);
-          elements.toggle.setAttribute(
-            "aria-label",
-            isPlaying ? "Pause video" : "Play video"
-          );
-        }
-
-        if (elements.toggleLabel) {
-          elements.toggleLabel.textContent = isPlaying ? "Pause" : "Play";
-        }
-      }
-
-      function updateCustomPresetTimeline() {
-        if (!customPresetPlayer || !customPresetPlayer.getDuration) return;
-
-        var duration = customPresetPlayer.getDuration() || 0;
-        var current = customPresetPlayer.getCurrentTime() || 0;
-        var progress = duration > 0 ? current / duration : 0;
-        var value = Math.max(0, Math.min(1000, Math.round(progress * 1000)));
-        var timeline = document.getElementById("customPresetTimeline");
-
-        if (timeline && document.activeElement !== timeline) {
-          timeline.value = value;
-          timeline.style.setProperty(
-            "--video-progress",
-            (value / 10).toFixed(1) + "%"
-          );
-        }
-      }
-
-      function startCustomPresetProgressTimer() {
-        window.clearInterval(customPresetProgressTimer);
-        customPresetProgressTimer = window.setInterval(
-          updateCustomPresetTimeline,
-          250
-        );
-      }
-
-      function stopCustomPresetProgressTimer() {
-        window.clearInterval(customPresetProgressTimer);
-        customPresetProgressTimer = null;
-        updateCustomPresetTimeline();
-      }
-
-      function bindCustomPresetControls() {
-        var elements = getCustomPresetElements();
-
-        if (elements.overlay && elements.overlay.dataset.bound !== "true") {
-          elements.overlay.dataset.bound = "true";
-
-          elements.overlay.addEventListener("click", function () {
-            if (!customPresetPlayer || !customPresetPlayer.playVideo) return;
-
-            elements.overlay.classList.add("is-hidden");
-
-            if (elements.controls) {
-              elements.controls.classList.add("is-visible");
-            }
-
-            customPresetPlayer.playVideo();
-          });
-        }
-
-        if (elements.toggle && elements.toggle.dataset.bound !== "true") {
-          elements.toggle.dataset.bound = "true";
-
-          elements.toggle.addEventListener("click", function () {
-            if (!customPresetPlayer || !customPresetPlayer.getPlayerState) return;
-
-            var state = customPresetPlayer.getPlayerState();
-
-            if (state === YT.PlayerState.PLAYING) {
-              customPresetPlayer.pauseVideo();
-            } else {
-              customPresetPlayer.playVideo();
-            }
-          });
-        }
-
-        if (elements.timeline && elements.timeline.dataset.bound !== "true") {
-          elements.timeline.dataset.bound = "true";
-
-          elements.timeline.addEventListener("input", function () {
-            var value = Number(elements.timeline.value) || 0;
-            elements.timeline.style.setProperty(
-              "--video-progress",
-              (value / 10).toFixed(1) + "%"
-            );
-          });
-
-          elements.timeline.addEventListener("change", function () {
-            if (!customPresetPlayer || !customPresetPlayer.getDuration) return;
-
-            var duration = customPresetPlayer.getDuration() || 0;
-            var value = Number(elements.timeline.value) || 0;
-
-            if (duration > 0) {
-              customPresetPlayer.seekTo(
-                duration * (value / 1000),
-                true
-              );
-            }
-          });
-        }
-      }
-
-      function createCustomPresetPlayer() {
-        if (customPresetPlayer || !window.YT || !window.YT.Player) return;
-
-        bindCustomPresetControls();
-
-        customPresetPlayer = new YT.Player("customPresetYoutubePlayer", {
-          host: "https://www.youtube-nocookie.com",
-          videoId: customPresetVideoId,
-          width: "100%",
-          height: "100%",
-          playerVars: {
-            autoplay: 0,
-            controls: 0,
-            disablekb: 1,
-            enablejsapi: 1,
-            fs: 0,
-            iv_load_policy: 3,
-            playsinline: 1,
-            rel: 0,
-            modestbranding: 1
-          },
-          events: {
-            onReady: function (event) {
-              event.target.pauseVideo();
-              event.target.seekTo(0, false);
-              updateCustomPresetTimeline();
-              setCustomPresetPlayingState(false);
-
-              var frame = event.target.getIframe();
-
-              if (frame) {
-                frame.setAttribute(
-                  "title",
-                  "Creating a custom Metalworks preset — YouTube video"
-                );
-              }
-            },
-            onStateChange: function (event) {
-              var elements = getCustomPresetElements();
-
-              if (event.data === YT.PlayerState.PLAYING) {
-                if (elements.overlay) {
-                  elements.overlay.classList.add("is-hidden");
-                }
-
-                if (elements.controls) {
-                  elements.controls.classList.add("is-visible");
-                }
-
-                setCustomPresetPlayingState(true);
-                startCustomPresetProgressTimer();
-              } else {
-                setCustomPresetPlayingState(false);
-                stopCustomPresetProgressTimer();
-              }
-
-              if (event.data === YT.PlayerState.ENDED) {
-                if (elements.overlay) {
-                  elements.overlay.classList.remove("is-hidden");
-                }
-
-                if (elements.overlayText) {
-                  elements.overlayText.textContent = "Press to Replay";
-                }
-
-                if (elements.controls) {
-                  elements.controls.classList.remove("is-visible");
-                }
-
-                event.target.seekTo(0, false);
-                updateCustomPresetTimeline();
-              }
-            }
-          }
-        });
-      }
-
-      var previousYouTubeReady = window.onYouTubeIframeAPIReady;
-
-      window.onYouTubeIframeAPIReady = function () {
-        if (typeof previousYouTubeReady === "function") {
-          previousYouTubeReady();
-        }
-
-        createCustomPresetPlayer();
-      };
-
-      function initializeCustomPresetVideo() {
-        bindCustomPresetControls();
-
-        if (window.YT && window.YT.Player) {
-          createCustomPresetPlayer();
-          return;
-        }
-
-        if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
-          var api = document.createElement("script");
-          api.src = "https://www.youtube.com/iframe_api";
-          api.async = true;
-          document.head.appendChild(api);
-        }
-      }
-
-      if (document.readyState === "loading") {
-        document.addEventListener(
-          "DOMContentLoaded",
-          initializeCustomPresetVideo,
-          { once: true }
-        );
-      } else {
-        initializeCustomPresetVideo();
-      }
-    })();
-  </script>
-
-
-  <script>
+<script>
     document.addEventListener("DOMContentLoaded", function() {
       /*
        * Surface History sequence.
