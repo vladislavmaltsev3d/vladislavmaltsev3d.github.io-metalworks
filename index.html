@@ -4751,6 +4751,40 @@
       }
     }
 
+  
+    /* Image-only hero */
+    .master-hero-media-image-only {
+      aspect-ratio: auto;
+    }
+
+    .master-hero-media-image-only > img {
+      position: relative;
+      inset: auto;
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: none;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .master-hero-copy,
+    .master-hero-kicker {
+      display: none !important;
+    }
+
+    @media (max-width: 760px) {
+      .master-hero-media-image-only {
+        aspect-ratio: auto;
+      }
+
+      .master-hero-media-image-only > img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+
   </style>
 </head>
 
@@ -4762,34 +4796,19 @@
       <div class="system-code">MW / MATERIAL SYSTEM / BUILD 01</div>
     </header>
 
-    <section class="master-hero reveal" aria-labelledby="masterHeroTitle">
-      <div class="master-hero-media">
+    <section class="master-hero reveal" aria-label="Metalworks hero">
+      <div class="master-hero-media master-hero-media-image-only">
         <img
-          src="https://assets.superhivemarket.com/cache/f748d9a8d0f1234be815a98c36c3955e.jpg"
-          alt="Metalworks procedural metal material applied to a revolver"
-          width="3840"
-          height="1472"
+          src="https://assets.superhivemarket.com/cache/7ba061a056afc70c0d0dc4f45e6fe867.jpg"
+          alt="Metalworks procedural material system"
           loading="eager"
           fetchpriority="high">
-
-        <div class="master-hero-copy">
-          <div class="master-hero-kicker">Lazy 3D / Blender Material System</div>
-
-          <h1 id="masterHeroTitle">Metalworks</h1>
-
-          <p>
-            Apply production-ready metal materials in one click, then refine them
-            through a complete procedural surface system. Begin with
-            <strong>150+ professionally prepared presets</strong> and reach
-            ultra-realistic results in only a few controlled adjustments.
-          </p>
-        </div>
       </div>
     </section>
 
     <section class="launch-sale-image-section reveal" aria-label="Metalworks launch sale">
       <img
-        src="https://assets.superhivemarket.com/cache/3058dfc1dfc2229c93260aff98736fa2.jpg"
+        src="https://assets.superhivemarket.com/cache/0e0f9ac40e5bb91f3ff8239f1fe978e2.jpg"
         alt="Metalworks launch sale banner"
         width="2000"
         height="250"
