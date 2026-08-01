@@ -4387,6 +4387,36 @@
       }
     }
 
+  
+    /*
+      MOBILE CANVAS FIX
+      Keep the design canvas at its real 1056px width on every device.
+      JavaScript performs the only scaling step to the host container width.
+      This prevents the mobile double-scaling that left a large empty area.
+    */
+    .viewport-stage {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .page {
+      width: 1056px !important;
+      max-width: none !important;
+      min-width: 1056px !important;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: 1056px !important;
+        max-width: none !important;
+        min-width: 1056px !important;
+        margin: 0 !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -5373,23 +5403,33 @@
         if (!stage || !page) return;
 
         /*
+          Always restore the real design-canvas width before calculating scale.
+          Mobile CSS must not shrink the canvas and then scale it a second time.
+        */
+        page.style.width = DESIGN_WIDTH + "px";
+        page.style.minWidth = DESIGN_WIDTH + "px";
+        page.style.maxWidth = "none";
+
+        /*
           Measure the actual product-description container instead of the
           complete browser window. This prevents the page from overlapping
           a marketplace sidebar or any neighboring column.
         */
         const availableWidth = Math.max(
           240,
-          stage.clientWidth || stage.getBoundingClientRect().width || window.innerWidth
+          stage.getBoundingClientRect().width || stage.clientWidth || window.innerWidth
         );
 
         const scale = Math.min(1, availableWidth / DESIGN_WIDTH);
         const scaledWidth = DESIGN_WIDTH * scale;
-        const left = Math.max(0, (availableWidth - scaledWidth) / 2);
+        const remainingSpace = Math.max(0, availableWidth - scaledWidth);
+        const left = remainingSpace < 1 ? 0 : remainingSpace / 2;
 
         page.style.left = left + "px";
         page.style.transform = `scale(${scale})`;
 
         stage.style.minWidth = "0";
+        stage.style.width = "100%";
         stage.style.height = Math.ceil(page.scrollHeight * scale) + "px";
       }
 
