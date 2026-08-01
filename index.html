@@ -4785,6 +4785,86 @@
       }
     }
 
+  
+    /*
+      Section index emphasis
+      Desktop: approximately 1.5x larger than the original 9px label.
+    */
+    .section-index {
+      min-height: 48px;
+      padding: 0 18px;
+      font-size: 14px !important;
+      font-weight: 700 !important;
+      line-height: 1.25 !important;
+      letter-spacing: 0.13em;
+    }
+
+    /*
+      Mobile readability and proportional Material Gallery.
+      Desktop gallery layout remains unchanged.
+    */
+    @media (max-width: 760px) {
+      .section-index {
+        min-height: 58px !important;
+        padding: 12px 18px !important;
+        font-size: 20px !important;
+        font-weight: 800 !important;
+        line-height: 1.25 !important;
+        letter-spacing: 0.105em !important;
+      }
+
+      #gallery .gallery-collage {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: none !important;
+        grid-auto-rows: auto !important;
+        gap: 10px !important;
+      }
+
+      #gallery .gallery-placeholder {
+        display: block !important;
+        width: 100% !important;
+        min-height: 0 !important;
+        height: auto !important;
+        grid-column: auto !important;
+        grid-row: auto !important;
+      }
+
+      #gallery .gallery-a {
+        aspect-ratio: 3 / 2 !important;
+      }
+
+      #gallery .gallery-b {
+        aspect-ratio: 7 / 10 !important;
+      }
+
+      #gallery .gallery-c {
+        aspect-ratio: 1 / 1 !important;
+      }
+
+      #gallery .gallery-has-image img {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        object-fit: contain !important;
+        object-position: center center !important;
+      }
+
+      #gallery .gallery-wide-final {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 4 / 1 !important;
+      }
+
+      #gallery .gallery-wide-final img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        object-position: center center !important;
+      }
+    }
+
   </style>
 </head>
 
