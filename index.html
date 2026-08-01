@@ -5007,6 +5007,61 @@
       }
     }
 
+  
+    /*
+      Mobile Product Information:
+      always open, no disclosure control, no expandable interaction.
+    */
+    @media (max-width: 760px) {
+      .product-information-details {
+        overflow: visible !important;
+      }
+
+      .product-information-summary {
+        cursor: default !important;
+        pointer-events: none !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+      }
+
+      .product-information-toggle {
+        display: none !important;
+      }
+
+      .product-information-content {
+        display: block !important;
+      }
+
+      /*
+        Keep the YouTube section as a plain native iframe.
+        No overlays, custom controls, filters, or decorative processing.
+      */
+      .custom-preset-play-overlay,
+      .custom-preset-controls,
+      .custom-preset-video-shield {
+        display: none !important;
+      }
+
+      .custom-preset-video {
+        overflow: hidden !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: #000 !important;
+        box-shadow: none !important;
+      }
+
+      .custom-preset-video iframe {
+        position: absolute !important;
+        inset: 0 !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        pointer-events: auto !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -6336,21 +6391,29 @@
 
         function updateLensNormalized(nx, ny) {
           var rect = media.getBoundingClientRect();
-          if (!rect.width || !rect.height) return;
+          var localWidth = media.clientWidth;
+          var localHeight = media.clientHeight;
+
+          if (!rect.width || !rect.height || !localWidth || !localHeight) return;
 
           nx = clamp(nx, 0, 1);
           ny = clamp(ny, 0, 1);
           lastX = nx;
           lastY = ny;
 
-          var x = nx * rect.width;
-          var y = ny * rect.height;
+          /*
+            Pointer coordinates are normalized from the scaled viewport rect,
+            but lens placement uses the element's unscaled local coordinates.
+            This keeps the mobile lens centered exactly on the tapped point.
+          */
+          var x = nx * localWidth;
+          var y = ny * localHeight;
           var lensSize = lens.offsetWidth || 345;
 
           lens.style.left = x + "px";
           lens.style.top = y + "px";
           lens.style.backgroundSize =
-            (rect.width * zoom) + "px " + (rect.height * zoom) + "px";
+            (localWidth * zoom) + "px " + (localHeight * zoom) + "px";
           lens.style.backgroundPosition =
             (-(x * zoom - lensSize / 2)) + "px " +
             (-(y * zoom - lensSize / 2)) + "px";
@@ -6505,6 +6568,72 @@
         );
       } else {
         initPresetDatabaseControls();
+      }
+    })();
+  </script>
+
+
+  <script>
+    (function () {
+      function updateMobileProductInformation() {
+        var details = document.querySelector(".product-information-details");
+        var summary = details ? details.querySelector("summary") : null;
+        var isMobile = window.matchMedia("(max-width: 760px)").matches;
+
+        if (!details) return;
+
+        if (isMobile) {
+          details.open = true;
+          details.setAttribute("data-mobile-open", "true");
+
+          if (summary) {
+            summary.setAttribute("aria-disabled", "true");
+            summary.setAttribute("tabindex", "-1");
+          }
+        } else {
+          details.removeAttribute("data-mobile-open");
+
+          if (summary) {
+            summary.removeAttribute("aria-disabled");
+            summary.removeAttribute("tabindex");
+          }
+        }
+      }
+
+      function keepProductInformationOpen(event) {
+        var details = event.currentTarget;
+        var isMobile = window.matchMedia("(max-width: 760px)").matches;
+
+        if (isMobile && !details.open) {
+          details.open = true;
+        }
+      }
+
+      function initMobileProductInformation() {
+        var details = document.querySelector(".product-information-details");
+
+        updateMobileProductInformation();
+
+        if (details && details.dataset.mobileOpenReady !== "true") {
+          details.dataset.mobileOpenReady = "true";
+          details.addEventListener("toggle", keepProductInformationOpen);
+        }
+
+        window.addEventListener(
+          "resize",
+          updateMobileProductInformation,
+          { passive: true }
+        );
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener(
+          "DOMContentLoaded",
+          initMobileProductInformation,
+          { once: true }
+        );
+      } else {
+        initMobileProductInformation();
       }
     })();
   </script>
