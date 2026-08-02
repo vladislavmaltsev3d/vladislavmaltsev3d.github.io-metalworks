@@ -5243,6 +5243,124 @@
       }
     }
 
+  
+    /*
+      Section 06: Sketchfab action integrated into the section heading.
+      The previous standalone blue viewer block has been removed.
+    */
+    .sketchfab-heading-wrap {
+      gap: 24px;
+    }
+
+    .sketchfab-heading-action {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .sketchfab-heading-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      min-width: 132px;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid var(--dark);
+      color: #eef5f3;
+      background: var(--dark);
+      text-decoration: none;
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition:
+        background 0.16s ease,
+        border-color 0.16s ease,
+        transform 0.16s ease;
+    }
+
+    .sketchfab-heading-button::after {
+      content: "↗";
+      margin-left: 10px;
+      color: var(--accent);
+      font-family: Arial, sans-serif;
+      font-size: 17px;
+    }
+
+    .sketchfab-heading-button:hover,
+    .sketchfab-heading-button:focus-visible {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--dark-2);
+      transform: translateY(-1px);
+    }
+
+    .sketchfab-heading-note {
+      max-width: 330px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 600;
+      line-height: 1.45;
+      letter-spacing: 0.045em;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    /*
+      Section 07: only the section index remains.
+    */
+    .gallery-section-heading {
+      grid-template-columns: 1fr;
+    }
+
+    .gallery-section-heading .section-index {
+      width: 100%;
+    }
+
+    @media (max-width: 760px) {
+      .sketchfab-heading-wrap {
+        align-items: flex-start !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+      }
+
+      .sketchfab-heading-action {
+        width: 100%;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .sketchfab-heading-button {
+        min-width: 174px;
+        min-height: 58px;
+        font-size: 20px;
+      }
+
+      .sketchfab-heading-note {
+        max-width: 620px;
+        font-size: 13px;
+        line-height: 1.55;
+        text-align: left;
+      }
+    }
+
+  
+    /* Section 09 uses a single full-width purchase notice label */
+    .limitations-section-heading {
+      grid-template-columns: 1fr;
+    }
+
+    .limitations-section-heading .section-index {
+      width: 100%;
+    }
+
   </style>
 </head>
 
@@ -5621,51 +5739,30 @@
       <div class="section-heading">
         <div class="section-index">06 / Interactive Specimen</div>
 
-        <div class="section-title-wrap">
-          <h2>Inspect the Surface in 3D</h2>
-          <p>
-            Open the complete interactive model on Sketchfab to rotate,
-            move, zoom, and inspect the material from every angle.
-          </p>
+        <div class="section-title-wrap sketchfab-heading-wrap">
+          <h2>Inspect the Surface on Sketchfab</h2>
+
+          <div class="sketchfab-heading-action">
+            <a
+              class="sketchfab-heading-button"
+              href="https://sketchfab.com/3d-models/head-51a16df0499d4886bf5c992889156a89"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Inspect the Metalworks surface model on Sketchfab">
+              Inspect
+            </a>
+
+            <span class="sketchfab-heading-note">
+              Shader appearance may differ from Blender because of rendering limitations in the Sketchfab engine.
+            </span>
+          </div>
         </div>
-      </div>
-
-      <div class="sketchfab-external-action">
-        <div class="sketchfab-external-copy">
-          <span>Interactive Specimen / Sketchfab Viewer</span>
-          <strong>Inspect the Surface on Sketchfab</strong>
-          <p>
-            The interactive model opens in a new browser tab with the full
-            Sketchfab navigation and viewing controls.
-          </p>
-
-          <small>
-            The shader appearance may differ from Blender because of
-            rendering limitations in the Sketchfab engine.
-          </small>
-        </div>
-
-        <a
-          class="sketchfab-external-button"
-          href="https://sketchfab.com/3d-models/head-51a16df0499d4886bf5c992889156a89"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Inspect the Metalworks surface model on Sketchfab">
-          Inspect
-        </a>
       </div>
     </section>
 
     <section class="section reveal" id="gallery">
-      <div class="section-heading">
+      <div class="section-heading gallery-section-heading">
         <div class="section-index">07 / Material Gallery</div>
-
-        <div class="section-title-wrap">
-          <h2>Material Gallery</h2>
-          <p>
-            Add finished renders, close-ups, interface shots, and material comparisons.
-          </p>
-        </div>
       </div>
 
       <div class="gallery-collage">
@@ -5745,16 +5842,8 @@
     </section>
 
     <section class="section reveal" id="limitations">
-      <div class="section-heading">
-        <div class="section-index">09 / Limitations</div>
-
-        <div class="section-title-wrap">
-          <h2>Important Notes</h2>
-          <p>
-            Review the renderer, animation, and baked-material considerations
-            before using Metalworks in production.
-          </p>
-        </div>
+      <div class="section-heading limitations-section-heading">
+        <div class="section-index">09 / Important Note Before the Purchase</div>
       </div>
 
       <div class="limitations-panel limitations-detailed">
@@ -5777,6 +5866,33 @@
           <div class="limitation-number">02</div>
 
           <div class="limitation-copy">
+            <h3>Performance Depends on Your Hardware</h3>
+
+            <p>
+              Metalworks uses a detailed and relatively complex procedural shader.
+              Viewport performance can therefore vary between systems depending on
+              the available CPU, GPU, memory, scene complexity, and render settings.
+            </p>
+
+            <p>
+              If performance is slow, isolate the object using Metalworks from the
+              rest of the scene while adjusting the material. Temporarily hide other
+              objects, collections, lights, simulations, and heavy viewport effects
+              so the CPU and GPU can focus on the active object and shader.
+            </p>
+
+            <p>
+              After the material is finished, return the object to the complete scene.
+              For demanding projects, baking the final result is also recommended to
+              reduce the continuing load on the processor and graphics hardware.
+            </p>
+          </div>
+        </article>
+
+        <article class="limitation-item">
+          <div class="limitation-number">03</div>
+
+          <div class="limitation-copy">
             <h3>Animated and Deforming Objects</h3>
             <p>
               The procedural material is not recommended for objects whose mesh
@@ -5796,7 +5912,7 @@
         </article>
 
         <article class="limitation-item">
-          <div class="limitation-number">03</div>
+          <div class="limitation-number">04</div>
 
           <div class="limitation-copy">
             <h3>Baked Result Adjustments</h3>
@@ -5816,7 +5932,7 @@
         </article>
 
         <article class="limitation-item">
-          <div class="limitation-number">04</div>
+          <div class="limitation-number">05</div>
 
           <div class="limitation-copy">
             <h3>Preset Adjustments</h3>
