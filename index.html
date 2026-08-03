@@ -5361,6 +5361,157 @@
       width: 100%;
     }
 
+  
+    /* Compact target-audience segment before purchase notes */
+    .audience-segment {
+      position: relative;
+      margin-top: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background:
+        linear-gradient(135deg, rgba(232, 237, 234, 0.94), rgba(207, 217, 214, 0.86));
+      box-shadow: 0 14px 30px rgba(47, 62, 66, 0.08);
+    }
+
+    .audience-segment::before {
+      display: none;
+    }
+
+    .audience-header {
+      display: grid;
+      grid-template-columns: minmax(270px, 0.42fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: center;
+      padding: 26px 30px 22px 42px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .audience-kicker {
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .audience-header h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 35px;
+      line-height: 0.94;
+      letter-spacing: 0.04em;
+    }
+
+    .audience-header > p {
+      margin: 0;
+      color: #526066;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.72;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .audience-card {
+      min-height: 176px;
+      padding: 22px 20px 24px;
+      border-right: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.10);
+    }
+
+    .audience-card:last-child {
+      border-right: 0;
+    }
+
+    .audience-card-index {
+      display: block;
+      margin-bottom: 24px;
+      color: var(--accent);
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .audience-card h3 {
+      margin: 0 0 10px;
+      color: var(--ink);
+      font-size: 21px;
+      line-height: 1;
+      letter-spacing: 0.045em;
+    }
+
+    .audience-card p {
+      margin: 0;
+      color: #536166;
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1.65;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 760px) {
+      .audience-segment {
+        box-shadow: none;
+      }
+
+      .audience-header {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 26px 26px 22px 42px;
+      }
+
+      .audience-kicker {
+        font-size: 12px;
+      }
+
+      .audience-header h2 {
+        font-size: 36px;
+      }
+
+      .audience-header > p {
+        font-size: 16px;
+        line-height: 1.65;
+      }
+
+      .audience-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .audience-card {
+        min-height: 190px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .audience-card:nth-child(2) {
+        border-right: 0;
+      }
+
+      .audience-card:nth-child(3),
+      .audience-card:nth-child(4) {
+        border-bottom: 0;
+      }
+
+      .audience-card-index {
+        font-size: 11px;
+      }
+
+      .audience-card h3 {
+        font-size: 25px;
+      }
+
+      .audience-card p {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+    }
+
   </style>
 </head>
 
@@ -5813,6 +5964,60 @@
             </iframe>
           </div>
         </div>
+      </div>
+    </section>
+
+
+    <section class="audience-segment reveal" aria-labelledby="audienceTitle">
+      <div class="audience-header">
+        <div>
+          <div class="audience-kicker">Built for Detail-Driven Artists</div>
+          <h2 id="audienceTitle">Who Metalworks Is For</h2>
+        </div>
+
+        <p>
+          Metalworks is designed for artists who need believable metal surfaces quickly,
+          especially when close-up material detail, controlled wear, and a clear visual
+          history are essential to the final image.
+        </p>
+      </div>
+
+      <div class="audience-grid">
+        <article class="audience-card">
+          <span class="audience-card-index">01 / Concept</span>
+          <h3>Tech Concept Designers</h3>
+          <p>
+            Create close-up materials for weapons, armor, robots, vehicles,
+            machinery, and industrial concepts without rebuilding complex metal shaders.
+          </p>
+        </article>
+
+        <article class="audience-card">
+          <span class="audience-card-index">02 / Assets</span>
+          <h3>Hard-Surface &amp; Prop Artists</h3>
+          <p>
+            Develop production-ready surfaces for hero props, mechanical parts,
+            sci-fi assets, tools, and environment objects with consistent detail.
+          </p>
+        </article>
+
+        <article class="audience-card">
+          <span class="audience-card-index">03 / LookDev</span>
+          <h3>Look Development Artists</h3>
+          <p>
+            Build clean, painted, scratched, damaged, dirty, or corroded variations
+            for product shots, cinematic close-ups, and material exploration.
+          </p>
+        </article>
+
+        <article class="audience-card">
+          <span class="audience-card-index">04 / Production</span>
+          <h3>Game &amp; Real-Time Artists</h3>
+          <p>
+            Design the surface procedurally in Blender, then bake it into practical
+            texture maps for optimized scenes, EEVEE, and external game engines.
+          </p>
+        </article>
       </div>
     </section>
 
